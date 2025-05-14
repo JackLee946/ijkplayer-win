@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33927.289
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "win", "win\win.vcxproj", "{8BCAFCDF-C461-4CF7-BA3E-1F9D2E04108F}"
 EndProject
@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestDemo", "TestDemo\TestDe
 	ProjectSection(ProjectDependencies) = postProject
 		{8BCAFCDF-C461-4CF7-BA3E-1F9D2E04108F} = {8BCAFCDF-C461-4CF7-BA3E-1F9D2E04108F}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaPlayer", "MediaPlayer\MediaPlayer.vcxproj", "{A041C1AF-28DE-4855-A617-607AD742D845}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,8 +36,19 @@ Global
 		{9DB3FE11-B278-4CC0-AD46-A60160C42E38}.Release|Win32.Build.0 = Release|Win32
 		{9DB3FE11-B278-4CC0-AD46-A60160C42E38}.Release|x64.ActiveCfg = Release|x64
 		{9DB3FE11-B278-4CC0-AD46-A60160C42E38}.Release|x64.Build.0 = Release|x64
+		{A041C1AF-28DE-4855-A617-607AD742D845}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A041C1AF-28DE-4855-A617-607AD742D845}.Debug|Win32.Build.0 = Debug|Win32
+		{A041C1AF-28DE-4855-A617-607AD742D845}.Debug|x64.ActiveCfg = Debug|x64
+		{A041C1AF-28DE-4855-A617-607AD742D845}.Debug|x64.Build.0 = Debug|x64
+		{A041C1AF-28DE-4855-A617-607AD742D845}.Release|Win32.ActiveCfg = Release|Win32
+		{A041C1AF-28DE-4855-A617-607AD742D845}.Release|Win32.Build.0 = Release|Win32
+		{A041C1AF-28DE-4855-A617-607AD742D845}.Release|x64.ActiveCfg = Release|x64
+		{A041C1AF-28DE-4855-A617-607AD742D845}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D4B459C5-2009-4301-93BA-3497E45AF186}
 	EndGlobalSection
 EndGlobal
