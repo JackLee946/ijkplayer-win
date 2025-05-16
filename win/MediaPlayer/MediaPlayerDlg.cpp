@@ -72,6 +72,8 @@ CMediaPlayerDlg::CMediaPlayerDlg(CWnd* pParent /*=nullptr*/)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	m_sdl_init_flag = false;
+    m_lastPosition = 0;
+    m_isSeeking = false;	
 }
 
 void CMediaPlayerDlg::DoDataExchange(CDataExchange* pDX)
@@ -84,6 +86,7 @@ BEGIN_MESSAGE_MAP(CMediaPlayerDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_WM_TIMER()
+	ON_WM_HSCROLL()
 	ON_BN_CLICKED(IDC_BUTTON_FILE_BROWSE, &CMediaPlayerDlg::OnBnClickedButtonFileBrowse)
 	ON_BN_CLICKED(IDC_BUTTON_START, &CMediaPlayerDlg::OnBnClickedButtonStart)
 	ON_BN_CLICKED(IDC_BUTTON_PAUSE, &CMediaPlayerDlg::OnBnClickedButtonPause)
@@ -121,6 +124,14 @@ BOOL CMediaPlayerDlg::OnInitDialog()
 	//  执行此操作
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
+
+    CSliderCtrl* pSlider = (CSliderCtrl*)GetDlgItem(IDC_SLIDER_PROGRESS);
+    pSlider->SetRange(0, 1000);
+    pSlider->SetPos(0);
+    
+    // 初始化时间显示
+    SetDlgItemText(IDC_STATIC_CURTIME, _T("00:00"));
+	SetDlgItemText(IDC_STATIC_DURATION, _T("00:00"));
 
 	// TODO: 在此添加额外的初始化代码
 	Init();
@@ -364,7 +375,87 @@ int CMediaPlayerDlg::Init()
 
 void CMediaPlayerDlg::UpdatePlayProgress()
 {
+    if (m_ijk_decoder == nullptr)
+        return;
 
+    // 获取当前播放位置（毫秒）
+    int64_t currentPos = ijkFfplayDecoder_getCurrentPosition(m_ijk_decoder);
+    
+    // 获取总时长（毫秒）
+    int64_t duration = ijkFfplayDecoder_getDuration(m_ijk_decoder);
+
+    // 更新进度条（如果不是正在拖动）
+    if (!m_isSeeking && duration > 0) 
+    {
+        CSliderCtrl* pSlider = (CSliderCtrl*)GetDlgItem(IDC_SLIDER_PROGRESS);
+        pSlider->SetRange(0, 1000); // 使用1000级精度
+        int progress = (int)((currentPos * 1000) / duration);
+        pSlider->SetPos(progress);
+    }
+
+    // 更新时间显示
+    UpdateTimeDisplay(currentPos, duration);
+}
+
+// 更新时间显示
+void CMediaPlayerDlg::UpdateTimeDisplay(int64_t currentPos, int64_t duration)
+{
+    CString strTime;
+    
+    // 当前时间显示（格式：mm:ss）
+    int currentSeconds = (int)(currentPos / 1000);
+    strTime.Format(_T("%02d:%02d"), currentSeconds / 60, currentSeconds % 60);
+    SetDlgItemText(IDC_STATIC_CURTIME, strTime);
+
+    // 总时长显示（格式：mm:ss）
+    if (duration > 0) {
+        int totalSeconds = (int)(duration / 1000);
+        strTime.Format(_T("%02d:%02d"), totalSeconds / 60, totalSeconds % 60);
+        SetDlgItemText(IDC_STATIC_DURATION, strTime);
+    }
+}
+
+// 进度条拖动处理
+void CMediaPlayerDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
+{
+    // 检查是否是进度条控件
+    if (pScrollBar && pScrollBar->GetDlgCtrlID() == IDC_SLIDER_PROGRESS)
+    {
+        CSliderCtrl* pSlider = (CSliderCtrl*)pScrollBar;
+        
+        switch (nSBCode)
+        {
+        case TB_THUMBTRACK: // 拖动中
+            m_isSeeking = true;
+            break;
+            
+        case TB_THUMBPOSITION: // 拖动结束
+        case TB_ENDTRACK:
+            {
+                m_isSeeking = false;
+                
+                if (m_ijk_decoder)
+                {
+                    // 获取视频总时长（毫秒）
+                    int64_t duration = ijkFfplayDecoder_getDuration(m_ijk_decoder);
+                    if (duration > 0)
+                    {
+                        // 计算目标时间位置（毫秒）
+                        int64_t seekPos = (duration * pSlider->GetPos()) / 1000;
+                        
+                        // 调用seek函数改变播放位置
+                        ijkFfplayDecoder_seekTo(m_ijk_decoder, (long)seekPos);
+                        
+                        // 立即更新时间显示
+                        UpdateTimeDisplay(seekPos, duration);
+                    }
+                }
+            }
+            break;
+        }
+    }
+    
+    CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
 }
 
 void CMediaPlayerDlg::OnBnClickedButtonFileBrowse()
@@ -423,33 +514,33 @@ void CMediaPlayerDlg::OnBnClickedButtonFileBrowse()
 
 void CMediaPlayerDlg::OnBnClickedButtonStart()
 {
-	// TODO: 在此添加控件通知处理程序代码
-	CString strfilePath;
-	GetDlgItemText(IDC_EDIT_URL, strfilePath);
+    CString strfilePath;
+    GetDlgItemText(IDC_EDIT_URL, strfilePath);
 
-	if (strfilePath.IsEmpty())
-	{
-		MessageBox(_T("请选择正确的文件路径"));
-		return;
-	}
+    if (strfilePath.IsEmpty())
+    {
+        MessageBox(_T("请选择正确的文件路径"));
+        return;
+    }
 
-	static bool is_start = false;
+    static bool is_start = false;
 
-	if (!is_start)
-	{
-		std::string filePath = CStringToStdString(strfilePath);
-		ijkFfplayDecoder_setDataSource(m_ijk_decoder, filePath.c_str());
-		ijkFfplayDecoder_prepare(m_ijk_decoder);
-		SetTimer(TIMER_UPDATE_UI, 1000, NULL);
-		is_start = true;
-	}
-	else
-	{
-		ijkFfplayDecoder_pause(m_ijk_decoder);
-		ijkFfplayDecoder_stop(m_ijk_decoder);
-		is_start = false;
-	}
-
+    if (!is_start)
+    {
+        std::string filePath = CStringToStdString(strfilePath);
+        ijkFfplayDecoder_setDataSource(m_ijk_decoder, filePath.c_str());
+        ijkFfplayDecoder_prepare(m_ijk_decoder);
+        
+        SetTimer(TIMER_UPDATE_UI, 50, NULL);
+        is_start = true;
+    }
+    else
+    {
+        ijkFfplayDecoder_pause(m_ijk_decoder);
+        ijkFfplayDecoder_stop(m_ijk_decoder);
+        KillTimer(TIMER_UPDATE_UI);
+        is_start = false;
+    }
 }
 
 

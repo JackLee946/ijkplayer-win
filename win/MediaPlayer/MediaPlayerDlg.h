@@ -31,7 +31,12 @@ public:
 // 实现
 protected:
 	HICON m_hIcon;
+    int64_t m_lastPosition; // 记录上次播放位置
+    bool m_isSeeking;       // 标记是否正在拖动进度条
 
+    // 更新时间显示
+    void UpdateTimeDisplay(int64_t currentPos, int64_t duration);
+	void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
 	// 生成的消息映射函数
 	virtual BOOL OnInitDialog();
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
