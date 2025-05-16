@@ -6786,3 +6786,5741 @@
 
 [18:11:10.791 05/14] INFO  - video decode fps:25
 
+[18:19:42.522 05/14] INFO  - LOG INITIALISED
+
+[18:19:42.532 05/14] INFO  - av_version_info: 3.3.1
+
+
+[18:19:42.533 05/14] INFO  - ijk_version_info: k0.8.0
+
+
+[18:19:48.318 05/14] INFO  - ===== versions =====
+
+
+[18:19:48.321 05/14] INFO  - ijkplayer    : k0.8.0
+
+
+[18:19:48.321 05/14] INFO  - FFmpeg       : 3.3.1
+
+
+[18:19:48.321 05/14] INFO  - libavutil    : 55.58.100
+
+
+[18:19:48.322 05/14] INFO  - libavcodec   : 57.89.100
+
+
+[18:19:48.322 05/14] INFO  - libavformat  : 57.71.100
+
+
+[18:19:48.323 05/14] INFO  - libswscale   : 4.6.100
+
+
+[18:19:48.326 05/14] INFO  - libswresample: 2.7.100
+
+
+[18:19:48.326 05/14] INFO  - ===== options =====
+
+
+[18:19:48.350 05/14] INFO  - ===================
+
+
+[18:19:48.360 05/14] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747217988360681-- 
+
+[18:19:48.364 05/14] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 3-- 
+
+[18:19:48.398 05/14] INFO  - max_frame_duration: 10.000
+
+
+[18:19:48.398 05/14] INFO  - Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\test.mp4':
+
+
+[18:19:48.398 05/14] INFO  -   Metadata:
+
+
+[18:19:48.398 05/14] INFO  -     major_brand     : 
+
+[18:19:48.398 05/14] INFO  - mp42
+
+[18:19:48.399 05/14] INFO  - 
+
+
+[18:19:48.399 05/14] INFO  -     minor_version   : 
+
+[18:19:48.399 05/14] INFO  - 0
+
+[18:19:48.400 05/14] INFO  - 
+
+
+[18:19:48.400 05/14] INFO  -     compatible_brands: 
+
+[18:19:48.400 05/14] INFO  - mp42isom
+
+[18:19:48.400 05/14] INFO  - 
+
+
+[18:19:48.400 05/14] INFO  -   Duration: 
+
+[18:19:48.400 05/14] INFO  - 00:00:08.76
+
+[18:19:48.400 05/14] INFO  - , start: 
+
+[18:19:48.400 05/14] INFO  - 0.000000
+
+[18:19:48.401 05/14] INFO  - , bitrate: 
+
+[18:19:48.401 05/14] INFO  - 4192 kb/s
+
+[18:19:48.401 05/14] INFO  - 
+
+
+[18:19:48.401 05/14] INFO  -     Stream #0:0
+
+[18:19:48.401 05/14] INFO  - (und)
+
+[18:19:48.401 05/14] INFO  - : Video: h264 (High), 1 reference frame (avc1 / 0x31637661), yuv420p(left), 1920x1080 (1920x1088), 0/1, 4190 kb/s
+
+[18:19:48.401 05/14] INFO  - , 
+
+[18:19:48.401 05/14] INFO  - 25 fps, 
+
+[18:19:48.401 05/14] INFO  - 25 tbr, 
+
+[18:19:48.402 05/14] INFO  - 90k tbn, 
+
+[18:19:48.402 05/14] INFO  - 50 tbc
+
+[18:19:48.402 05/14] INFO  -  (default)
+
+[18:19:48.402 05/14] INFO  - 
+
+
+[18:19:48.402 05/14] INFO  -     Metadata:
+
+
+[18:19:48.402 05/14] INFO  -       encoder         : 
+
+[18:19:48.402 05/14] INFO  - JVT/AVC Coding
+
+[18:19:48.402 05/14] INFO  - 
+
+
+[18:19:48.450 05/14] INFO  - VideoCodec: avcodec, h264
+
+
+[18:19:48.450 05/14] WARN  - fps: 25.000000 (normal)
+
+
+[18:19:48.456 05/14] WARN  - fps: 25.000000 (normal)
+
+
+[18:19:48.456 05/14] WARN  -  Start read frame
+
+[18:19:48.456 05/14] INFO  - recv ijk msg:prepared
+
+[18:19:48.458 05/14] WARN  - ffp_video_thread start
+
+[18:19:48.624 05/14] INFO  - screen_w: 1920, screen_h: 1080
+
+[18:19:49.051 05/14] INFO  - video gop size:20
+
+[18:19:49.451 05/14] INFO  - video decode fps:25
+
+[18:19:49.851 05/14] INFO  - video gop size:20
+
+[18:19:53.597 05/14] INFO  - video decode fps:25
+
+[18:19:53.798 05/14] INFO  - video gop size:20
+
+[18:19:54.598 05/14] INFO  - video gop size:20
+
+[18:19:54.598 05/14] INFO  - video decode fps:24
+
+[18:19:57.823 05/14] INFO  - video gop size:20
+
+[18:19:58.024 05/14] INFO  - video decode fps:24
+
+[18:19:58.624 05/14] INFO  - video gop size:20
+
+[18:20:01.583 05/14] INFO  - video decode fps:2
+
+[18:20:01.986 05/14] INFO  - video gop size:20
+
+[18:20:02.583 05/14] INFO  - video decode fps:25
+
+[18:27:16.506 05/14] INFO  - LOG INITIALISED
+
+[18:27:16.515 05/14] INFO  - av_version_info: 3.3.1
+
+
+[18:27:16.515 05/14] INFO  - ijk_version_info: k0.8.0
+
+
+[09:01:51.428 05/15] INFO  - LOG INITIALISED
+
+[09:01:51.563 05/15] INFO  - av_version_info: 3.3.1
+
+
+[09:01:51.563 05/15] INFO  - ijk_version_info: k0.8.0
+
+
+[09:02:40.159 05/15] INFO  - ===== versions =====
+
+
+[09:02:40.159 05/15] INFO  - ijkplayer    : k0.8.0
+
+
+[09:02:40.160 05/15] INFO  - FFmpeg       : 3.3.1
+
+
+[09:02:40.160 05/15] INFO  - libavutil    : 55.58.100
+
+
+[09:02:40.170 05/15] INFO  - libavcodec   : 57.89.100
+
+
+[09:02:40.175 05/15] INFO  - libavformat  : 57.71.100
+
+
+[09:02:40.185 05/15] INFO  - libswscale   : 4.6.100
+
+
+[09:02:40.185 05/15] INFO  - libswresample: 2.7.100
+
+
+[09:02:40.185 05/15] INFO  - ===== options =====
+
+
+[09:02:40.185 05/15] INFO  - ===================
+
+
+[09:02:40.194 05/15] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747270960194080-- 
+
+[09:02:40.322 05/15] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 128-- 
+
+[09:02:40.455 05/15] INFO  - max_frame_duration: 10.000
+
+
+[09:02:40.455 05/15] INFO  - Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\test.mp4':
+
+
+[09:02:40.455 05/15] INFO  -   Metadata:
+
+
+[09:02:40.455 05/15] INFO  -     major_brand     : 
+
+[09:02:40.456 05/15] INFO  - mp42
+
+[09:02:40.456 05/15] INFO  - 
+
+
+[09:02:40.456 05/15] INFO  -     minor_version   : 
+
+[09:02:40.456 05/15] INFO  - 0
+
+[09:02:40.456 05/15] INFO  - 
+
+
+[09:02:40.456 05/15] INFO  -     compatible_brands: 
+
+[09:02:40.456 05/15] INFO  - mp42isom
+
+[09:02:40.456 05/15] INFO  - 
+
+
+[09:02:40.457 05/15] INFO  -   Duration: 
+
+[09:02:40.457 05/15] INFO  - 00:00:08.76
+
+[09:02:40.457 05/15] INFO  - , start: 
+
+[09:02:40.457 05/15] INFO  - 0.000000
+
+[09:02:40.457 05/15] INFO  - , bitrate: 
+
+[09:02:40.457 05/15] INFO  - 4192 kb/s
+
+[09:02:40.457 05/15] INFO  - 
+
+
+[09:02:40.462 05/15] INFO  -     Stream #0:0
+
+[09:02:40.463 05/15] INFO  - (und)
+
+[09:02:40.463 05/15] INFO  - : Video: h264 (High), 1 reference frame (avc1 / 0x31637661), yuv420p(left), 1920x1080 (1920x1088), 0/1, 4190 kb/s
+
+[09:02:40.463 05/15] INFO  - , 
+
+[09:02:40.463 05/15] INFO  - 25 fps, 
+
+[09:02:40.463 05/15] INFO  - 25 tbr, 
+
+[09:02:40.463 05/15] INFO  - 90k tbn, 
+
+[09:02:40.463 05/15] INFO  - 50 tbc
+
+[09:02:40.463 05/15] INFO  -  (default)
+
+[09:02:40.464 05/15] INFO  - 
+
+
+[09:02:40.464 05/15] INFO  -     Metadata:
+
+
+[09:02:40.464 05/15] INFO  -       encoder         : 
+
+[09:02:40.464 05/15] INFO  - JVT/AVC Coding
+
+[09:02:40.464 05/15] INFO  - 
+
+
+[09:02:40.468 05/15] INFO  - VideoCodec: avcodec, h264
+
+
+[09:02:40.469 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:02:40.469 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:02:40.469 05/15] WARN  -  Start read frame
+
+[09:02:40.469 05/15] INFO  - recv ijk msg:prepared
+
+[09:02:40.470 05/15] WARN  - ffp_video_thread start
+
+[09:02:40.958 05/15] INFO  - screen_w: 1920, screen_h: 1080
+
+[09:02:41.385 05/15] INFO  - video gop size:20
+
+[09:02:41.785 05/15] INFO  - video decode fps:25
+
+[09:02:42.185 05/15] INFO  - video gop size:20
+
+[09:02:42.785 05/15] INFO  - video decode fps:25
+
+[09:02:42.985 05/15] INFO  - video gop size:20
+
+[09:02:43.785 05/15] INFO  - video gop size:20
+
+[09:02:43.785 05/15] INFO  - video decode fps:24
+
+[09:02:44.585 05/15] INFO  - video gop size:20
+
+[09:02:44.785 05/15] INFO  - video decode fps:25
+
+[09:02:45.385 05/15] INFO  - video gop size:20
+
+[09:02:45.785 05/15] INFO  - video decode fps:24
+
+[09:02:46.184 05/15] INFO  - video gop size:20
+
+[09:02:46.785 05/15] INFO  - video decode fps:25
+
+[09:02:46.985 05/15] INFO  - video gop size:20
+
+[09:02:47.784 05/15] INFO  - video gop size:20
+
+[09:02:47.784 05/15] INFO  - video decode fps:25
+
+[09:02:48.584 05/15] INFO  - video gop size:20
+
+[09:02:48.785 05/15] INFO  - video decode fps:25
+
+[09:02:49.772 05/15] INFO  - ffp_toggle_buffering: completed: OK
+
+
+[09:02:49.772 05/15] INFO  - recv ijk msg:complete.
+
+[09:02:49.772 05/15] INFO  - wait for read_tid
+
+
+[09:02:49.882 05/15] INFO  - wait for decoder_tid
+
+
+[09:02:49.905 05/15] INFO  - wait for video_refresh_tid
+
+
+[09:02:59.782 05/15] INFO  - ===== versions =====
+
+
+[09:02:59.783 05/15] INFO  - ijkplayer    : k0.8.0
+
+
+[09:02:59.783 05/15] INFO  - FFmpeg       : 3.3.1
+
+
+[09:02:59.783 05/15] INFO  - libavutil    : 55.58.100
+
+
+[09:02:59.783 05/15] INFO  - libavcodec   : 57.89.100
+
+
+[09:02:59.783 05/15] INFO  - libavformat  : 57.71.100
+
+
+[09:02:59.784 05/15] INFO  - libswscale   : 4.6.100
+
+
+[09:02:59.784 05/15] INFO  - libswresample: 2.7.100
+
+
+[09:02:59.784 05/15] INFO  - ===== options =====
+
+
+[09:02:59.784 05/15] INFO  - ===================
+
+
+[09:02:59.786 05/15] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747270979786604-- 
+
+[09:02:59.787 05/15] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 1-- 
+
+[09:02:59.805 05/15] INFO  - max_frame_duration: 10.000
+
+
+[09:02:59.805 05/15] INFO  - Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\test.mp4':
+
+
+[09:02:59.805 05/15] INFO  -   Metadata:
+
+
+[09:02:59.806 05/15] INFO  -     major_brand     : 
+
+[09:02:59.806 05/15] INFO  - mp42
+
+[09:02:59.806 05/15] INFO  - 
+
+
+[09:02:59.806 05/15] INFO  -     minor_version   : 
+
+[09:02:59.806 05/15] INFO  - 0
+
+[09:02:59.806 05/15] INFO  - 
+
+
+[09:02:59.806 05/15] INFO  -     compatible_brands: 
+
+[09:02:59.806 05/15] INFO  - mp42isom
+
+[09:02:59.806 05/15] INFO  - 
+
+
+[09:02:59.807 05/15] INFO  -   Duration: 
+
+[09:02:59.807 05/15] INFO  - 00:00:08.76
+
+[09:02:59.807 05/15] INFO  - , start: 
+
+[09:02:59.807 05/15] INFO  - 0.000000
+
+[09:02:59.807 05/15] INFO  - , bitrate: 
+
+[09:02:59.807 05/15] INFO  - 4192 kb/s
+
+[09:02:59.807 05/15] INFO  - 
+
+
+[09:02:59.807 05/15] INFO  -     Stream #0:0
+
+[09:02:59.807 05/15] INFO  - (und)
+
+[09:02:59.808 05/15] INFO  - : Video: h264 (High), 1 reference frame (avc1 / 0x31637661), yuv420p(left), 1920x1080 (1920x1088), 0/1, 4190 kb/s
+
+[09:02:59.808 05/15] INFO  - , 
+
+[09:02:59.808 05/15] INFO  - 25 fps, 
+
+[09:02:59.808 05/15] INFO  - 25 tbr, 
+
+[09:02:59.808 05/15] INFO  - 90k tbn, 
+
+[09:02:59.808 05/15] INFO  - 50 tbc
+
+[09:02:59.808 05/15] INFO  -  (default)
+
+[09:02:59.808 05/15] INFO  - 
+
+
+[09:02:59.809 05/15] INFO  -     Metadata:
+
+
+[09:02:59.809 05/15] INFO  -       encoder         : 
+
+[09:02:59.809 05/15] INFO  - JVT/AVC Coding
+
+[09:02:59.809 05/15] INFO  - 
+
+
+[09:02:59.814 05/15] INFO  - VideoCodec: avcodec, h264
+
+
+[09:02:59.816 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:02:59.816 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:02:59.816 05/15] WARN  -  Start read frame
+
+[09:02:59.816 05/15] INFO  - recv ijk msg:prepared
+
+[09:02:59.817 05/15] WARN  - ffp_video_thread start
+
+[09:03:00.281 05/15] INFO  - video gop size:20
+
+[09:03:00.680 05/15] INFO  - video decode fps:25
+
+[09:03:01.081 05/15] INFO  - video gop size:20
+
+[09:03:01.681 05/15] INFO  - video decode fps:25
+
+[09:03:01.880 05/15] INFO  - video gop size:20
+
+[09:03:02.681 05/15] INFO  - video gop size:20
+
+[09:03:02.681 05/15] INFO  - video decode fps:25
+
+[09:03:03.480 05/15] INFO  - video gop size:20
+
+[09:03:03.680 05/15] INFO  - video decode fps:25
+
+[09:03:04.281 05/15] INFO  - video gop size:20
+
+[09:03:04.681 05/15] INFO  - video decode fps:24
+
+[09:03:05.080 05/15] INFO  - video gop size:20
+
+[09:03:05.681 05/15] INFO  - video decode fps:24
+
+[09:03:05.881 05/15] INFO  - video gop size:20
+
+[09:03:06.680 05/15] INFO  - video gop size:20
+
+[09:03:06.680 05/15] INFO  - video decode fps:25
+
+[09:03:07.480 05/15] INFO  - video gop size:20
+
+[09:03:07.680 05/15] INFO  - video decode fps:25
+
+[09:03:08.637 05/15] INFO  - ffp_toggle_buffering: completed: OK
+
+
+[09:03:08.637 05/15] INFO  - recv ijk msg:complete.
+
+[09:03:08.637 05/15] INFO  - wait for read_tid
+
+
+[09:03:08.747 05/15] INFO  - wait for decoder_tid
+
+
+[09:03:08.757 05/15] INFO  - wait for video_refresh_tid
+
+
+[09:03:34.025 05/15] INFO  - LOG INITIALISED
+
+[09:03:34.033 05/15] INFO  - av_version_info: 3.3.1
+
+
+[09:03:34.033 05/15] INFO  - ijk_version_info: k0.8.0
+
+
+[09:03:41.108 05/15] INFO  - ===== versions =====
+
+
+[09:03:41.109 05/15] INFO  - ijkplayer    : k0.8.0
+
+
+[09:03:41.109 05/15] INFO  - FFmpeg       : 3.3.1
+
+
+[09:03:41.109 05/15] INFO  - libavutil    : 55.58.100
+
+
+[09:03:41.109 05/15] INFO  - libavcodec   : 57.89.100
+
+
+[09:03:41.109 05/15] INFO  - libavformat  : 57.71.100
+
+
+[09:03:41.110 05/15] INFO  - libswscale   : 4.6.100
+
+
+[09:03:41.110 05/15] INFO  - libswresample: 2.7.100
+
+
+[09:03:41.110 05/15] INFO  - ===== options =====
+
+
+[09:03:41.110 05/15] INFO  - ===================
+
+
+[09:03:41.113 05/15] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747271021113016-- 
+
+[09:03:41.115 05/15] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 1-- 
+
+[09:03:41.133 05/15] INFO  - max_frame_duration: 10.000
+
+
+[09:03:41.133 05/15] INFO  - Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\test.mp4':
+
+
+[09:03:41.133 05/15] INFO  -   Metadata:
+
+
+[09:03:41.133 05/15] INFO  -     major_brand     : 
+
+[09:03:41.133 05/15] INFO  - mp42
+
+[09:03:41.134 05/15] INFO  - 
+
+
+[09:03:41.134 05/15] INFO  -     minor_version   : 
+
+[09:03:41.134 05/15] INFO  - 0
+
+[09:03:41.134 05/15] INFO  - 
+
+
+[09:03:41.134 05/15] INFO  -     compatible_brands: 
+
+[09:03:41.134 05/15] INFO  - mp42isom
+
+[09:03:41.134 05/15] INFO  - 
+
+
+[09:03:41.134 05/15] INFO  -   Duration: 
+
+[09:03:41.134 05/15] INFO  - 00:00:08.76
+
+[09:03:41.134 05/15] INFO  - , start: 
+
+[09:03:41.135 05/15] INFO  - 0.000000
+
+[09:03:41.135 05/15] INFO  - , bitrate: 
+
+[09:03:41.135 05/15] INFO  - 4192 kb/s
+
+[09:03:41.135 05/15] INFO  - 
+
+
+[09:03:41.135 05/15] INFO  -     Stream #0:0
+
+[09:03:41.135 05/15] INFO  - (und)
+
+[09:03:41.135 05/15] INFO  - : Video: h264 (High), 1 reference frame (avc1 / 0x31637661), yuv420p(left), 1920x1080 (1920x1088), 0/1, 4190 kb/s
+
+[09:03:41.135 05/15] INFO  - , 
+
+[09:03:41.136 05/15] INFO  - 25 fps, 
+
+[09:03:41.136 05/15] INFO  - 25 tbr, 
+
+[09:03:41.136 05/15] INFO  - 90k tbn, 
+
+[09:03:41.136 05/15] INFO  - 50 tbc
+
+[09:03:41.136 05/15] INFO  -  (default)
+
+[09:03:41.136 05/15] INFO  - 
+
+
+[09:03:41.136 05/15] INFO  -     Metadata:
+
+
+[09:03:41.136 05/15] INFO  -       encoder         : 
+
+[09:03:41.137 05/15] INFO  - JVT/AVC Coding
+
+[09:03:41.137 05/15] INFO  - 
+
+
+[09:03:41.140 05/15] INFO  - VideoCodec: avcodec, h264
+
+
+[09:03:41.140 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:03:41.141 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:03:41.141 05/15] WARN  -  Start read frame
+
+[09:03:41.141 05/15] INFO  - recv ijk msg:prepared
+
+[09:03:41.142 05/15] WARN  - ffp_video_thread start
+
+[09:03:41.217 05/15] INFO  - screen_w: 1920, screen_h: 1080
+
+[09:03:41.603 05/15] INFO  - video gop size:20
+
+[09:03:42.002 05/15] INFO  - video decode fps:25
+
+[09:03:42.402 05/15] INFO  - video gop size:20
+
+[09:03:43.002 05/15] INFO  - video decode fps:25
+
+[09:03:43.203 05/15] INFO  - video gop size:20
+
+[09:03:44.002 05/15] INFO  - video gop size:20
+
+[09:03:44.002 05/15] INFO  - video decode fps:25
+
+[09:03:46.507 05/15] INFO  - video gop size:20
+
+[09:03:46.707 05/15] INFO  - video decode fps:25
+
+[09:03:47.308 05/15] INFO  - video gop size:20
+
+[09:03:47.708 05/15] INFO  - video decode fps:25
+
+[09:03:49.269 05/15] INFO  - video gop size:20
+
+[09:03:49.869 05/15] INFO  - video decode fps:25
+
+[09:03:50.069 05/15] INFO  - video gop size:20
+
+[09:03:50.870 05/15] INFO  - video gop size:20
+
+[09:03:50.870 05/15] INFO  - video decode fps:24
+
+[09:03:51.669 05/15] INFO  - video gop size:20
+
+[09:03:51.869 05/15] INFO  - video decode fps:25
+
+[09:03:52.837 05/15] INFO  - ffp_toggle_buffering: completed: OK
+
+
+[09:03:52.837 05/15] INFO  - recv ijk msg:complete.
+
+[09:03:52.837 05/15] INFO  - wait for read_tid
+
+
+[09:03:52.947 05/15] INFO  - wait for decoder_tid
+
+
+[09:03:52.955 05/15] INFO  - wait for video_refresh_tid
+
+
+[09:12:49.790 05/15] INFO  - LOG INITIALISED
+
+[09:12:49.867 05/15] INFO  - av_version_info: 3.3.1
+
+
+[09:12:49.868 05/15] INFO  - ijk_version_info: k0.8.0
+
+
+[09:12:55.900 05/15] INFO  - ===== versions =====
+
+
+[09:12:55.901 05/15] INFO  - ijkplayer    : k0.8.0
+
+
+[09:12:55.902 05/15] INFO  - FFmpeg       : 3.3.1
+
+
+[09:12:55.902 05/15] INFO  - libavutil    : 55.58.100
+
+
+[09:12:55.902 05/15] INFO  - libavcodec   : 57.89.100
+
+
+[09:12:55.902 05/15] INFO  - libavformat  : 57.71.100
+
+
+[09:12:55.903 05/15] INFO  - libswscale   : 4.6.100
+
+
+[09:12:55.906 05/15] INFO  - libswresample: 2.7.100
+
+
+[09:12:55.906 05/15] INFO  - ===== options =====
+
+
+[09:12:55.906 05/15] INFO  - ===================
+
+
+[09:12:55.913 05/15] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747271575913258-- 
+
+[09:12:55.944 05/15] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 31-- 
+
+[09:12:56.007 05/15] INFO  - max_frame_duration: 10.000
+
+
+[09:12:56.007 05/15] INFO  - Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\test.mp4':
+
+
+[09:12:56.007 05/15] INFO  -   Metadata:
+
+
+[09:12:56.007 05/15] INFO  -     major_brand     : 
+
+[09:12:56.008 05/15] INFO  - mp42
+
+[09:12:56.008 05/15] INFO  - 
+
+
+[09:12:56.008 05/15] INFO  -     minor_version   : 
+
+[09:12:56.008 05/15] INFO  - 0
+
+[09:12:56.008 05/15] INFO  - 
+
+
+[09:12:56.008 05/15] INFO  -     compatible_brands: 
+
+[09:12:56.008 05/15] INFO  - mp42isom
+
+[09:12:56.008 05/15] INFO  - 
+
+
+[09:12:56.008 05/15] INFO  -   Duration: 
+
+[09:12:56.008 05/15] INFO  - 00:00:08.76
+
+[09:12:56.009 05/15] INFO  - , start: 
+
+[09:12:56.009 05/15] INFO  - 0.000000
+
+[09:12:56.009 05/15] INFO  - , bitrate: 
+
+[09:12:56.009 05/15] INFO  - 4192 kb/s
+
+[09:12:56.009 05/15] INFO  - 
+
+
+[09:12:56.012 05/15] INFO  -     Stream #0:0
+
+[09:12:56.012 05/15] INFO  - (und)
+
+[09:12:56.013 05/15] INFO  - : Video: h264 (High), 1 reference frame (avc1 / 0x31637661), yuv420p(left), 1920x1080 (1920x1088), 0/1, 4190 kb/s
+
+[09:12:56.013 05/15] INFO  - , 
+
+[09:12:56.013 05/15] INFO  - 25 fps, 
+
+[09:12:56.013 05/15] INFO  - 25 tbr, 
+
+[09:12:56.013 05/15] INFO  - 90k tbn, 
+
+[09:12:56.013 05/15] INFO  - 50 tbc
+
+[09:12:56.013 05/15] INFO  -  (default)
+
+[09:12:56.013 05/15] INFO  - 
+
+
+[09:12:56.013 05/15] INFO  -     Metadata:
+
+
+[09:12:56.014 05/15] INFO  -       encoder         : 
+
+[09:12:56.014 05/15] INFO  - JVT/AVC Coding
+
+[09:12:56.014 05/15] INFO  - 
+
+
+[09:12:56.017 05/15] INFO  - VideoCodec: avcodec, h264
+
+
+[09:12:56.018 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:12:56.018 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:12:56.018 05/15] WARN  -  Start read frame
+
+[09:12:56.018 05/15] INFO  - recv ijk msg:prepared
+
+[09:12:56.019 05/15] WARN  - ffp_video_thread start
+
+[09:12:56.211 05/15] INFO  - screen_w: 1920, screen_h: 1080
+
+[09:12:56.632 05/15] INFO  - video gop size:20
+
+[09:12:57.032 05/15] INFO  - video decode fps:25
+
+[09:12:57.431 05/15] INFO  - video gop size:20
+
+[09:12:57.945 05/15] INFO  - wait for read_tid
+
+
+[09:12:58.004 05/15] INFO  - wait for decoder_tid
+
+
+[09:12:58.011 05/15] INFO  - wait for video_refresh_tid
+
+
+[09:13:00.313 05/15] INFO  - ===== versions =====
+
+
+[09:13:00.314 05/15] INFO  - ijkplayer    : k0.8.0
+
+
+[09:13:00.314 05/15] INFO  - FFmpeg       : 3.3.1
+
+
+[09:13:00.314 05/15] INFO  - libavutil    : 55.58.100
+
+
+[09:13:00.315 05/15] INFO  - libavcodec   : 57.89.100
+
+
+[09:13:00.315 05/15] INFO  - libavformat  : 57.71.100
+
+
+[09:13:00.315 05/15] INFO  - libswscale   : 4.6.100
+
+
+[09:13:00.315 05/15] INFO  - libswresample: 2.7.100
+
+
+[09:13:00.316 05/15] INFO  - ===== options =====
+
+
+[09:13:00.316 05/15] INFO  - ===================
+
+
+[09:13:00.319 05/15] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747271580319846-- 
+
+[09:13:00.319 05/15] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 0-- 
+
+[09:13:00.337 05/15] INFO  - max_frame_duration: 10.000
+
+
+[09:13:00.337 05/15] INFO  - Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\test.mp4':
+
+
+[09:13:00.337 05/15] INFO  -   Metadata:
+
+
+[09:13:00.338 05/15] INFO  -     major_brand     : 
+
+[09:13:00.338 05/15] INFO  - mp42
+
+[09:13:00.338 05/15] INFO  - 
+
+
+[09:13:00.338 05/15] INFO  -     minor_version   : 
+
+[09:13:00.338 05/15] INFO  - 0
+
+[09:13:00.338 05/15] INFO  - 
+
+
+[09:13:00.338 05/15] INFO  -     compatible_brands: 
+
+[09:13:00.338 05/15] INFO  - mp42isom
+
+[09:13:00.338 05/15] INFO  - 
+
+
+[09:13:00.339 05/15] INFO  -   Duration: 
+
+[09:13:00.339 05/15] INFO  - 00:00:08.76
+
+[09:13:00.339 05/15] INFO  - , start: 
+
+[09:13:00.339 05/15] INFO  - 0.000000
+
+[09:13:00.339 05/15] INFO  - , bitrate: 
+
+[09:13:00.339 05/15] INFO  - 4192 kb/s
+
+[09:13:00.339 05/15] INFO  - 
+
+
+[09:13:00.339 05/15] INFO  -     Stream #0:0
+
+[09:13:00.339 05/15] INFO  - (und)
+
+[09:13:00.340 05/15] INFO  - : Video: h264 (High), 1 reference frame (avc1 / 0x31637661), yuv420p(left), 1920x1080 (1920x1088), 0/1, 4190 kb/s
+
+[09:13:00.340 05/15] INFO  - , 
+
+[09:13:00.340 05/15] INFO  - 25 fps, 
+
+[09:13:00.340 05/15] INFO  - 25 tbr, 
+
+[09:13:00.340 05/15] INFO  - 90k tbn, 
+
+[09:13:00.340 05/15] INFO  - 50 tbc
+
+[09:13:00.340 05/15] INFO  -  (default)
+
+[09:13:00.340 05/15] INFO  - 
+
+
+[09:13:00.341 05/15] INFO  -     Metadata:
+
+
+[09:13:00.341 05/15] INFO  -       encoder         : 
+
+[09:13:00.341 05/15] INFO  - JVT/AVC Coding
+
+[09:13:00.341 05/15] INFO  - 
+
+
+[09:13:00.345 05/15] INFO  - VideoCodec: avcodec, h264
+
+
+[09:13:00.345 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:13:00.346 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:13:00.346 05/15] WARN  -  Start read frame
+
+[09:13:00.346 05/15] INFO  - recv ijk msg:prepared
+
+[09:13:00.347 05/15] WARN  - ffp_video_thread start
+
+[09:13:00.811 05/15] INFO  - video gop size:20
+
+[09:13:01.212 05/15] INFO  - video decode fps:25
+
+[09:13:01.612 05/15] INFO  - video gop size:20
+
+[09:13:01.969 05/15] INFO  - wait for read_tid
+
+
+[09:13:02.010 05/15] INFO  - wait for decoder_tid
+
+
+[09:13:02.018 05/15] INFO  - wait for video_refresh_tid
+
+
+[09:13:03.610 05/15] INFO  - ===== versions =====
+
+
+[09:13:03.611 05/15] INFO  - ijkplayer    : k0.8.0
+
+
+[09:13:03.611 05/15] INFO  - FFmpeg       : 3.3.1
+
+
+[09:13:03.611 05/15] INFO  - libavutil    : 55.58.100
+
+
+[09:13:03.611 05/15] INFO  - libavcodec   : 57.89.100
+
+
+[09:13:03.611 05/15] INFO  - libavformat  : 57.71.100
+
+
+[09:13:03.613 05/15] INFO  - libswscale   : 4.6.100
+
+
+[09:13:03.613 05/15] INFO  - libswresample: 2.7.100
+
+
+[09:13:03.613 05/15] INFO  - ===== options =====
+
+
+[09:13:03.613 05/15] INFO  - ===================
+
+
+[09:13:03.615 05/15] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747271583615749-- 
+
+[09:13:03.616 05/15] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 1-- 
+
+[09:13:03.634 05/15] INFO  - max_frame_duration: 10.000
+
+
+[09:13:03.634 05/15] INFO  - Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\test.mp4':
+
+
+[09:13:03.634 05/15] INFO  -   Metadata:
+
+
+[09:13:03.634 05/15] INFO  -     major_brand     : 
+
+[09:13:03.635 05/15] INFO  - mp42
+
+[09:13:03.635 05/15] INFO  - 
+
+
+[09:13:03.635 05/15] INFO  -     minor_version   : 
+
+[09:13:03.635 05/15] INFO  - 0
+
+[09:13:03.635 05/15] INFO  - 
+
+
+[09:13:03.635 05/15] INFO  -     compatible_brands: 
+
+[09:13:03.635 05/15] INFO  - mp42isom
+
+[09:13:03.635 05/15] INFO  - 
+
+
+[09:13:03.635 05/15] INFO  -   Duration: 
+
+[09:13:03.636 05/15] INFO  - 00:00:08.76
+
+[09:13:03.636 05/15] INFO  - , start: 
+
+[09:13:03.636 05/15] INFO  - 0.000000
+
+[09:13:03.636 05/15] INFO  - , bitrate: 
+
+[09:13:03.636 05/15] INFO  - 4192 kb/s
+
+[09:13:03.636 05/15] INFO  - 
+
+
+[09:13:03.636 05/15] INFO  -     Stream #0:0
+
+[09:13:03.636 05/15] INFO  - (und)
+
+[09:13:03.637 05/15] INFO  - : Video: h264 (High), 1 reference frame (avc1 / 0x31637661), yuv420p(left), 1920x1080 (1920x1088), 0/1, 4190 kb/s
+
+[09:13:03.637 05/15] INFO  - , 
+
+[09:13:03.637 05/15] INFO  - 25 fps, 
+
+[09:13:03.637 05/15] INFO  - 25 tbr, 
+
+[09:13:03.637 05/15] INFO  - 90k tbn, 
+
+[09:13:03.637 05/15] INFO  - 50 tbc
+
+[09:13:03.637 05/15] INFO  -  (default)
+
+[09:13:03.637 05/15] INFO  - 
+
+
+[09:13:03.638 05/15] INFO  -     Metadata:
+
+
+[09:13:03.638 05/15] INFO  -       encoder         : 
+
+[09:13:03.638 05/15] INFO  - JVT/AVC Coding
+
+[09:13:03.638 05/15] INFO  - 
+
+
+[09:13:03.641 05/15] INFO  - VideoCodec: avcodec, h264
+
+
+[09:13:03.642 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:13:03.642 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:13:03.642 05/15] WARN  -  Start read frame
+
+[09:13:03.642 05/15] INFO  - recv ijk msg:prepared
+
+[09:13:03.643 05/15] WARN  - ffp_video_thread start
+
+[09:13:04.106 05/15] INFO  - video gop size:20
+
+[09:13:04.506 05/15] INFO  - video decode fps:25
+
+[09:13:04.906 05/15] INFO  - video gop size:20
+
+[09:13:05.362 05/15] INFO  - wait for read_tid
+
+
+[09:13:05.416 05/15] INFO  - wait for decoder_tid
+
+
+[09:13:05.424 05/15] INFO  - wait for video_refresh_tid
+
+
+[09:13:06.585 05/15] INFO  - ===== versions =====
+
+
+[09:13:06.586 05/15] INFO  - ijkplayer    : k0.8.0
+
+
+[09:13:06.586 05/15] INFO  - FFmpeg       : 3.3.1
+
+
+[09:13:06.586 05/15] INFO  - libavutil    : 55.58.100
+
+
+[09:13:06.586 05/15] INFO  - libavcodec   : 57.89.100
+
+
+[09:13:06.587 05/15] INFO  - libavformat  : 57.71.100
+
+
+[09:13:06.587 05/15] INFO  - libswscale   : 4.6.100
+
+
+[09:13:06.587 05/15] INFO  - libswresample: 2.7.100
+
+
+[09:13:06.587 05/15] INFO  - ===== options =====
+
+
+[09:13:06.587 05/15] INFO  - ===================
+
+
+[09:13:06.590 05/15] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747271586590963-- 
+
+[09:13:06.591 05/15] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 1-- 
+
+[09:13:06.609 05/15] INFO  - max_frame_duration: 10.000
+
+
+[09:13:06.609 05/15] INFO  - Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\test.mp4':
+
+
+[09:13:06.609 05/15] INFO  -   Metadata:
+
+
+[09:13:06.609 05/15] INFO  -     major_brand     : 
+
+[09:13:06.609 05/15] INFO  - mp42
+
+[09:13:06.609 05/15] INFO  - 
+
+
+[09:13:06.610 05/15] INFO  -     minor_version   : 
+
+[09:13:06.610 05/15] INFO  - 0
+
+[09:13:06.610 05/15] INFO  - 
+
+
+[09:13:06.610 05/15] INFO  -     compatible_brands: 
+
+[09:13:06.610 05/15] INFO  - mp42isom
+
+[09:13:06.610 05/15] INFO  - 
+
+
+[09:13:06.610 05/15] INFO  -   Duration: 
+
+[09:13:06.610 05/15] INFO  - 00:00:08.76
+
+[09:13:06.610 05/15] INFO  - , start: 
+
+[09:13:06.611 05/15] INFO  - 0.000000
+
+[09:13:06.611 05/15] INFO  - , bitrate: 
+
+[09:13:06.611 05/15] INFO  - 4192 kb/s
+
+[09:13:06.611 05/15] INFO  - 
+
+
+[09:13:06.611 05/15] INFO  -     Stream #0:0
+
+[09:13:06.611 05/15] INFO  - (und)
+
+[09:13:06.611 05/15] INFO  - : Video: h264 (High), 1 reference frame (avc1 / 0x31637661), yuv420p(left), 1920x1080 (1920x1088), 0/1, 4190 kb/s
+
+[09:13:06.611 05/15] INFO  - , 
+
+[09:13:06.611 05/15] INFO  - 25 fps, 
+
+[09:13:06.611 05/15] INFO  - 25 tbr, 
+
+[09:13:06.612 05/15] INFO  - 90k tbn, 
+
+[09:13:06.612 05/15] INFO  - 50 tbc
+
+[09:13:06.612 05/15] INFO  -  (default)
+
+[09:13:06.612 05/15] INFO  - 
+
+
+[09:13:06.612 05/15] INFO  -     Metadata:
+
+
+[09:13:06.612 05/15] INFO  -       encoder         : 
+
+[09:13:06.612 05/15] INFO  - JVT/AVC Coding
+
+[09:13:06.612 05/15] INFO  - 
+
+
+[09:13:06.616 05/15] INFO  - VideoCodec: avcodec, h264
+
+
+[09:13:06.616 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:13:06.617 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:13:06.617 05/15] WARN  -  Start read frame
+
+[09:13:06.617 05/15] INFO  - recv ijk msg:prepared
+
+[09:13:06.618 05/15] WARN  - ffp_video_thread start
+
+[09:13:07.080 05/15] INFO  - video gop size:20
+
+[09:13:07.479 05/15] INFO  - video decode fps:25
+
+[09:13:07.880 05/15] INFO  - video gop size:20
+
+[09:13:08.479 05/15] INFO  - video decode fps:25
+
+[09:13:08.679 05/15] INFO  - video gop size:20
+
+[09:13:09.479 05/15] INFO  - video gop size:20
+
+[09:13:09.479 05/15] INFO  - video decode fps:25
+
+[09:13:10.279 05/15] INFO  - video gop size:20
+
+[09:13:10.479 05/15] INFO  - video decode fps:25
+
+[09:13:11.080 05/15] INFO  - video gop size:20
+
+[09:13:11.480 05/15] INFO  - video decode fps:25
+
+[09:13:11.593 05/15] INFO  - wait for read_tid
+
+
+[09:13:11.688 05/15] INFO  - wait for decoder_tid
+
+
+[09:13:11.696 05/15] INFO  - wait for video_refresh_tid
+
+
+[09:13:17.002 05/15] INFO  - ===== versions =====
+
+
+[09:13:17.003 05/15] INFO  - ijkplayer    : k0.8.0
+
+
+[09:13:17.003 05/15] INFO  - FFmpeg       : 3.3.1
+
+
+[09:13:17.003 05/15] INFO  - libavutil    : 55.58.100
+
+
+[09:13:17.003 05/15] INFO  - libavcodec   : 57.89.100
+
+
+[09:13:17.003 05/15] INFO  - libavformat  : 57.71.100
+
+
+[09:13:17.004 05/15] INFO  - libswscale   : 4.6.100
+
+
+[09:13:17.004 05/15] INFO  - libswresample: 2.7.100
+
+
+[09:13:17.004 05/15] INFO  - ===== options =====
+
+
+[09:13:17.004 05/15] INFO  - ===================
+
+
+[09:13:17.006 05/15] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747271597006250-- 
+
+[09:13:17.007 05/15] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 1-- 
+
+[09:13:17.025 05/15] INFO  - max_frame_duration: 10.000
+
+
+[09:13:17.025 05/15] INFO  - Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\test.mp4':
+
+
+[09:13:17.025 05/15] INFO  -   Metadata:
+
+
+[09:13:17.025 05/15] INFO  -     major_brand     : 
+
+[09:13:17.025 05/15] INFO  - mp42
+
+[09:13:17.025 05/15] INFO  - 
+
+
+[09:13:17.026 05/15] INFO  -     minor_version   : 
+
+[09:13:17.026 05/15] INFO  - 0
+
+[09:13:17.026 05/15] INFO  - 
+
+
+[09:13:17.026 05/15] INFO  -     compatible_brands: 
+
+[09:13:17.026 05/15] INFO  - mp42isom
+
+[09:13:17.026 05/15] INFO  - 
+
+
+[09:13:17.026 05/15] INFO  -   Duration: 
+
+[09:13:17.026 05/15] INFO  - 00:00:08.76
+
+[09:13:17.026 05/15] INFO  - , start: 
+
+[09:13:17.027 05/15] INFO  - 0.000000
+
+[09:13:17.027 05/15] INFO  - , bitrate: 
+
+[09:13:17.027 05/15] INFO  - 4192 kb/s
+
+[09:13:17.027 05/15] INFO  - 
+
+
+[09:13:17.027 05/15] INFO  -     Stream #0:0
+
+[09:13:17.027 05/15] INFO  - (und)
+
+[09:13:17.027 05/15] INFO  - : Video: h264 (High), 1 reference frame (avc1 / 0x31637661), yuv420p(left), 1920x1080 (1920x1088), 0/1, 4190 kb/s
+
+[09:13:17.028 05/15] INFO  - , 
+
+[09:13:17.028 05/15] INFO  - 25 fps, 
+
+[09:13:17.028 05/15] INFO  - 25 tbr, 
+
+[09:13:17.028 05/15] INFO  - 90k tbn, 
+
+[09:13:17.028 05/15] INFO  - 50 tbc
+
+[09:13:17.028 05/15] INFO  -  (default)
+
+[09:13:17.028 05/15] INFO  - 
+
+
+[09:13:17.028 05/15] INFO  -     Metadata:
+
+
+[09:13:17.028 05/15] INFO  -       encoder         : 
+
+[09:13:17.029 05/15] INFO  - JVT/AVC Coding
+
+[09:13:17.029 05/15] INFO  - 
+
+
+[09:13:17.032 05/15] INFO  - VideoCodec: avcodec, h264
+
+
+[09:13:17.033 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:13:17.033 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:13:17.033 05/15] WARN  -  Start read frame
+
+[09:13:17.033 05/15] INFO  - recv ijk msg:prepared
+
+[09:13:17.034 05/15] WARN  - ffp_video_thread start
+
+[09:13:17.493 05/15] INFO  - video gop size:20
+
+[09:13:17.894 05/15] INFO  - video decode fps:25
+
+[09:13:18.293 05/15] INFO  - video gop size:20
+
+[09:13:18.785 05/15] INFO  - wait for read_tid
+
+
+[09:13:18.806 05/15] INFO  - wait for decoder_tid
+
+
+[09:13:18.813 05/15] INFO  - wait for video_refresh_tid
+
+
+[09:17:07.479 05/15] INFO  - LOG INITIALISED
+
+[09:17:07.492 05/15] INFO  - av_version_info: 3.3.1
+
+
+[09:17:07.493 05/15] INFO  - ijk_version_info: k0.8.0
+
+
+[09:17:15.953 05/15] INFO  - ===== versions =====
+
+
+[09:17:15.954 05/15] INFO  - ijkplayer    : k0.8.0
+
+
+[09:17:15.954 05/15] INFO  - FFmpeg       : 3.3.1
+
+
+[09:17:15.954 05/15] INFO  - libavutil    : 55.58.100
+
+
+[09:17:15.955 05/15] INFO  - libavcodec   : 57.89.100
+
+
+[09:17:15.955 05/15] INFO  - libavformat  : 57.71.100
+
+
+[09:17:15.955 05/15] INFO  - libswscale   : 4.6.100
+
+
+[09:17:15.956 05/15] INFO  - libswresample: 2.7.100
+
+
+[09:17:15.956 05/15] INFO  - ===== options =====
+
+
+[09:17:15.956 05/15] INFO  - ===================
+
+
+[09:17:15.958 05/15] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747271835958161-- 
+
+[09:17:15.959 05/15] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 1-- 
+
+[09:17:15.978 05/15] INFO  - max_frame_duration: 10.000
+
+
+[09:17:15.978 05/15] INFO  - Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\test.mp4':
+
+
+[09:17:15.978 05/15] INFO  -   Metadata:
+
+
+[09:17:15.978 05/15] INFO  -     major_brand     : 
+
+[09:17:15.978 05/15] INFO  - mp42
+
+[09:17:15.978 05/15] INFO  - 
+
+
+[09:17:15.978 05/15] INFO  -     minor_version   : 
+
+[09:17:15.978 05/15] INFO  - 0
+
+[09:17:15.979 05/15] INFO  - 
+
+
+[09:17:15.979 05/15] INFO  -     compatible_brands: 
+
+[09:17:15.979 05/15] INFO  - mp42isom
+
+[09:17:15.979 05/15] INFO  - 
+
+
+[09:17:15.979 05/15] INFO  -   Duration: 
+
+[09:17:15.979 05/15] INFO  - 00:00:08.76
+
+[09:17:15.979 05/15] INFO  - , start: 
+
+[09:17:15.979 05/15] INFO  - 0.000000
+
+[09:17:15.979 05/15] INFO  - , bitrate: 
+
+[09:17:15.979 05/15] INFO  - 4192 kb/s
+
+[09:17:15.980 05/15] INFO  - 
+
+
+[09:17:15.980 05/15] INFO  -     Stream #0:0
+
+[09:17:15.980 05/15] INFO  - (und)
+
+[09:17:15.980 05/15] INFO  - : Video: h264 (High), 1 reference frame (avc1 / 0x31637661), yuv420p(left), 1920x1080 (1920x1088), 0/1, 4190 kb/s
+
+[09:17:15.980 05/15] INFO  - , 
+
+[09:17:15.980 05/15] INFO  - 25 fps, 
+
+[09:17:15.980 05/15] INFO  - 25 tbr, 
+
+[09:17:15.980 05/15] INFO  - 90k tbn, 
+
+[09:17:15.981 05/15] INFO  - 50 tbc
+
+[09:17:15.981 05/15] INFO  -  (default)
+
+[09:17:15.981 05/15] INFO  - 
+
+
+[09:17:15.981 05/15] INFO  -     Metadata:
+
+
+[09:17:15.981 05/15] INFO  -       encoder         : 
+
+[09:17:15.981 05/15] INFO  - JVT/AVC Coding
+
+[09:17:15.981 05/15] INFO  - 
+
+
+[09:17:15.988 05/15] INFO  - VideoCodec: avcodec, h264
+
+
+[09:17:15.989 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:17:15.989 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:17:15.989 05/15] WARN  -  Start read frame
+
+[09:17:15.989 05/15] INFO  - recv ijk msg:prepared
+
+[09:17:15.990 05/15] WARN  - ffp_video_thread start
+
+[09:17:16.072 05/15] INFO  - screen_w: 1920, screen_h: 1080
+
+[09:17:16.458 05/15] INFO  - video gop size:20
+
+[09:17:16.858 05/15] INFO  - video decode fps:25
+
+[09:17:17.258 05/15] INFO  - video gop size:20
+
+[09:17:17.858 05/15] INFO  - video decode fps:25
+
+[09:17:18.058 05/15] INFO  - video gop size:20
+
+[09:17:21.761 05/15] INFO  - video gop size:20
+
+[09:17:21.761 05/15] INFO  - video decode fps:2
+
+[09:17:22.561 05/15] INFO  - video gop size:20
+
+[09:17:22.761 05/15] INFO  - video decode fps:25
+
+[09:17:23.361 05/15] INFO  - video gop size:20
+
+[09:17:23.761 05/15] INFO  - video decode fps:25
+
+[09:17:24.161 05/15] INFO  - video gop size:20
+
+[09:17:24.761 05/15] INFO  - video decode fps:25
+
+[09:17:24.961 05/15] INFO  - video gop size:20
+
+[09:17:25.761 05/15] INFO  - video gop size:20
+
+[09:17:25.761 05/15] INFO  - video decode fps:25
+
+[09:17:26.561 05/15] INFO  - video gop size:20
+
+[09:17:26.761 05/15] INFO  - video decode fps:25
+
+[09:17:27.659 05/15] INFO  - ffp_toggle_buffering: completed: OK
+
+
+[09:17:27.659 05/15] INFO  - recv ijk msg:complete.
+
+[09:17:27.659 05/15] INFO  - wait for read_tid
+
+
+[09:17:27.769 05/15] INFO  - wait for decoder_tid
+
+
+[09:17:27.776 05/15] INFO  - wait for video_refresh_tid
+
+
+[09:35:38.472 05/15] INFO  - LOG INITIALISED
+
+[09:35:38.482 05/15] INFO  - av_version_info: 3.3.1
+
+
+[09:35:38.482 05/15] INFO  - ijk_version_info: k0.8.0
+
+
+[09:35:46.261 05/15] INFO  - ===== versions =====
+
+
+[09:35:46.262 05/15] INFO  - ijkplayer    : k0.8.0
+
+
+[09:35:46.262 05/15] INFO  - FFmpeg       : 3.3.1
+
+
+[09:35:46.262 05/15] INFO  - libavutil    : 55.58.100
+
+
+[09:35:46.325 05/15] INFO  - libavcodec   : 57.89.100
+
+
+[09:35:46.325 05/15] INFO  - libavformat  : 57.71.100
+
+
+[09:35:46.325 05/15] INFO  - libswscale   : 4.6.100
+
+
+[09:35:46.325 05/15] INFO  - libswresample: 2.7.100
+
+
+[09:35:46.325 05/15] INFO  - ===== options =====
+
+
+[09:35:46.325 05/15] INFO  - ===================
+
+
+[09:35:46.327 05/15] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747272946327835-- 
+
+[09:35:46.441 05/15] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 113-- 
+
+[09:35:48.057 05/15] INFO  - max_frame_duration: 10.000
+
+
+[09:35:48.057 05/15] INFO  - Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\test.mp4':
+
+
+[09:35:48.057 05/15] INFO  -   Metadata:
+
+
+[09:35:48.057 05/15] INFO  -     major_brand     : 
+
+[09:35:48.058 05/15] INFO  - mp42
+
+[09:35:48.058 05/15] INFO  - 
+
+
+[09:35:48.058 05/15] INFO  -     minor_version   : 
+
+[09:35:48.058 05/15] INFO  - 0
+
+[09:35:48.058 05/15] INFO  - 
+
+
+[09:35:48.058 05/15] INFO  -     compatible_brands: 
+
+[09:35:48.058 05/15] INFO  - mp42isom
+
+[09:35:48.058 05/15] INFO  - 
+
+
+[09:35:48.058 05/15] INFO  -   Duration: 
+
+[09:35:48.059 05/15] INFO  - 00:00:08.76
+
+[09:35:48.059 05/15] INFO  - , start: 
+
+[09:35:48.059 05/15] INFO  - 0.000000
+
+[09:35:48.059 05/15] INFO  - , bitrate: 
+
+[09:35:48.059 05/15] INFO  - 4192 kb/s
+
+[09:35:48.059 05/15] INFO  - 
+
+
+[09:35:48.068 05/15] INFO  -     Stream #0:0
+
+[09:35:48.069 05/15] INFO  - (und)
+
+[09:35:48.069 05/15] INFO  - : Video: h264 (High), 1 reference frame (avc1 / 0x31637661), yuv420p(left), 1920x1080 (1920x1088), 0/1, 4190 kb/s
+
+[09:35:48.069 05/15] INFO  - , 
+
+[09:35:48.069 05/15] INFO  - 25 fps, 
+
+[09:35:48.069 05/15] INFO  - 25 tbr, 
+
+[09:35:48.069 05/15] INFO  - 90k tbn, 
+
+[09:35:48.069 05/15] INFO  - 50 tbc
+
+[09:35:48.069 05/15] INFO  -  (default)
+
+[09:35:48.069 05/15] INFO  - 
+
+
+[09:35:48.070 05/15] INFO  -     Metadata:
+
+
+[09:35:48.070 05/15] INFO  -       encoder         : 
+
+[09:35:48.070 05/15] INFO  - JVT/AVC Coding
+
+[09:35:48.070 05/15] INFO  - 
+
+
+[09:35:48.074 05/15] INFO  - VideoCodec: avcodec, h264
+
+
+[09:35:48.075 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:35:48.075 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:35:48.075 05/15] WARN  -  Start read frame
+
+[09:35:48.075 05/15] INFO  - recv ijk msg:prepared
+
+[09:35:48.076 05/15] INFO  - ijk buffering update, arg1:40, arg2:40
+
+
+[09:35:48.076 05/15] WARN  - ffp_video_thread start
+
+[09:35:48.320 05/15] INFO  - screen_w: 1920, screen_h: 1080
+
+[09:35:48.750 05/15] INFO  - video gop size:20
+
+[09:35:49.151 05/15] INFO  - video decode fps:25
+
+[09:35:49.551 05/15] INFO  - video gop size:20
+
+[09:35:50.150 05/15] INFO  - video decode fps:25
+
+[09:35:50.350 05/15] INFO  - video gop size:20
+
+[09:35:51.151 05/15] INFO  - video gop size:20
+
+[09:35:51.151 05/15] INFO  - video decode fps:25
+
+[09:35:51.951 05/15] INFO  - video gop size:20
+
+[09:35:52.150 05/15] INFO  - video decode fps:25
+
+[09:35:52.750 05/15] INFO  - video gop size:20
+
+[09:35:53.151 05/15] INFO  - video decode fps:25
+
+[09:35:53.551 05/15] INFO  - video gop size:20
+
+[09:35:54.150 05/15] INFO  - video decode fps:25
+
+[09:35:54.350 05/15] INFO  - video gop size:20
+
+[09:35:55.167 05/15] INFO  - video gop size:20
+
+[09:35:55.167 05/15] INFO  - video decode fps:24
+
+[09:35:55.951 05/15] INFO  - video gop size:20
+
+[09:35:56.150 05/15] INFO  - video decode fps:25
+
+[09:35:57.114 05/15] INFO  - ffp_toggle_buffering: completed: OK
+
+
+[09:35:57.114 05/15] INFO  - recv ijk msg:complete.
+
+[09:35:57.114 05/15] INFO  - wait for read_tid
+
+
+[09:35:57.225 05/15] INFO  - wait for decoder_tid
+
+
+[09:35:57.233 05/15] INFO  - wait for video_refresh_tid
+
+
+[09:39:51.960 05/15] INFO  - LOG INITIALISED
+
+[09:39:51.970 05/15] INFO  - av_version_info: 3.3.1
+
+
+[09:39:51.970 05/15] INFO  - ijk_version_info: k0.8.0
+
+
+[09:39:58.600 05/15] INFO  - ===== versions =====
+
+
+[09:39:58.603 05/15] INFO  - ijkplayer    : k0.8.0
+
+
+[09:39:58.603 05/15] INFO  - FFmpeg       : 3.3.1
+
+
+[09:39:58.603 05/15] INFO  - libavutil    : 55.58.100
+
+
+[09:39:58.603 05/15] INFO  - libavcodec   : 57.89.100
+
+
+[09:39:58.604 05/15] INFO  - libavformat  : 57.71.100
+
+
+[09:39:58.604 05/15] INFO  - libswscale   : 4.6.100
+
+
+[09:39:58.611 05/15] INFO  - libswresample: 2.7.100
+
+
+[09:39:58.611 05/15] INFO  - ===== options =====
+
+
+[09:39:58.611 05/15] INFO  - ===================
+
+
+[09:39:58.617 05/15] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747273198617436-- 
+
+[09:39:58.641 05/15] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 23-- 
+
+[09:39:58.736 05/15] INFO  - max_frame_duration: 10.000
+
+
+[09:39:58.737 05/15] INFO  - Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\test.mp4':
+
+
+[09:39:58.737 05/15] INFO  -   Metadata:
+
+
+[09:39:58.737 05/15] INFO  -     major_brand     : 
+
+[09:39:58.737 05/15] INFO  - mp42
+
+[09:39:58.737 05/15] INFO  - 
+
+
+[09:39:58.737 05/15] INFO  -     minor_version   : 
+
+[09:39:58.737 05/15] INFO  - 0
+
+[09:39:58.737 05/15] INFO  - 
+
+
+[09:39:58.737 05/15] INFO  -     compatible_brands: 
+
+[09:39:58.738 05/15] INFO  - mp42isom
+
+[09:39:58.738 05/15] INFO  - 
+
+
+[09:39:58.738 05/15] INFO  -   Duration: 
+
+[09:39:58.738 05/15] INFO  - 00:00:08.76
+
+[09:39:58.738 05/15] INFO  - , start: 
+
+[09:39:58.738 05/15] INFO  - 0.000000
+
+[09:39:58.738 05/15] INFO  - , bitrate: 
+
+[09:39:58.738 05/15] INFO  - 4192 kb/s
+
+[09:39:58.739 05/15] INFO  - 
+
+
+[09:39:58.744 05/15] INFO  -     Stream #0:0
+
+[09:39:58.744 05/15] INFO  - (und)
+
+[09:39:58.744 05/15] INFO  - : Video: h264 (High), 1 reference frame (avc1 / 0x31637661), yuv420p(left), 1920x1080 (1920x1088), 0/1, 4190 kb/s
+
+[09:39:58.744 05/15] INFO  - , 
+
+[09:39:58.744 05/15] INFO  - 25 fps, 
+
+[09:39:58.744 05/15] INFO  - 25 tbr, 
+
+[09:39:58.744 05/15] INFO  - 90k tbn, 
+
+[09:39:58.745 05/15] INFO  - 50 tbc
+
+[09:39:58.745 05/15] INFO  -  (default)
+
+[09:39:58.745 05/15] INFO  - 
+
+
+[09:39:58.745 05/15] INFO  -     Metadata:
+
+
+[09:39:58.745 05/15] INFO  -       encoder         : 
+
+[09:39:58.745 05/15] INFO  - JVT/AVC Coding
+
+[09:39:58.745 05/15] INFO  - 
+
+
+[09:39:58.749 05/15] INFO  - VideoCodec: avcodec, h264
+
+
+[09:39:58.749 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:39:58.749 05/15] WARN  - fps: 25.000000 (normal)
+
+
+[09:39:58.750 05/15] WARN  -  Start read frame
+
+[09:39:58.750 05/15] INFO  - recv ijk msg:prepared
+
+[09:40:08.469 05/15] INFO  - ijk buffering update, arg1:40, arg2:40
+
+
+[09:40:14.173 05/15] INFO  - ijk buffering update, arg1:160, arg2:66
+
+
+[09:40:14.174 05/15] INFO  - ijk buffering update, arg1:200, arg2:20
+
+
+[09:40:14.175 05/15] WARN  - ffp_video_thread start
+
+[09:40:14.308 05/15] INFO  - screen_w: 1920, screen_h: 1080
+
+[09:40:14.660 05/15] INFO  - video gop size:20
+
+[09:40:15.060 05/15] INFO  - video decode fps:25
+
+[09:40:15.460 05/15] INFO  - video gop size:20
+
+[09:40:16.060 05/15] INFO  - video decode fps:25
+
+[09:40:16.260 05/15] INFO  - video gop size:20
+
+[09:40:17.060 05/15] INFO  - video gop size:20
+
+[09:40:17.060 05/15] INFO  - video decode fps:25
+
+[09:40:17.860 05/15] INFO  - video gop size:20
+
+[09:40:18.060 05/15] INFO  - video decode fps:25
+
+[09:40:18.660 05/15] INFO  - video gop size:20
+
+[09:40:19.060 05/15] INFO  - video decode fps:25
+
+[09:40:19.460 05/15] INFO  - video gop size:20
+
+[09:40:20.060 05/15] INFO  - video decode fps:25
+
+[09:40:20.260 05/15] INFO  - video gop size:20
+
+[09:40:21.061 05/15] INFO  - video gop size:20
+
+[09:40:21.061 05/15] INFO  - video decode fps:24
+
+[09:40:21.860 05/15] INFO  - video gop size:20
+
+[09:40:22.060 05/15] INFO  - video decode fps:25
+
+[09:40:22.991 05/15] INFO  - ffp_toggle_buffering: completed: OK
+
+
+[09:40:22.991 05/15] INFO  - recv ijk msg:complete.
+
+[09:40:22.991 05/15] INFO  - wait for read_tid
+
+
+[09:40:23.100 05/15] INFO  - wait for decoder_tid
+
+
+[09:40:23.109 05/15] INFO  - wait for video_refresh_tid
+
+
+[14:15:42.042 05/16] INFO  - LOG INITIALISED
+
+[14:15:42.050 05/16] INFO  - av_version_info: 3.3.1
+
+
+[14:15:42.050 05/16] INFO  - ijk_version_info: k0.8.0
+
+
+[14:20:04.120 05/16] WARN  - remove rtsp://192.168.62.92:38554/live 'timeout' option for rtmp.
+
+
+[14:20:04.121 05/16] INFO  - ===== versions =====
+
+
+[14:20:04.121 05/16] INFO  - ijkplayer    : k0.8.0
+
+
+[14:20:04.121 05/16] INFO  - FFmpeg       : 3.3.1
+
+
+[14:20:04.122 05/16] INFO  - libavutil    : 55.58.100
+
+
+[14:20:04.148 05/16] INFO  - libavcodec   : 57.89.100
+
+
+[14:20:04.179 05/16] INFO  - libavformat  : 57.71.100
+
+
+[14:20:04.192 05/16] INFO  - libswscale   : 4.6.100
+
+
+[14:20:04.192 05/16] INFO  - libswresample: 2.7.100
+
+
+[14:20:04.193 05/16] INFO  - ===== options =====
+
+
+[14:20:04.193 05/16] INFO  - ===================
+
+
+[14:20:04.214 05/16] WARN  - remove 'timeout' option for rtmp.
+
+
+[14:20:04.214 05/16] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747376404214858-- 
+
+[14:20:04.329 05/16] WARN  - 'circular_buffer_size' option was set but it is not supported on this build (pthread support is required)
+
+
+[14:20:04.330 05/16] WARN  - 'circular_buffer_size' option was set but it is not supported on this build (pthread support is required)
+
+
+[14:20:04.384 05/16] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 169-- 
+
+[14:20:04.590 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.609 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.609 05/16] ERROR - decode_slice_header error
+
+
+[14:20:04.609 05/16] ERROR - no frame!
+
+
+[14:20:04.721 05/16] WARN  - max delay reached. need to consume packet
+
+
+[14:20:04.721 05/16] WARN  - RTP: missed 89 packets
+
+
+[14:20:04.721 05/16] WARN  - max delay reached. need to consume packet
+
+
+[14:20:04.721 05/16] WARN  - RTP: missed 3 packets
+
+
+[14:20:04.721 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.721 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.722 05/16] ERROR - decode_slice_header error
+
+
+[14:20:04.722 05/16] ERROR - no frame!
+
+
+[14:20:04.722 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.722 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.723 05/16] ERROR - decode_slice_header error
+
+
+[14:20:04.723 05/16] ERROR - no frame!
+
+
+[14:20:04.723 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.723 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.723 05/16] ERROR - decode_slice_header error
+
+
+[14:20:04.724 05/16] ERROR - no frame!
+
+
+[14:20:04.772 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.773 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.773 05/16] ERROR - decode_slice_header error
+
+
+[14:20:04.773 05/16] ERROR - no frame!
+
+
+[14:20:04.824 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.824 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.824 05/16] ERROR - decode_slice_header error
+
+
+[14:20:04.825 05/16] ERROR - no frame!
+
+
+[14:20:04.877 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.877 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.877 05/16] ERROR - decode_slice_header error
+
+
+[14:20:04.877 05/16] ERROR - no frame!
+
+
+[14:20:04.929 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.929 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.929 05/16] ERROR - decode_slice_header error
+
+
+[14:20:04.930 05/16] ERROR - no frame!
+
+
+[14:20:04.981 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.981 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:04.981 05/16] ERROR - decode_slice_header error
+
+
+[14:20:04.981 05/16] ERROR - no frame!
+
+
+[14:20:05.033 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:05.033 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:05.033 05/16] ERROR - decode_slice_header error
+
+
+[14:20:05.034 05/16] ERROR - no frame!
+
+
+[14:20:05.348 05/16] WARN  - max delay reached. need to consume packet
+
+
+[14:20:05.349 05/16] WARN  - RTP: missed 54 packets
+
+
+[14:20:05.387 05/16] ERROR - error while decoding MB 87 64, bytestream -6
+
+
+[14:20:05.388 05/16] INFO  - concealing 442 DC, 442 AC, 442 MV errors in P frame
+
+
+[14:20:05.523 05/16] WARN  - max delay reached. need to consume packet
+
+
+[14:20:05.523 05/16] WARN  - RTP: missed 39 packets
+
+
+[14:20:05.524 05/16] ERROR - left block unavailable for requested intra mode
+
+
+[14:20:05.524 05/16] ERROR - error while decoding MB 0 5, bytestream 3844
+
+
+[14:20:05.525 05/16] INFO  - concealing 7609 DC, 7609 AC, 7609 MV errors in P frame
+
+
+[14:20:05.713 05/16] WARN  - max delay reached. need to consume packet
+
+
+[14:20:05.713 05/16] WARN  - RTP: missed 11 packets
+
+
+[14:20:06.602 05/16] INFO  - max_frame_duration: 10.000
+
+
+[14:20:06.622 05/16] INFO  - Input #0, rtsp, from 'rtsp://192.168.62.92:38554/live':
+
+
+[14:20:06.623 05/16] INFO  -   Duration: 
+
+[14:20:06.623 05/16] INFO  - N/A
+
+[14:20:06.623 05/16] INFO  - , start: 
+
+[14:20:06.624 05/16] INFO  - 0.052000
+
+[14:20:06.624 05/16] INFO  - , bitrate: 
+
+[14:20:06.625 05/16] INFO  - N/A
+
+[14:20:06.625 05/16] INFO  - 
+
+
+[14:20:06.633 05/16] INFO  -     Stream #0:0
+
+[14:20:06.634 05/16] INFO  - : Video: h264 (Main), 1 reference frame, yuv420p(progressive, left), 1920x1080 (1920x1088), 0/1
+
+[14:20:06.634 05/16] INFO  - , 
+
+[14:20:06.634 05/16] INFO  - 250 tbr, 
+
+[14:20:06.635 05/16] INFO  - 90k tbn, 
+
+[14:20:06.635 05/16] INFO  - 180k tbc
+
+[14:20:06.635 05/16] INFO  - 
+
+
+[14:20:06.643 05/16] INFO  - VideoCodec: avcodec, h264
+
+
+[14:20:06.643 05/16] WARN  - fps: 250.000000 (normal)
+
+
+[14:20:06.644 05/16] WARN  -  Start read frame
+
+[14:20:06.644 05/16] INFO  - recv ijk msg:prepared
+
+[14:20:06.645 05/16] WARN  - ffp_video_thread start
+
+[14:20:06.645 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:06.646 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:06.646 05/16] ERROR - decode_slice_header error
+
+
+[14:20:06.646 05/16] ERROR - no frame!
+
+
+[14:20:06.647 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:06.647 05/16] ERROR - decode_slice_header error
+
+
+[14:20:06.647 05/16] ERROR - no frame!
+
+
+[14:20:06.648 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:06.648 05/16] ERROR - decode_slice_header error
+
+
+[14:20:06.648 05/16] ERROR - no frame!
+
+
+[14:20:06.649 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:06.649 05/16] ERROR - decode_slice_header error
+
+
+[14:20:06.649 05/16] ERROR - no frame!
+
+
+[14:20:06.650 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:06.650 05/16] ERROR - decode_slice_header error
+
+
+[14:20:06.650 05/16] ERROR - no frame!
+
+
+[14:20:06.651 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:06.651 05/16] ERROR - decode_slice_header error
+
+
+[14:20:06.651 05/16] ERROR - no frame!
+
+
+[14:20:06.652 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:06.652 05/16] ERROR - decode_slice_header error
+
+
+[14:20:06.652 05/16] ERROR - no frame!
+
+
+[14:20:06.652 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:06.653 05/16] ERROR - decode_slice_header error
+
+
+[14:20:06.653 05/16] ERROR - no frame!
+
+
+[14:20:06.653 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:06.653 05/16] ERROR - decode_slice_header error
+
+
+[14:20:06.653 05/16] ERROR - no frame!
+
+
+[14:20:06.654 05/16] INFO  - video gop size:10
+
+[14:20:06.654 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:20:06.654 05/16] ERROR - decode_slice_header error
+
+
+[14:20:06.654 05/16] ERROR - no frame!
+
+
+[14:20:06.672 05/16] ERROR - error while decoding MB 87 64, bytestream -6
+
+
+[14:20:06.672 05/16] INFO  - concealing 442 DC, 442 AC, 442 MV errors in P frame
+
+
+[14:20:06.689 05/16] ERROR - left block unavailable for requested intra mode
+
+
+[14:20:06.690 05/16] ERROR - error while decoding MB 0 5, bytestream 3844
+
+
+[14:20:06.690 05/16] INFO  - concealing 7609 DC, 7609 AC, 7609 MV errors in P frame
+
+
+[14:20:06.752 05/16] ERROR - error while decoding MB 67 52, bytestream -16
+
+
+[14:20:06.752 05/16] INFO  - concealing 1902 DC, 1902 AC, 1902 MV errors in P frame
+
+
+[14:20:06.761 05/16] WARN  - max delay reached. need to consume packet
+
+
+[14:20:06.761 05/16] WARN  - RTP: missed 13 packets
+
+
+[14:20:06.761 05/16] INFO  - ijk buffering update, arg1:-1, arg2:556
+
+
+[14:20:06.813 05/16] INFO  - ijk buffering update, arg1:-1, arg2:604
+
+
+[14:20:06.865 05/16] INFO  - ijk buffering update, arg1:-1, arg2:617
+
+
+[14:20:06.884 05/16] INFO  - screen_w: 1920, screen_h: 1080
+
+[14:20:06.917 05/16] INFO  - ijk buffering update, arg1:-1, arg2:622
+
+
+[14:20:06.969 05/16] INFO  - ijk buffering update, arg1:-1, arg2:570
+
+
+[14:20:07.021 05/16] INFO  - ijk buffering update, arg1:-1, arg2:427
+
+
+[14:20:07.072 05/16] INFO  - ijk buffering update, arg1:-1, arg2:249
+
+
+[14:20:07.125 05/16] INFO  - ijk buffering update, arg1:-1, arg2:166
+
+
+[14:20:07.155 05/16] INFO  - video gop size:28
+
+[14:20:07.165 05/16] ERROR - error while decoding MB 1 53, bytestream -8
+
+
+[14:20:07.166 05/16] INFO  - concealing 1848 DC, 1848 AC, 1848 MV errors in I frame
+
+
+[14:20:07.177 05/16] INFO  - ijk buffering update, arg1:-1, arg2:123
+
+
+[14:20:07.229 05/16] INFO  - ijk buffering update, arg1:-1, arg2:121
+
+
+[14:20:07.241 05/16] INFO  - video decode fps:81
+
+[14:20:07.285 05/16] INFO  - ijk buffering update, arg1:-1, arg2:89
+
+
+[14:20:07.337 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:07.389 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:07.441 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:07.493 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:07.545 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:07.597 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:07.649 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:07.701 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:07.752 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:20:07.804 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:20:07.856 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:07.909 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:07.961 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:08.012 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:08.065 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:08.117 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:08.173 05/16] INFO  - ijk buffering update, arg1:-1, arg2:6
+
+
+[14:20:08.225 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:20:08.225 05/16] INFO  - video gop size:30
+
+[14:20:08.277 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:20:08.329 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:08.381 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:20:08.433 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:20:08.485 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:20:08.537 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:20:08.589 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:08.589 05/16] INFO  - video decode fps:19
+
+[14:20:08.641 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:08.697 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:08.749 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:08.801 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:08.853 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:08.905 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:08.957 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:09.009 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:09.061 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:09.113 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:09.165 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:20:09.217 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:20:09.269 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:09.321 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:09.373 05/16] INFO  - ijk buffering update, arg1:-1, arg2:9
+
+
+[14:20:09.425 05/16] INFO  - ijk buffering update, arg1:-1, arg2:5
+
+
+[14:20:09.477 05/16] INFO  - ijk buffering update, arg1:-1, arg2:5
+
+
+[14:20:09.529 05/16] INFO  - ijk buffering update, arg1:-1, arg2:1
+
+
+[14:20:09.637 05/16] INFO  - ijk buffering update, arg1:-1, arg2:1
+
+
+[14:20:09.689 05/16] INFO  - ijk buffering update, arg1:-1, arg2:1
+
+
+[14:20:09.741 05/16] INFO  - ijk buffering update, arg1:-1, arg2:2
+
+
+[14:20:09.793 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:09.793 05/16] INFO  - video gop size:30
+
+[14:20:09.845 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:20:09.896 05/16] INFO  - ijk buffering update, arg1:-1, arg2:9
+
+
+[14:20:09.948 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:20:10.001 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:20:10.053 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:20:10.109 05/16] INFO  - ijk buffering update, arg1:-1, arg2:25
+
+
+[14:20:10.161 05/16] INFO  - ijk buffering update, arg1:-1, arg2:42
+
+
+[14:20:10.161 05/16] INFO  - video decode fps:19
+
+[14:20:10.213 05/16] INFO  - ijk buffering update, arg1:-1, arg2:55
+
+
+[14:20:10.266 05/16] INFO  - ijk buffering update, arg1:-1, arg2:56
+
+
+[14:20:10.317 05/16] INFO  - ijk buffering update, arg1:-1, arg2:57
+
+
+[14:20:10.369 05/16] INFO  - ijk buffering update, arg1:-1, arg2:56
+
+
+[14:20:10.420 05/16] INFO  - ijk buffering update, arg1:-1, arg2:57
+
+
+[14:20:10.473 05/16] INFO  - ijk buffering update, arg1:-1, arg2:57
+
+
+[14:20:10.525 05/16] INFO  - ijk buffering update, arg1:-1, arg2:57
+
+
+[14:20:10.577 05/16] INFO  - ijk buffering update, arg1:-1, arg2:57
+
+
+[14:20:10.629 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:20:10.680 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:20:10.733 05/16] INFO  - ijk buffering update, arg1:-1, arg2:10
+
+
+[14:20:10.784 05/16] INFO  - ijk buffering update, arg1:-1, arg2:4
+
+
+[14:20:10.837 05/16] INFO  - ijk buffering update, arg1:-1, arg2:3
+
+
+[14:20:10.889 05/16] INFO  - ijk buffering update, arg1:-1, arg2:4
+
+
+[14:20:10.945 05/16] INFO  - ijk buffering update, arg1:-1, arg2:7
+
+
+[14:20:10.997 05/16] INFO  - ijk buffering update, arg1:-1, arg2:11
+
+
+[14:20:11.049 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:20:11.102 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:11.153 05/16] INFO  - ijk buffering update, arg1:-1, arg2:34
+
+
+[14:20:11.205 05/16] INFO  - ijk buffering update, arg1:-1, arg2:43
+
+
+[14:20:11.257 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:11.309 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:11.361 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:11.361 05/16] INFO  - video gop size:30
+
+[14:20:11.413 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:20:11.465 05/16] INFO  - ijk buffering update, arg1:-1, arg2:9
+
+
+[14:20:11.517 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:20:11.573 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:20:11.625 05/16] INFO  - ijk buffering update, arg1:-1, arg2:23
+
+
+[14:20:11.677 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:20:11.729 05/16] INFO  - ijk buffering update, arg1:-1, arg2:44
+
+
+[14:20:11.730 05/16] INFO  - video decode fps:19
+
+[14:20:11.781 05/16] INFO  - ijk buffering update, arg1:-1, arg2:44
+
+
+[14:20:11.833 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:11.885 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:11.937 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:11.990 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:12.042 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:12.094 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:12.145 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:20:12.201 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.253 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.306 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.357 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.409 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.461 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.513 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.565 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.617 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.669 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.721 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.772 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.825 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.877 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.933 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:12.933 05/16] INFO  - video gop size:30
+
+[14:20:13.037 05/16] INFO  - ijk buffering update, arg1:-1, arg2:9
+
+
+[14:20:13.089 05/16] INFO  - ijk buffering update, arg1:-1, arg2:8
+
+
+[14:20:13.141 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:20:13.194 05/16] INFO  - ijk buffering update, arg1:-1, arg2:23
+
+
+[14:20:13.246 05/16] INFO  - ijk buffering update, arg1:-1, arg2:34
+
+
+[14:20:13.297 05/16] INFO  - ijk buffering update, arg1:-1, arg2:44
+
+
+[14:20:13.297 05/16] INFO  - video decode fps:19
+
+[14:20:13.349 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:13.401 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:13.453 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:20:13.505 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:20:13.556 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:20:13.613 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:20:13.665 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:20:13.716 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:20:13.769 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:13.821 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:13.873 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:13.925 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:13.977 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:14.029 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:14.082 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:14.134 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:14.185 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:14.241 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:14.294 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:20:14.345 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:20:14.397 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:14.449 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:14.501 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:20:14.501 05/16] INFO  - video gop size:30
+
+[14:20:14.553 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:20:14.605 05/16] INFO  - ijk buffering update, arg1:-1, arg2:8
+
+
+[14:20:14.657 05/16] INFO  - ijk buffering update, arg1:-1, arg2:8
+
+
+[14:20:14.709 05/16] INFO  - ijk buffering update, arg1:-1, arg2:11
+
+
+[14:20:14.762 05/16] INFO  - ijk buffering update, arg1:-1, arg2:5
+
+
+[14:20:14.813 05/16] INFO  - ijk buffering update, arg1:-1, arg2:2
+
+
+[14:20:14.865 05/16] INFO  - ijk buffering update, arg1:-1, arg2:4
+
+
+[14:20:14.867 05/16] INFO  - video decode fps:19
+
+[14:20:14.917 05/16] INFO  - ijk buffering update, arg1:-1, arg2:10
+
+
+[14:20:14.973 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:20:15.025 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:20:15.077 05/16] INFO  - ijk buffering update, arg1:-1, arg2:44
+
+
+[14:20:15.130 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:15.182 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:15.234 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:15.286 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:15.338 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:15.389 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:15.442 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:15.493 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:15.546 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:15.597 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:20:15.650 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:20:15.705 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:15.756 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:15.809 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:15.861 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:15.913 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:15.965 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:16.017 05/16] INFO  - ijk buffering update, arg1:-1, arg2:6
+
+
+[14:20:16.069 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:16.069 05/16] INFO  - video gop size:30
+
+[14:20:16.121 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:16.172 05/16] INFO  - ijk buffering update, arg1:-1, arg2:9
+
+
+[14:20:16.225 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:20:16.277 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:20:16.334 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:20:16.385 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:20:16.437 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:16.437 05/16] INFO  - video decode fps:19
+
+[14:20:16.490 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:16.542 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:16.593 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:16.645 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:16.697 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:16.749 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:16.801 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:16.853 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:16.906 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:16.957 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:17.013 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:17.065 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:20:17.117 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:20:17.169 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:17.221 05/16] INFO  - ijk buffering update, arg1:-1, arg2:8
+
+
+[14:20:17.273 05/16] INFO  - ijk buffering update, arg1:-1, arg2:5
+
+
+[14:20:17.325 05/16] INFO  - ijk buffering update, arg1:-1, arg2:4
+
+
+[14:20:17.377 05/16] INFO  - ijk buffering update, arg1:-1, arg2:1
+
+
+[14:20:17.481 05/16] INFO  - ijk buffering update, arg1:-1, arg2:1
+
+
+[14:20:17.533 05/16] INFO  - ijk buffering update, arg1:-1, arg2:1
+
+
+[14:20:17.585 05/16] INFO  - ijk buffering update, arg1:-1, arg2:2
+
+
+[14:20:17.637 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:17.637 05/16] INFO  - video gop size:30
+
+[14:20:17.689 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:17.741 05/16] INFO  - ijk buffering update, arg1:-1, arg2:10
+
+
+[14:20:17.797 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:20:17.848 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:20:17.901 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:20:17.953 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:20:18.005 05/16] INFO  - ijk buffering update, arg1:-1, arg2:44
+
+
+[14:20:18.005 05/16] INFO  - video decode fps:19
+
+[14:20:18.057 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:18.109 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:18.162 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:18.213 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:18.265 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:18.317 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:18.373 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:18.425 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:18.478 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:18.529 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:18.581 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:18.633 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:18.686 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:20:18.737 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:18.789 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:18.841 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:18.893 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:18.946 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:18.997 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:19.049 05/16] INFO  - ijk buffering update, arg1:-1, arg2:25
+
+
+[14:20:19.105 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:19.209 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:20:19.209 05/16] INFO  - video gop size:30
+
+[14:20:19.262 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:20:19.313 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:19.365 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:20:19.418 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:20:19.469 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:20:19.521 05/16] INFO  - ijk buffering update, arg1:-1, arg2:25
+
+
+[14:20:19.573 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:20:19.574 05/16] INFO  - video decode fps:19
+
+[14:20:19.626 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:19.677 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:19.729 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:19.786 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:19.837 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:19.890 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:19.941 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:19.993 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:20:20.045 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:20.097 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:20.149 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:20.201 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:20.253 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:20.305 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:20.357 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:20.409 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:20:20.465 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:20:20.517 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:20.569 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:20.621 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:20.673 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:20.725 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:20.777 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:20:20.777 05/16] INFO  - video gop size:30
+
+[14:20:20.829 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:20:20.881 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:20.933 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:20:20.984 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:20:21.038 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:21.089 05/16] INFO  - ijk buffering update, arg1:-1, arg2:34
+
+
+[14:20:21.141 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:21.142 05/16] INFO  - video decode fps:19
+
+[14:20:21.197 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:21.249 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:21.301 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:20:21.353 05/16] INFO  - ijk buffering update, arg1:-1, arg2:10
+
+
+[14:20:21.405 05/16] INFO  - ijk buffering update, arg1:-1, arg2:8
+
+
+[14:20:21.458 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:20:21.509 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:20:21.561 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:20:21.613 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:20:21.665 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:21.717 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:21.770 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:21.822 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:21.877 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:21.930 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:21.982 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:22.034 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:22.086 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:22.137 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:22.190 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:22.241 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:20:22.293 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:20:22.345 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:20:22.345 05/16] INFO  - video gop size:30
+
+[14:20:22.397 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:20:22.450 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:22.501 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:20:22.554 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:20:22.605 05/16] INFO  - ijk buffering update, arg1:-1, arg2:6
+
+
+[14:20:22.661 05/16] INFO  - ijk buffering update, arg1:-1, arg2:7
+
+
+[14:20:22.714 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:20:22.714 05/16] INFO  - video decode fps:19
+
+[14:20:22.765 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:20:22.817 05/16] INFO  - ijk buffering update, arg1:-1, arg2:43
+
+
+[14:20:22.869 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:22.921 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:22.973 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:23.026 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:23.077 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:23.129 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:23.182 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:23.233 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:23.290 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:20:23.341 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:20:23.393 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:23.446 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:23.498 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:23.550 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:23.602 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:23.654 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:23.706 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:23.758 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:23.810 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:23.862 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:23.914 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:20:23.914 05/16] INFO  - video gop size:30
+
+[14:20:23.965 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:24.021 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:20:24.073 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:20:24.125 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:20:24.177 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:20:24.230 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:24.282 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:24.282 05/16] INFO  - video decode fps:19
+
+[14:20:24.333 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:24.386 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:24.438 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:24.490 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:24.541 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:24.593 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:24.649 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:24.701 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:24.753 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:24.805 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:20:24.857 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:20:24.909 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:24.961 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:25.013 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:25.065 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:20:25.117 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:25.169 05/16] INFO  - ijk buffering update, arg1:-1, arg2:6
+
+
+[14:20:25.221 05/16] INFO  - ijk buffering update, arg1:-1, arg2:5
+
+
+[14:20:25.273 05/16] INFO  - ijk buffering update, arg1:-1, arg2:7
+
+
+[14:20:25.325 05/16] INFO  - ijk buffering update, arg1:-1, arg2:11
+
+
+[14:20:25.381 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:20:25.486 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:20:25.486 05/16] INFO  - video gop size:30
+
+[14:20:25.537 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:20:25.589 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:25.641 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:20:25.694 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:25.745 05/16] INFO  - ijk buffering update, arg1:-1, arg2:34
+
+
+[14:20:25.797 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:25.849 05/16] INFO  - ijk buffering update, arg1:-1, arg2:44
+
+
+[14:20:25.850 05/16] INFO  - video decode fps:19
+
+[14:20:25.902 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:25.954 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:26.009 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:26.062 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:26.113 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:26.166 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:26.217 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:26.269 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:26.321 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:20:26.373 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:20:26.425 05/16] INFO  - ijk buffering update, arg1:-1, arg2:10
+
+
+[14:20:26.478 05/16] INFO  - ijk buffering update, arg1:-1, arg2:4
+
+
+[14:20:26.529 05/16] INFO  - ijk buffering update, arg1:-1, arg2:2
+
+
+[14:20:26.581 05/16] INFO  - ijk buffering update, arg1:-1, arg2:3
+
+
+[14:20:26.633 05/16] INFO  - ijk buffering update, arg1:-1, arg2:4
+
+
+[14:20:26.686 05/16] INFO  - ijk buffering update, arg1:-1, arg2:7
+
+
+[14:20:26.738 05/16] INFO  - ijk buffering update, arg1:-1, arg2:11
+
+
+[14:20:26.794 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:20:26.846 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:20:26.898 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:20:26.949 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:20:27.001 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:20:27.053 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:20:27.053 05/16] INFO  - video gop size:30
+
+[14:20:27.106 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:20:27.157 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:20:27.209 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:27.261 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:20:27.313 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:20:27.366 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:20:27.421 05/16] INFO  - ijk buffering update, arg1:-1, arg2:44
+
+
+[14:20:27.422 05/16] INFO  - video decode fps:19
+
+[14:20:27.473 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:27.525 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:27.577 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:27.629 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:27.682 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:27.734 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:27.785 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:20:27.838 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:20:27.890 05/16] INFO  - ijk buffering update, arg1:-1, arg2:27
+
+
+[14:20:27.942 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:51:35.474 05/16] INFO  - LOG INITIALISED
+
+[14:51:35.483 05/16] INFO  - av_version_info: 3.3.1
+
+
+[14:51:35.483 05/16] INFO  - ijk_version_info: k0.8.0
+
+
+[14:51:48.640 05/16] WARN  - remove rtsp://192.168.62.92:38554/live 'timeout' option for rtmp.
+
+
+[14:51:48.641 05/16] INFO  - ===== versions =====
+
+
+[14:51:48.642 05/16] INFO  - ijkplayer    : k0.8.0
+
+
+[14:51:48.642 05/16] INFO  - FFmpeg       : 3.3.1
+
+
+[14:51:48.642 05/16] INFO  - libavutil    : 55.58.100
+
+
+[14:51:48.643 05/16] INFO  - libavcodec   : 57.89.100
+
+
+[14:51:48.643 05/16] INFO  - libavformat  : 57.71.100
+
+
+[14:51:48.643 05/16] INFO  - libswscale   : 4.6.100
+
+
+[14:51:48.643 05/16] INFO  - libswresample: 2.7.100
+
+
+[14:51:48.643 05/16] INFO  - ===== options =====
+
+
+[14:51:48.644 05/16] INFO  - ===================
+
+
+[14:51:48.647 05/16] WARN  - remove 'timeout' option for rtmp.
+
+
+[14:51:48.647 05/16] WARN  - ^^^^^^^^^^^^^^^^^^^^^^^^^avformat_open_input@@@@@@@@@@@@@  1747378308647712-- 
+
+[14:51:48.675 05/16] WARN  - 'circular_buffer_size' option was set but it is not supported on this build (pthread support is required)
+
+
+[14:51:48.675 05/16] WARN  - 'circular_buffer_size' option was set but it is not supported on this build (pthread support is required)
+
+
+[14:51:48.690 05/16] WARN  - :::::::::::::::::::::::avformat_open_input@@@@@@@@@@@@@ 43-- 
+
+[14:51:48.769 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:48.775 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:48.775 05/16] ERROR - decode_slice_header error
+
+
+[14:51:48.776 05/16] ERROR - no frame!
+
+
+[14:51:48.819 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:48.819 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:48.819 05/16] ERROR - decode_slice_header error
+
+
+[14:51:48.820 05/16] ERROR - no frame!
+
+
+[14:51:48.872 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:48.872 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:48.872 05/16] ERROR - decode_slice_header error
+
+
+[14:51:48.872 05/16] ERROR - no frame!
+
+
+[14:51:48.923 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:48.923 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:48.924 05/16] ERROR - decode_slice_header error
+
+
+[14:51:48.924 05/16] ERROR - no frame!
+
+
+[14:51:48.975 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:48.975 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:48.976 05/16] ERROR - decode_slice_header error
+
+
+[14:51:48.976 05/16] ERROR - no frame!
+
+
+[14:51:49.027 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.028 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.028 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.028 05/16] ERROR - no frame!
+
+
+[14:51:49.083 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.083 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.083 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.083 05/16] ERROR - no frame!
+
+
+[14:51:49.135 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.136 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.136 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.136 05/16] ERROR - no frame!
+
+
+[14:51:49.187 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.187 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.187 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.187 05/16] ERROR - no frame!
+
+
+[14:51:49.239 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.240 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.240 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.240 05/16] ERROR - no frame!
+
+
+[14:51:49.291 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.291 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.291 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.291 05/16] ERROR - no frame!
+
+
+[14:51:49.344 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.344 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.345 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.345 05/16] ERROR - no frame!
+
+
+[14:51:49.395 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.395 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.395 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.395 05/16] ERROR - no frame!
+
+
+[14:51:49.447 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.447 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.447 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.447 05/16] ERROR - no frame!
+
+
+[14:51:49.499 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.499 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.499 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.499 05/16] ERROR - no frame!
+
+
+[14:51:49.551 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.552 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.552 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.552 05/16] ERROR - no frame!
+
+
+[14:51:49.602 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.603 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.603 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.603 05/16] ERROR - no frame!
+
+
+[14:51:49.655 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.656 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.656 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.656 05/16] ERROR - no frame!
+
+
+[14:51:49.707 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.708 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.708 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.708 05/16] ERROR - no frame!
+
+
+[14:51:49.759 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.759 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.759 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.759 05/16] ERROR - no frame!
+
+
+[14:51:49.811 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.811 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.811 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.811 05/16] ERROR - no frame!
+
+
+[14:51:49.866 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.867 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.867 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.867 05/16] ERROR - no frame!
+
+
+[14:51:49.915 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.915 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:49.915 05/16] ERROR - decode_slice_header error
+
+
+[14:51:49.916 05/16] ERROR - no frame!
+
+
+[14:51:50.179 05/16] WARN  - max delay reached. need to consume packet
+
+
+[14:51:50.179 05/16] WARN  - RTP: missed 15 packets
+
+
+[14:51:50.199 05/16] INFO  - concealing 6481 DC, 6481 AC, 6481 MV errors in P frame
+
+
+[14:51:50.387 05/16] WARN  - max delay reached. need to consume packet
+
+
+[14:51:50.388 05/16] WARN  - RTP: missed 46 packets
+
+
+[14:51:50.390 05/16] ERROR - error while decoding MB 91 10, bytestream -20
+
+
+[14:51:50.390 05/16] INFO  - concealing 6918 DC, 6918 AC, 6918 MV errors in P frame
+
+
+[14:51:50.500 05/16] WARN  - max delay reached. need to consume packet
+
+
+[14:51:50.500 05/16] WARN  - RTP: missed 7 packets
+
+
+[14:51:51.384 05/16] INFO  - max_frame_duration: 10.000
+
+
+[14:51:51.384 05/16] INFO  - Input #0, rtsp, from 'rtsp://192.168.62.92:38554/live':
+
+
+[14:51:51.384 05/16] INFO  -   Duration: 
+
+[14:51:51.384 05/16] INFO  - N/A
+
+[14:51:51.385 05/16] INFO  - , start: 
+
+[14:51:51.385 05/16] INFO  - 0.052000
+
+[14:51:51.385 05/16] INFO  - , bitrate: 
+
+[14:51:51.385 05/16] INFO  - N/A
+
+[14:51:51.385 05/16] INFO  - 
+
+
+[14:51:51.402 05/16] INFO  -     Stream #0:0
+
+[14:51:51.402 05/16] INFO  - : Video: h264 (Main), 1 reference frame, yuv420p(progressive, left), 1920x1080 (1920x1088), 0/1
+
+[14:51:51.402 05/16] INFO  - , 
+
+[14:51:51.402 05/16] INFO  - 19.17 tbr, 
+
+[14:51:51.402 05/16] INFO  - 90k tbn, 
+
+[14:51:51.402 05/16] INFO  - 180k tbc
+
+[14:51:51.402 05/16] INFO  - 
+
+
+[14:51:51.405 05/16] INFO  - VideoCodec: avcodec, h264
+
+
+[14:51:51.406 05/16] WARN  - fps: 19.166667 (normal)
+
+
+[14:51:51.406 05/16] WARN  -  Start read frame
+
+[14:51:51.407 05/16] WARN  - ffp_video_thread start
+[14:51:51.407 05/16] INFO  - recv ijk msg:prepared
+
+
+[14:51:51.407 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:51:51.408 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.408 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.408 05/16] ERROR - no frame!
+
+
+[14:51:51.409 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.409 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.409 05/16] ERROR - no frame!
+
+
+[14:51:51.410 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.410 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.410 05/16] ERROR - no frame!
+
+
+[14:51:51.411 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.411 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.411 05/16] ERROR - no frame!
+
+
+[14:51:51.412 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.412 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.412 05/16] ERROR - no frame!
+
+
+[14:51:51.413 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.413 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.413 05/16] ERROR - no frame!
+
+
+[14:51:51.414 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.414 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.415 05/16] ERROR - no frame!
+
+
+[14:51:51.415 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.415 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.415 05/16] ERROR - no frame!
+
+
+[14:51:51.415 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.415 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.415 05/16] ERROR - no frame!
+
+
+[14:51:51.416 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.416 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.416 05/16] ERROR - no frame!
+
+
+[14:51:51.416 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.416 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.416 05/16] ERROR - no frame!
+
+
+[14:51:51.417 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.417 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.417 05/16] ERROR - no frame!
+
+
+[14:51:51.417 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.417 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.417 05/16] ERROR - no frame!
+
+
+[14:51:51.417 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.418 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.418 05/16] ERROR - no frame!
+
+
+[14:51:51.418 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.418 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.418 05/16] ERROR - no frame!
+
+
+[14:51:51.418 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.419 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.419 05/16] ERROR - no frame!
+
+
+[14:51:51.419 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.419 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.419 05/16] ERROR - no frame!
+
+
+[14:51:51.419 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.419 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.420 05/16] ERROR - no frame!
+
+
+[14:51:51.420 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.420 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.420 05/16] ERROR - no frame!
+
+
+[14:51:51.420 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.420 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.420 05/16] ERROR - no frame!
+
+
+[14:51:51.421 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.421 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.421 05/16] ERROR - no frame!
+
+
+[14:51:51.421 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.421 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.421 05/16] ERROR - no frame!
+
+
+[14:51:51.421 05/16] INFO  - video gop size:23
+
+[14:51:51.421 05/16] ERROR - non-existing PPS 0 referenced
+
+
+[14:51:51.421 05/16] ERROR - decode_slice_header error
+
+
+[14:51:51.422 05/16] ERROR - no frame!
+
+
+[14:51:51.429 05/16] INFO  - concealing 6481 DC, 6481 AC, 6481 MV errors in P frame
+
+
+[14:51:51.482 05/16] ERROR - error while decoding MB 91 10, bytestream -20
+
+
+[14:51:51.482 05/16] INFO  - concealing 6918 DC, 6918 AC, 6918 MV errors in P frame
+
+
+[14:51:51.487 05/16] INFO  - ijk buffering update, arg1:-1, arg2:521
+
+
+[14:51:51.507 05/16] INFO  - screen_w: 1920, screen_h: 1080
+
+[14:51:51.526 05/16] ERROR - left block unavailable for requested intra mode
+
+
+[14:51:51.526 05/16] ERROR - error while decoding MB 0 27, bytestream 84217
+
+
+[14:51:51.527 05/16] INFO  - concealing 4969 DC, 4969 AC, 4969 MV errors in P frame
+
+
+[14:51:51.539 05/16] INFO  - ijk buffering update, arg1:-1, arg2:450
+
+
+[14:51:51.591 05/16] INFO  - ijk buffering update, arg1:-1, arg2:377
+
+
+[14:51:51.644 05/16] INFO  - ijk buffering update, arg1:-1, arg2:279
+
+
+[14:51:51.695 05/16] INFO  - ijk buffering update, arg1:-1, arg2:205
+
+
+[14:51:51.747 05/16] INFO  - ijk buffering update, arg1:-1, arg2:138
+
+
+[14:51:51.776 05/16] INFO  - video gop size:30
+
+[14:51:51.799 05/16] INFO  - ijk buffering update, arg1:-1, arg2:64
+
+
+[14:51:51.839 05/16] INFO  - video decode fps:80
+
+[14:51:51.851 05/16] INFO  - ijk buffering update, arg1:-1, arg2:8
+
+
+[14:51:51.903 05/16] INFO  - ijk buffering update, arg1:-1, arg2:10
+
+
+[14:51:51.959 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:51:52.011 05/16] INFO  - ijk buffering update, arg1:-1, arg2:36
+
+
+[14:51:52.064 05/16] INFO  - ijk buffering update, arg1:-1, arg2:49
+
+
+[14:51:52.116 05/16] INFO  - ijk buffering update, arg1:-1, arg2:50
+
+
+[14:51:52.168 05/16] INFO  - ijk buffering update, arg1:-1, arg2:50
+
+
+[14:51:52.220 05/16] INFO  - ijk buffering update, arg1:-1, arg2:50
+
+
+[14:51:52.272 05/16] INFO  - ijk buffering update, arg1:-1, arg2:50
+
+
+[14:51:52.323 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:51:52.375 05/16] INFO  - ijk buffering update, arg1:-1, arg2:34
+
+
+[14:51:52.428 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:52.479 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:52.531 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:52.587 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:52.639 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:51:52.691 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:51:52.743 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:51:52.794 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:51:52.847 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:51:52.898 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:51:52.951 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:51:53.003 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:51:53.055 05/16] INFO  - ijk buffering update, arg1:-1, arg2:11
+
+
+[14:51:53.107 05/16] INFO  - ijk buffering update, arg1:-1, arg2:29
+
+
+[14:51:53.108 05/16] INFO  - video gop size:30
+
+[14:51:53.159 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:51:53.211 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:51:53.264 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:51:53.319 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:51:53.372 05/16] INFO  - ijk buffering update, arg1:-1, arg2:30
+
+
+[14:51:53.373 05/16] INFO  - video decode fps:19
+
+[14:51:53.423 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:51:53.475 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:53.527 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:53.579 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:53.631 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:53.683 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:53.735 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:53.787 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:53.839 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:53.891 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:53.943 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:53.999 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:54.051 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:54.103 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:54.155 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:54.207 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:54.259 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:51:54.311 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:51:54.363 05/16] INFO  - ijk buffering update, arg1:-1, arg2:5
+
+
+[14:51:54.415 05/16] INFO  - ijk buffering update, arg1:-1, arg2:2
+
+
+[14:51:54.467 05/16] INFO  - ijk buffering update, arg1:-1, arg2:6
+
+
+[14:51:54.519 05/16] INFO  - ijk buffering update, arg1:-1, arg2:9
+
+
+[14:51:54.571 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:51:54.623 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:51:54.676 05/16] INFO  - ijk buffering update, arg1:-1, arg2:29
+
+
+[14:51:54.680 05/16] INFO  - video gop size:30
+
+[14:51:54.727 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:51:54.783 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:51:54.835 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:51:54.888 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:51:54.940 05/16] INFO  - ijk buffering update, arg1:-1, arg2:30
+
+
+[14:51:54.940 05/16] INFO  - video decode fps:19
+
+[14:51:54.991 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:51:55.043 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:51:55.096 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:51:55.148 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:51:55.200 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:51:55.251 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:51:55.303 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:51:55.359 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:51:55.411 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:51:55.463 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:51:55.515 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:51:55.567 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:51:55.619 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:51:55.671 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:51:55.723 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:51:55.776 05/16] INFO  - ijk buffering update, arg1:-1, arg2:23
+
+
+[14:51:55.828 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:55.879 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:55.931 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:55.983 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:56.035 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:56.092 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:56.143 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:56.195 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:56.247 05/16] INFO  - ijk buffering update, arg1:-1, arg2:29
+
+
+[14:51:56.248 05/16] INFO  - video gop size:30
+
+[14:51:56.299 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:51:56.351 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:51:56.403 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:51:56.455 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:51:56.507 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:51:56.508 05/16] INFO  - video decode fps:19
+
+[14:51:56.559 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:51:56.612 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:51:56.663 05/16] INFO  - ijk buffering update, arg1:-1, arg2:45
+
+
+[14:51:56.719 05/16] INFO  - ijk buffering update, arg1:-1, arg2:61
+
+
+[14:51:56.772 05/16] INFO  - ijk buffering update, arg1:-1, arg2:63
+
+
+[14:51:56.824 05/16] INFO  - ijk buffering update, arg1:-1, arg2:64
+
+
+[14:51:56.876 05/16] INFO  - ijk buffering update, arg1:-1, arg2:64
+
+
+[14:51:56.928 05/16] INFO  - ijk buffering update, arg1:-1, arg2:52
+
+
+[14:51:56.979 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:51:57.031 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:51:57.083 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:57.136 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:57.188 05/16] INFO  - ijk buffering update, arg1:-1, arg2:23
+
+
+[14:51:57.239 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:57.291 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:57.343 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:57.396 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:57.447 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:57.505 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:57.607 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:57.660 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:57.712 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:57.764 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:57.815 05/16] INFO  - ijk buffering update, arg1:-1, arg2:29
+
+
+[14:51:57.815 05/16] INFO  - video gop size:30
+
+[14:51:57.867 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:51:57.919 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:51:57.971 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:51:58.024 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:51:58.076 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:51:58.076 05/16] INFO  - video decode fps:19
+
+[14:51:58.132 05/16] INFO  - ijk buffering update, arg1:-1, arg2:36
+
+
+[14:51:58.184 05/16] INFO  - ijk buffering update, arg1:-1, arg2:48
+
+
+[14:51:58.235 05/16] INFO  - ijk buffering update, arg1:-1, arg2:62
+
+
+[14:51:58.287 05/16] INFO  - ijk buffering update, arg1:-1, arg2:63
+
+
+[14:51:58.340 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:51:58.392 05/16] INFO  - ijk buffering update, arg1:-1, arg2:25
+
+
+[14:51:58.443 05/16] INFO  - ijk buffering update, arg1:-1, arg2:23
+
+
+[14:51:58.495 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:58.547 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:58.599 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:58.652 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:58.703 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:58.755 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:58.807 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:58.863 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:58.915 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:58.967 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:59.019 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:59.071 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:59.123 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:59.175 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:59.227 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:59.280 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:59.331 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:51:59.383 05/16] INFO  - ijk buffering update, arg1:-1, arg2:29
+
+
+[14:51:59.383 05/16] INFO  - video gop size:30
+
+[14:51:59.435 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:51:59.487 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:51:59.540 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:51:59.596 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:51:59.647 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:51:59.648 05/16] INFO  - video decode fps:19
+
+[14:51:59.699 05/16] INFO  - ijk buffering update, arg1:-1, arg2:11
+
+
+[14:51:59.751 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:51:59.803 05/16] INFO  - ijk buffering update, arg1:-1, arg2:30
+
+
+[14:51:59.855 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:51:59.907 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:51:59.959 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:00.012 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:00.064 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:00.116 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:00.168 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:00.224 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:52:00.276 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:00.328 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:00.381 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:00.432 05/16] INFO  - ijk buffering update, arg1:-1, arg2:34
+
+
+[14:52:00.483 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:00.535 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:52:00.588 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:52:00.639 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:52:00.691 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:52:00.743 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:52:00.796 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:52:00.847 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:52:00.899 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:52:00.952 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:52:00.952 05/16] INFO  - video gop size:30
+
+[14:52:01.008 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:52:01.060 05/16] INFO  - ijk buffering update, arg1:-1, arg2:11
+
+
+[14:52:01.111 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:52:01.163 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:52:01.216 05/16] INFO  - ijk buffering update, arg1:-1, arg2:30
+
+
+[14:52:01.217 05/16] INFO  - video decode fps:19
+
+[14:52:01.268 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:01.320 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:01.371 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:01.423 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:01.476 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:01.528 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:01.584 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:01.636 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:01.688 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:01.739 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:01.791 05/16] INFO  - ijk buffering update, arg1:-1, arg2:34
+
+
+[14:52:01.844 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:01.896 05/16] INFO  - ijk buffering update, arg1:-1, arg2:34
+
+
+[14:52:01.948 05/16] INFO  - ijk buffering update, arg1:-1, arg2:34
+
+
+[14:52:02.000 05/16] INFO  - ijk buffering update, arg1:-1, arg2:34
+
+
+[14:52:02.052 05/16] INFO  - ijk buffering update, arg1:-1, arg2:34
+
+
+[14:52:02.104 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:02.156 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:52:02.208 05/16] INFO  - ijk buffering update, arg1:-1, arg2:8
+
+
+[14:52:02.260 05/16] INFO  - ijk buffering update, arg1:-1, arg2:5
+
+
+[14:52:02.311 05/16] INFO  - ijk buffering update, arg1:-1, arg2:9
+
+
+[14:52:02.367 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:52:02.420 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:52:02.472 05/16] INFO  - ijk buffering update, arg1:-1, arg2:31
+
+
+[14:52:02.523 05/16] INFO  - ijk buffering update, arg1:-1, arg2:30
+
+
+[14:52:02.524 05/16] INFO  - video gop size:30
+
+[14:52:02.576 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:52:02.628 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:52:02.680 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:52:02.732 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:52:02.784 05/16] INFO  - ijk buffering update, arg1:-1, arg2:31
+
+
+[14:52:02.784 05/16] INFO  - video decode fps:19
+
+[14:52:02.836 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:52:02.888 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:02.944 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:02.995 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:52:03.047 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:52:03.100 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:52:03.152 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:52:03.204 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:52:03.256 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:03.308 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:52:03.360 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:52:03.411 05/16] INFO  - ijk buffering update, arg1:-1, arg2:34
+
+
+[14:52:03.463 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:52:03.516 05/16] INFO  - ijk buffering update, arg1:-1, arg2:9
+
+
+[14:52:03.568 05/16] INFO  - ijk buffering update, arg1:-1, arg2:7
+
+
+[14:52:03.620 05/16] INFO  - ijk buffering update, arg1:-1, arg2:6
+
+
+[14:52:03.671 05/16] INFO  - ijk buffering update, arg1:-1, arg2:10
+
+
+[14:52:03.728 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:52:03.779 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:52:03.832 05/16] INFO  - ijk buffering update, arg1:-1, arg2:31
+
+
+[14:52:03.884 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:03.936 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:03.987 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:04.040 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:04.092 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:52:04.092 05/16] INFO  - video gop size:30
+
+[14:52:04.143 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:52:04.195 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:52:04.247 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:52:04.299 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:52:04.352 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:52:04.352 05/16] INFO  - video decode fps:19
+
+[14:52:04.407 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:52:04.460 05/16] INFO  - ijk buffering update, arg1:-1, arg2:37
+
+
+[14:52:04.512 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:52:04.564 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:52:04.616 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:52:04.668 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:04.720 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:04.772 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:04.824 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:52:04.876 05/16] INFO  - ijk buffering update, arg1:-1, arg2:25
+
+
+[14:52:04.927 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:52:04.979 05/16] INFO  - ijk buffering update, arg1:-1, arg2:11
+
+
+[14:52:05.032 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:52:05.088 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:52:05.139 05/16] INFO  - ijk buffering update, arg1:-1, arg2:30
+
+
+[14:52:05.191 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:05.243 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:05.296 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:05.348 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:05.400 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:05.451 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:05.504 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:05.556 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:05.607 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:05.660 05/16] INFO  - ijk buffering update, arg1:-1, arg2:29
+
+
+[14:52:05.660 05/16] INFO  - video gop size:30
+
+[14:52:05.711 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:52:05.763 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:52:05.815 05/16] INFO  - ijk buffering update, arg1:-1, arg2:11
+
+
+[14:52:05.872 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:52:05.923 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:52:05.924 05/16] INFO  - video decode fps:19
+
+[14:52:05.975 05/16] INFO  - ijk buffering update, arg1:-1, arg2:30
+
+
+[14:52:06.028 05/16] INFO  - ijk buffering update, arg1:-1, arg2:38
+
+
+[14:52:06.079 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:52:06.132 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:52:06.184 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:06.235 05/16] INFO  - ijk buffering update, arg1:-1, arg2:22
+
+
+[14:52:06.288 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:52:06.340 05/16] INFO  - ijk buffering update, arg1:-1, arg2:11
+
+
+[14:52:06.391 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:52:06.444 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:52:06.499 05/16] INFO  - ijk buffering update, arg1:-1, arg2:30
+
+
+[14:52:06.551 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:06.604 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:06.656 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:06.708 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:06.760 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:06.812 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:06.864 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:06.918 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:07.019 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:07.072 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:07.124 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:07.176 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:07.232 05/16] INFO  - ijk buffering update, arg1:-1, arg2:29
+
+
+[14:52:07.232 05/16] INFO  - video gop size:30
+
+[14:52:07.283 05/16] INFO  - ijk buffering update, arg1:-1, arg2:23
+
+
+[14:52:07.335 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:52:07.388 05/16] INFO  - ijk buffering update, arg1:-1, arg2:11
+
+
+[14:52:07.439 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:52:07.492 05/16] INFO  - ijk buffering update, arg1:-1, arg2:7
+
+
+[14:52:07.493 05/16] INFO  - video decode fps:19
+
+[14:52:07.543 05/16] INFO  - ijk buffering update, arg1:-1, arg2:3
+
+
+[14:52:07.596 05/16] INFO  - ijk buffering update, arg1:-1, arg2:6
+
+
+[14:52:07.647 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:52:07.699 05/16] INFO  - ijk buffering update, arg1:-1, arg2:28
+
+
+[14:52:07.752 05/16] INFO  - ijk buffering update, arg1:-1, arg2:47
+
+
+[14:52:07.808 05/16] INFO  - ijk buffering update, arg1:-1, arg2:49
+
+
+[14:52:07.860 05/16] INFO  - ijk buffering update, arg1:-1, arg2:50
+
+
+[14:52:07.911 05/16] INFO  - ijk buffering update, arg1:-1, arg2:50
+
+
+[14:52:07.963 05/16] INFO  - ijk buffering update, arg1:-1, arg2:50
+
+
+[14:52:08.015 05/16] INFO  - ijk buffering update, arg1:-1, arg2:50
+
+
+[14:52:08.068 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:08.120 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:08.172 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:08.224 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:08.276 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:08.328 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:08.380 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:08.431 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:08.484 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:52:08.536 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:52:08.587 05/16] INFO  - ijk buffering update, arg1:-1, arg2:7
+
+
+[14:52:08.640 05/16] INFO  - ijk buffering update, arg1:-1, arg2:6
+
+
+[14:52:08.695 05/16] INFO  - ijk buffering update, arg1:-1, arg2:6
+
+
+[14:52:08.747 05/16] INFO  - ijk buffering update, arg1:-1, arg2:6
+
+
+[14:52:08.799 05/16] INFO  - ijk buffering update, arg1:-1, arg2:29
+
+
+[14:52:08.799 05/16] INFO  - video gop size:30
+
+[14:52:08.852 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:52:08.903 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:52:08.956 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:52:09.008 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:52:09.059 05/16] INFO  - ijk buffering update, arg1:-1, arg2:30
+
+
+[14:52:09.060 05/16] INFO  - video decode fps:19
+
+[14:52:09.112 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:09.164 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:09.220 05/16] INFO  - ijk buffering update, arg1:-1, arg2:32
+
+
+[14:52:09.272 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:09.324 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:09.376 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:09.428 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:09.480 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:09.532 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:09.583 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:09.636 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:09.688 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:09.740 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:09.792 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:09.844 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:09.896 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:09.948 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:10.000 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:52:10.056 05/16] INFO  - ijk buffering update, arg1:-1, arg2:8
+
+
+[14:52:10.108 05/16] INFO  - ijk buffering update, arg1:-1, arg2:4
+
+
+[14:52:10.159 05/16] INFO  - ijk buffering update, arg1:-1, arg2:10
+
+
+[14:52:10.212 05/16] INFO  - ijk buffering update, arg1:-1, arg2:14
+
+
+[14:52:10.264 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:52:10.316 05/16] INFO  - ijk buffering update, arg1:-1, arg2:30
+
+
+[14:52:10.367 05/16] INFO  - ijk buffering update, arg1:-1, arg2:29
+
+
+[14:52:10.368 05/16] INFO  - video gop size:30
+
+[14:52:10.419 05/16] INFO  - ijk buffering update, arg1:-1, arg2:18
+
+
+[14:52:10.472 05/16] INFO  - ijk buffering update, arg1:-1, arg2:12
+
+
+[14:52:10.524 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:52:10.576 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:52:10.632 05/16] INFO  - ijk buffering update, arg1:-1, arg2:30
+
+
+[14:52:10.633 05/16] INFO  - video decode fps:19
+
+[14:52:10.684 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:52:10.736 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:10.788 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:10.840 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:10.892 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:52:10.944 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:52:10.996 05/16] INFO  - ijk buffering update, arg1:-1, arg2:40
+
+
+[14:52:11.048 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:52:11.100 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:52:11.152 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:52:11.204 05/16] INFO  - ijk buffering update, arg1:-1, arg2:41
+
+
+[14:52:11.256 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:52:11.308 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:52:11.360 05/16] INFO  - ijk buffering update, arg1:-1, arg2:9
+
+
+[14:52:11.411 05/16] INFO  - ijk buffering update, arg1:-1, arg2:5
+
+
+[14:52:11.468 05/16] INFO  - ijk buffering update, arg1:-1, arg2:7
+
+
+[14:52:11.520 05/16] INFO  - ijk buffering update, arg1:-1, arg2:11
+
+
+[14:52:11.572 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:52:11.624 05/16] INFO  - ijk buffering update, arg1:-1, arg2:23
+
+
+[14:52:11.676 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:11.728 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:52:11.780 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:52:11.832 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:52:11.884 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:52:11.936 05/16] INFO  - ijk buffering update, arg1:-1, arg2:31
+
+
+[14:52:11.937 05/16] INFO  - video gop size:30
+
+[14:52:11.987 05/16] INFO  - ijk buffering update, arg1:-1, arg2:20
+
+
+[14:52:12.040 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:52:12.096 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:52:12.147 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:52:12.200 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:52:12.201 05/16] INFO  - video decode fps:19
+
+[14:52:12.251 05/16] INFO  - ijk buffering update, arg1:-1, arg2:23
+
+
+[14:52:12.304 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:12.356 05/16] INFO  - ijk buffering update, arg1:-1, arg2:42
+
+
+[14:52:12.408 05/16] INFO  - ijk buffering update, arg1:-1, arg2:43
+
+
+[14:52:12.460 05/16] INFO  - ijk buffering update, arg1:-1, arg2:43
+
+
+[14:52:12.512 05/16] INFO  - ijk buffering update, arg1:-1, arg2:43
+
+
+[14:52:12.564 05/16] INFO  - ijk buffering update, arg1:-1, arg2:43
+
+
+[14:52:12.616 05/16] INFO  - ijk buffering update, arg1:-1, arg2:43
+
+
+[14:52:12.671 05/16] INFO  - ijk buffering update, arg1:-1, arg2:43
+
+
+[14:52:12.724 05/16] INFO  - ijk buffering update, arg1:-1, arg2:27
+
+
+[14:52:12.776 05/16] INFO  - ijk buffering update, arg1:-1, arg2:26
+
+
+[14:52:12.828 05/16] INFO  - ijk buffering update, arg1:-1, arg2:25
+
+
+[14:52:12.879 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:12.932 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:12.983 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:13.035 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:13.087 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:13.140 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:13.192 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:13.244 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:13.297 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:13.348 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:13.404 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:13.508 05/16] INFO  - ijk buffering update, arg1:-1, arg2:30
+
+
+[14:52:13.508 05/16] INFO  - video gop size:30
+
+[14:52:13.560 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:52:13.612 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:52:13.664 05/16] INFO  - ijk buffering update, arg1:-1, arg2:15
+
+
+[14:52:13.716 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:52:13.769 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:52:13.769 05/16] INFO  - video decode fps:19
+
+[14:52:13.820 05/16] INFO  - ijk buffering update, arg1:-1, arg2:31
+
+
+[14:52:13.872 05/16] INFO  - ijk buffering update, arg1:-1, arg2:39
+
+
+[14:52:13.924 05/16] INFO  - ijk buffering update, arg1:-1, arg2:49
+
+
+[14:52:13.976 05/16] INFO  - ijk buffering update, arg1:-1, arg2:50
+
+
+[14:52:14.028 05/16] INFO  - ijk buffering update, arg1:-1, arg2:35
+
+
+[14:52:14.079 05/16] INFO  - ijk buffering update, arg1:-1, arg2:19
+
+
+[14:52:14.133 05/16] INFO  - ijk buffering update, arg1:-1, arg2:17
+
+
+[14:52:14.188 05/16] INFO  - ijk buffering update, arg1:-1, arg2:16
+
+
+[14:52:14.240 05/16] INFO  - ijk buffering update, arg1:-1, arg2:21
+
+
+[14:52:14.292 05/16] INFO  - ijk buffering update, arg1:-1, arg2:31
+
+
+[14:52:14.344 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:14.396 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:14.447 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:14.500 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:14.551 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:14.603 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:14.656 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:14.708 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:14.763 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:14.816 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:14.867 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:14.920 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:14.972 05/16] INFO  - ijk buffering update, arg1:-1, arg2:33
+
+
+[14:52:15.024 05/16] INFO  - ijk buffering update, arg1:-1, arg2:24
+
+
+[14:52:15.076 05/16] INFO  - ijk buffering update, arg1:-1, arg2:29
+
+
+[14:52:15.076 05/16] INFO  - video gop size:30
+
+[14:52:15.127 05/16] INFO  - ijk buffering update, arg1:-1, arg2:23
+
+
+[14:52:15.180 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+
+[14:52:15.232 05/16] INFO  - ijk buffering update, arg1:-1, arg2:7
+
+
+[14:52:15.284 05/16] INFO  - ijk buffering update, arg1:-1, arg2:7
+
+
+[14:52:15.336 05/16] INFO  - ijk buffering update, arg1:-1, arg2:3
+
+
+[14:52:15.337 05/16] INFO  - video decode fps:19
+
+[14:52:15.388 05/16] INFO  - ijk buffering update, arg1:-1, arg2:1
+
+
+[14:52:15.439 05/16] INFO  - ijk buffering update, arg1:-1, arg2:2
+
+
+[14:52:15.492 05/16] INFO  - ijk buffering update, arg1:-1, arg2:5
+
+
+[14:52:15.548 05/16] INFO  - ijk buffering update, arg1:-1, arg2:13
+
+

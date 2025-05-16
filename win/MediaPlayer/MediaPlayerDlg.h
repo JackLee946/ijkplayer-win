@@ -37,16 +37,17 @@ protected:
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedButtonFileBrowse();
 	afx_msg void OnBnClickedButtonStart();
 	afx_msg void OnBnClickedButtonPause();
-	afx_msg void OnBnClickedButtonStop();
 	afx_msg void OnBnClickedButtonInfo();
 
 private:
 	int Init();
+	void UpdatePlayProgress();
 
 	friend void video_callback(void* opaque, IjkVideoFrame* frame_callback);
 	friend void msg_callback(void* opaque, IjkMsgState ijk_msgint, int arg1, int arg2);

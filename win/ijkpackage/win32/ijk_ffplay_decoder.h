@@ -21,6 +21,12 @@ extern "C" {
 #include "ijk_frame.h"
 #include "ijk_metadata.h"
 
+#define IJK_OPT_CATEGORY_FORMAT 1
+#define IJK_OPT_CATEGORY_CODEC  2
+#define IJK_OPT_CATEGORY_SWS    3
+#define IJK_OPT_CATEGORY_PLAYER 4
+#define IJK_OPT_CATEGORY_SWR    5
+
 //get video or audio info 
 #define FLOAT_VIDEO_DECODE_FRAMES_PER_SECOND   10001
 #define FLOAT_VIDEO_OUTPUT_FRAMES_PER_SECOND   10002

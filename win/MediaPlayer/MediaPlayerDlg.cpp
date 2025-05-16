@@ -12,6 +12,8 @@
 #define new DEBUG_NEW
 #endif
 
+#define TIMER_UPDATE_UI 1
+
 std::string CStringToStdString(const CString& cstr, UINT codePage = CP_ACP) {
 #ifdef _UNICODE
 	// Unicode环境：宽字符 → 多字节
@@ -81,10 +83,10 @@ BEGIN_MESSAGE_MAP(CMediaPlayerDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_BUTTON_FILE_BROWSE, &CMediaPlayerDlg::OnBnClickedButtonFileBrowse)
 	ON_BN_CLICKED(IDC_BUTTON_START, &CMediaPlayerDlg::OnBnClickedButtonStart)
 	ON_BN_CLICKED(IDC_BUTTON_PAUSE, &CMediaPlayerDlg::OnBnClickedButtonPause)
-	ON_BN_CLICKED(IDC_BUTTON_STOP, &CMediaPlayerDlg::OnBnClickedButtonStop)
 	ON_BN_CLICKED(IDC_BUTTON_INFO, &CMediaPlayerDlg::OnBnClickedButtonInfo)
 END_MESSAGE_MAP()
 
@@ -173,6 +175,16 @@ void CMediaPlayerDlg::OnPaint()
 HCURSOR CMediaPlayerDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
+}
+
+void CMediaPlayerDlg::OnTimer(UINT_PTR nIDEvent)
+{
+	if (nIDEvent == 1)  // 检查是我们设置的定时器
+	{
+		UpdatePlayProgress();
+	}
+
+	CDialogEx::OnTimer(nIDEvent);  // 调用基类处理
 }
 
 static void log_callback(void*, int level, const char* szFmt, va_list varg)
@@ -297,10 +309,13 @@ void msg_callback(void* opaque, IjkMsgState ijk_msgint, int arg1, int arg2)
 	case IJK_MSG_VIDEO_ROTATION_CHANGED:
 		break;
 	case IJK_MSG_BUFFERING_START:
+		Log::Info("ijk buffering start, arg1:%d, arg2:%d\n", arg1, arg2);
 		break;
 	case IJK_MSG_BUFFERING_END:
+		Log::Info("ijk buffering end, arg1:%d, arg2:%d\n", arg1, arg2);
 		break;
 	case IJK_MSG_BUFFERING_UPDATE:
+		Log::Info("ijk buffering update, arg1:%d, arg2:%d\n", arg1, arg2);
 		break;
 	case IJK_MSG_BUFFERING_BYTES_UPDATE:
 		break;
@@ -340,14 +355,16 @@ int CMediaPlayerDlg::Init()
 	m_ijk_decoder = ijkFfplayDecoder_create();
 	ijkFfplayDecoder_setDecoderCallBack(m_ijk_decoder, NULL, decoder_callback);
 	ijkFfplayDecoder_setHwDecoderName(m_ijk_decoder, NULL);
-	//ijkFfplayDecoder_setOptionLongValue(m_ijk_decoder, IJK_OPT_CATEGORY_PLAYER, "videoscale", 1);
-	//ijkFfplayDecoder_setOptionStringValue(m_ijk_decoder, IJK_OPT_CATEGORY_PLAYER, "videofit", "fit");
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
 	HWND hWnd = GetDlgItem(IDC_STATIC_SCREEN)->GetSafeHwnd();
 	m_screen = SDL_CreateWindowFrom(hWnd);
-	//SDL_ShowWindow(m_screen);
 	m_nv12_data = (char*)malloc(4 * 1024 * 1024);
 	return 0;
+}
+
+void CMediaPlayerDlg::UpdatePlayProgress()
+{
+
 }
 
 void CMediaPlayerDlg::OnBnClickedButtonFileBrowse()
@@ -416,23 +433,40 @@ void CMediaPlayerDlg::OnBnClickedButtonStart()
 		return;
 	}
 
-	std::string filePath = CStringToStdString(strfilePath);
-	ijkFfplayDecoder_setDataSource(m_ijk_decoder, filePath.c_str());
-	ijkFfplayDecoder_prepare(m_ijk_decoder);
+	static bool is_start = false;
+
+	if (!is_start)
+	{
+		std::string filePath = CStringToStdString(strfilePath);
+		ijkFfplayDecoder_setDataSource(m_ijk_decoder, filePath.c_str());
+		ijkFfplayDecoder_prepare(m_ijk_decoder);
+		SetTimer(TIMER_UPDATE_UI, 1000, NULL);
+		is_start = true;
+	}
+	else
+	{
+		ijkFfplayDecoder_pause(m_ijk_decoder);
+		ijkFfplayDecoder_stop(m_ijk_decoder);
+		is_start = false;
+	}
+
 }
 
 
 void CMediaPlayerDlg::OnBnClickedButtonPause()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	static bool is_pause = false;
+	if (!is_pause) {
+		printf("pause player now.\n");
+		is_pause = true;
+		ijkFfplayDecoder_pause(m_ijk_decoder);
+	}
+	else {
+		printf("resume player now.\n");
+		is_pause = false;
+		ijkFfplayDecoder_start(m_ijk_decoder);
+	}
 }
-
-
-void CMediaPlayerDlg::OnBnClickedButtonStop()
-{
-	// TODO: 在此添加控件通知处理程序代码
-}
-
 
 void CMediaPlayerDlg::OnBnClickedButtonInfo()
 {

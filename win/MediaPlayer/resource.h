@@ -12,10 +12,11 @@
 #define IDC_SLIDER_PROGRESS             1003
 #define IDC_BUTTON_START                1004
 #define IDC_BUTTON_PAUSE                1005
-#define IDC_BUTTON_STOP                 1006
 #define IDC_BUTTON_INFO                 1007
 #define IDC_BUTTON_START5               1008
 #define IDC_STATIC_SCREEN               1009
+#define IDC_STATIC_CURTIME              1010
+#define IDC_STATIC_DURATION             1011
 
 // Next default values for new objects
 // 
@@ -23,7 +24,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1010
+#define _APS_NEXT_CONTROL_VALUE         1012
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif
