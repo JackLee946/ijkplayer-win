@@ -96,6 +96,7 @@
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>../depend/ffmpeg/include/;../depend/pthread-win32/include/;../depend/sdl2/include/;../depend/iLog3/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -104,6 +105,7 @@
       <AdditionalLibraryDirectories>../depend/ffmpeg/lib/;../depend/pthread-win32/lib/;../depend/sdl2/lib/;../Release/;../depend/iLog3/lib/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>avcodec.lib;avformat.lib;avutil.lib;avfilter.lib;swresample.lib;swscale.lib;SDL2.lib;SDL2main.lib;ijkwin.lib;pthreadVC2.lib;dsound.lib;ws2_32.lib;winmm.lib;iLog3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -187,6 +189,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="InfoDialog.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="logging.h" />
     <ClInclude Include="MediaPlayer.h" />
@@ -196,6 +199,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="InfoDialog.cpp" />
     <ClCompile Include="logging.cpp" />
     <ClCompile Include="MediaPlayer.cpp" />
     <ClCompile Include="MediaPlayerDlg.cpp" />

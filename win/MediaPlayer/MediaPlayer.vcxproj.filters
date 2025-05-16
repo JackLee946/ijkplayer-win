@@ -36,6 +36,9 @@
     <ClInclude Include="logging.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="InfoDialog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MediaPlayer.cpp">
@@ -48,6 +51,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="logging.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="InfoDialog.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

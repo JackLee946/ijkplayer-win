@@ -73,7 +73,8 @@ CMediaPlayerDlg::CMediaPlayerDlg(CWnd* pParent /*=nullptr*/)
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	m_sdl_init_flag = false;
     m_lastPosition = 0;
-    m_isSeeking = false;	
+    m_isSeeking = false;
+	m_bInfoShowing = false;
 }
 
 void CMediaPlayerDlg::DoDataExchange(CDataExchange* pDX)
@@ -87,6 +88,7 @@ BEGIN_MESSAGE_MAP(CMediaPlayerDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_WM_TIMER()
 	ON_WM_HSCROLL()
+    ON_WM_CTLCOLOR()
 	ON_BN_CLICKED(IDC_BUTTON_FILE_BROWSE, &CMediaPlayerDlg::OnBnClickedButtonFileBrowse)
 	ON_BN_CLICKED(IDC_BUTTON_START, &CMediaPlayerDlg::OnBnClickedButtonStart)
 	ON_BN_CLICKED(IDC_BUTTON_PAUSE, &CMediaPlayerDlg::OnBnClickedButtonPause)
@@ -132,7 +134,6 @@ BOOL CMediaPlayerDlg::OnInitDialog()
     // 初始化时间显示
     SetDlgItemText(IDC_STATIC_CURTIME, _T("00:00"));
 	SetDlgItemText(IDC_STATIC_DURATION, _T("00:00"));
-
 	// TODO: 在此添加额外的初始化代码
 	Init();
 
@@ -194,6 +195,12 @@ void CMediaPlayerDlg::OnTimer(UINT_PTR nIDEvent)
 	{
 		UpdatePlayProgress();
 	}
+
+    static int infoUpdateCount = 0;
+    if (++infoUpdateCount % 2 == 0) // 每10次更新一次信息
+    {
+        UpdateMediaInfo();
+    }
 
 	CDialogEx::OnTimer(nIDEvent);  // 调用基类处理
 }
@@ -263,6 +270,7 @@ void video_callback(void* opaque, IjkVideoFrame* frame_callback)
 		g_pDlg->m_sdl_init_flag = true;
 		Log::Info("screen_w: %d, screen_h: %d", screen_w, screen_h);
 	}
+
 
 	if (frame_callback->format == PIX_FMT_YUV420P)
 	{
@@ -371,6 +379,28 @@ int CMediaPlayerDlg::Init()
 	m_screen = SDL_CreateWindowFrom(hWnd);
 	m_nv12_data = (char*)malloc(4 * 1024 * 1024);
 	return 0;
+}
+
+void CMediaPlayerDlg::UpdateMediaInfo()
+{
+    if (!m_ijk_decoder)
+		return;
+    
+	char* video_code_info = NULL;
+	ijkFfplayDecoder_getVideoCodecInfo(m_ijk_decoder, &video_code_info);
+
+	char* audio_code_info = NULL;
+	ijkFfplayDecoder_getAudioCodecInfo(m_ijk_decoder, &audio_code_info);
+
+	CString videoInfo, audioInfo;
+	videoInfo = video_code_info;
+	//videoInfo.Format(_T("%s"), video_code_info);
+	audioInfo.Format(_T("%s"), audio_code_info);
+	m_InfoDlg.UpdateInfo(videoInfo, audioInfo);
+
+
+
+    
 }
 
 void CMediaPlayerDlg::UpdatePlayProgress()
@@ -561,5 +591,29 @@ void CMediaPlayerDlg::OnBnClickedButtonPause()
 
 void CMediaPlayerDlg::OnBnClickedButtonInfo()
 {
-	// TODO: 在此添加控件通知处理程序代码
+	m_InfoDlg.DoModal();
+	//if (m_bInfoShowing) {
+	//	// 如果窗口已显示，则关闭
+	//	if (m_pInfoDlg) {
+	//		m_pInfoDlg->DestroyWindow();
+	//		m_pInfoDlg = nullptr;
+	//	}
+	//	m_bInfoShowing = false;
+	//}
+	//else {
+	//	// 创建非模态对话框
+	//	m_pInfoDlg = new CInfoDialog(this);
+	//	m_pInfoDlg->Create(IDD_INFO_DIALOG, this);
+
+	//	// 设置窗口位置
+	//	CRect rc;
+	//	GetWindowRect(&rc);
+	//	m_pInfoDlg->SetWindowPos(NULL,
+	//		rc.left + 20,
+	//		rc.top + 20,
+	//		400, 300,
+	//		SWP_NOZORDER | SWP_SHOWWINDOW);
+
+	//	m_bInfoShowing = true;
+	//}
 }
