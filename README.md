@@ -1,366 +1,230 @@
-# detu-ijkmediaplayer
-Android/iOS/MAC/WiN video player base ijkplayer
+# IJKMediaPlayer Windows 构建说明
 
-
- Platform | Build Status
- -------- | ------------
-Android | YES
-iOS | YES
-WIN | YES
-MAC | YES
-
-## code project
-
-#### exec code
-IJKMediaDemo 
-#### static libary
-IJKMediaPlayer 
-
-
-###编译多版本x264 
- https://github.com/suiqirui1987/detu-x264
-
-
-## ios
-
-```shell
-cd detu-ijkmediaplayer
-sh init-ios.sh
-cd ios
-sh complie-ffmpeg.sh
-
-use XCODE open IJKMediaPlayer 
-```
-
-
-
-
-
-
-## Android 编译
-
-```shell
-cd detu-ijkmediaplayer
-sh init-android.sh
-cd android/contrib/
-sh compile-ffmpeg.sh armv7a
-sh compile-ffmpeg.sh arm64
-cd ../
-sh compile-ijk.sh armv7a
-sh compile-ijk.sh arm64
-```
-
-
-
-
-
- 查看 detu-ijkmediaplayer/android/ijkplayer/ijkplayer-arm64/src/main/libs
-
-
-## Mac
-
-detu-ijkmediaplayer/mac/
-
-## WIN
-
-detu-ijkmediaplayer/win/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
------------------------------------------------------------------------------------
-
-
-# ijkplayer
-
-
-
-Video player based on [ffplay](http://ffmpeg.org)
-
-### Download
-
-- Android:
- - Gradle
-```
-# required
-allprojects {
-    repositories {
-        jcenter()
-    }
-}
-
-dependencies {
-    # required, enough for most devices.
-    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.6.2'
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.6.2'
-
-    # Other ABIs: optional
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.6.2'
-    compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.6.2'
-    compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.6.2'
-    compile 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.6.2'
-
-    # ExoPlayer as IMediaPlayer: optional, experimental
-    compile 'tv.danmaku.ijk.media:ijkplayer-exo:0.6.2'
-}
-```
-- iOS
- - in coming...
-
-### My Build Environment
-- Common
- - Mac OS X 10.11.5
-- Android
- - [NDK r10e](http://developer.android.com/tools/sdk/ndk/index.html)
- - Android Studio 2.1.3
- - Gradle 2.14.1
-- iOS
- - Xcode 7.3 (7D175)
-- [HomeBrew](http://brew.sh)
- - ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
- - brew install git
-
-### Latest Changes
-- [NEWS.md](NEWS.md)
-
-### Features
-- Common
- - remove rarely used ffmpeg components to reduce binary size [config/module-lite.sh](config/module-lite.sh)
- - workaround for some buggy online video.
-- Android
- - platform: API 9~23
- - cpu: ARMv7a, ARM64v8a, x86 (ARMv5 is not tested on real devices)
- - api: [MediaPlayer-like](android/ijkplayer/ijkplayer-java/src/main/java/tv/danmaku/ijk/media/player/IMediaPlayer.java)
- - video-output: NativeWindow, OpenGL ES 2.0
- - audio-output: AudioTrack, OpenSL ES
- - hw-decoder: MediaCodec (API 16+, Android 4.1+)
- - alternative-backend: android.media.MediaPlayer, ExoPlayer
-- iOS
- - platform: iOS 6.0~9.3.x
- - cpu: armv7, arm64, i386, x86_64, (armv7s is obselete)
- - api: [MediaPlayer.framework-like](ios/IJKMediaPlayer/IJKMediaPlayer/IJKMediaPlayback.h)
- - video-output: OpenGL ES 2.0
- - audio-output: AudioQueue, AudioUnit
- - hw-decoder: VideoToolbox (iOS 8+)
- - alternative-backend: AVFoundation.Framework.AVPlayer, MediaPlayer.Framework.MPMoviePlayerControlelr (obselete since iOS 8)
-
-### NOT-ON-PLAN
-- obsolete platforms (Android: API-8 and below; iOS: pre-6.0)
-- obsolete cpu: ARMv5, ARMv6, MIPS (I don't even have these types of devices…)
-- native subtitle render
-- avfilter support
-
-### Before Build
-```
-# install homebrew, git, yasm
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install git
-brew install yasm
-
-# add these lines to your ~/.bash_profile or ~/.profile
-# export ANDROID_SDK=<your sdk path>
-# export ANDROID_NDK=<your ndk path>
-
-# on Cygwin (unmaintained)
-# install git, make, yasm
-```
-
-- If you prefer more codec/format
-```
-cd config
-rm module.sh
-ln -s module-default.sh module.sh
-cd android/contrib
-# cd ios
-sh compile-ffmpeg.sh clean
-```
-
-- If you prefer less codec/format for smaller binary size (include hevc function)
-```
-cd config
-rm module.sh
-ln -s module-lite-hevc.sh module.sh
-cd android/contrib
-# cd ios
-sh compile-ffmpeg.sh clean
-```
-
-- If you prefer less codec/format for smaller binary size (by default)
-```
-cd config
-rm module.sh
-ln -s module-lite.sh module.sh
-cd android/contrib
-# cd ios
-sh compile-ffmpeg.sh clean
-```
-
-- For Ubuntu/Debian users.
-```
-# choose [No] to use bash
-sudo dpkg-reconfigure dash
-```
-
-- If you'd like to share your config, pull request is welcome.
-
-### Build Android
-```
-git clone https://github.com/Bilibili/ijkplayer.git ijkplayer-android
-cd ijkplayer-android
-git checkout -B latest k0.6.2
-
-./init-android.sh
-
-cd android/contrib
-./compile-ffmpeg.sh clean
-./compile-ffmpeg.sh all
-
-cd ..
-./compile-ijk.sh all
-
-# Android Studio:
-#     Open an existing Android Studio project
-#     Select android/ijkplayer/ and import
-#
-#     define ext block in your root build.gradle
-#     ext {
-#       compileSdkVersion = 23       // depending on your sdk version
-#       buildToolsVersion = "23.0.0" // depending on your build tools version
-#
-#       targetSdkVersion = 23        // depending on your sdk version
-#     }
-#
-# If you want to enable debugging ijkplayer(native modules) on Android Studio 2.2+: (experimental)
-#     sh android/patch-debugging-with-lldb.sh armv7a
-#     Install Android Studio 2.2(+)
-#     Preference -> Android SDK -> SDK Tools
-#     Select (LLDB, NDK, Android SDK Build-tools,Cmake) and install
-#     Open an existing Android Studio project
-#     Select android/ijkplayer
-#     Sync Project with Gradle Files
-#     Run -> Edit Configurations -> Debugger -> Symbol Directories
-#     Add "ijkplayer-armv7a/.externalNativeBuild/ndkBuild/release/obj/local/armeabi-v7a" to Symbol Directories
-#     Run -> Debug 'ijkplayer-example'
-#     if you want to reverse patches:
-#     sh patch-debugging-with-lldb.sh reverse armv7a
-#
-# Eclipse: (obselete)
-#     File -> New -> Project -> Android Project from Existing Code
-#     Select android/ and import all project
-#     Import appcompat-v7
-#     Import preference-v7
-#
-# Gradle
-#     cd ijkplayer
-#     gradle
+## 目录结构
 
 ```
-
-
-### Build iOS
-```
-git clone https://github.com/Bilibili/ijkplayer.git ijkplayer-ios
-cd ijkplayer-ios
-git checkout -B latest k0.6.2
-
-./init-ios.sh
-
-cd ios
-./compile-ffmpeg.sh clean
-./compile-ffmpeg.sh all
-
-# Demo
-#     open ios/IJKMediaDemo/IJKMediaDemo.xcodeproj with Xcode
-# 
-# Import into Your own Application
-#     Select your project in Xcode.
-#     File -> Add Files to ... -> Select ios/IJKMediaPlayer/IJKMediaPlayer.xcodeproj
-#     Select your Application's target.
-#     Build Phases -> Target Dependencies -> Select IJKMediaFramework
-#     Build Phases -> Link Binary with Libraries -> Add:
-#         IJKMediaFramework.framework
-#
-#         AudioToolbox.framework
-#         AVFoundation.framework
-#         CoreGraphics.framework
-#         CoreMedia.framework
-#         CoreVideo.framework
-#         libbz2.tbd
-#         libz.tbd
-#         MediaPlayer.framework
-#         MobileCoreServices.framework
-#         OpenGLES.framework
-#         QuartzCore.framework
-#         UIKit.framework
-#         VideoToolbox.framework
-#
-#         ... (Maybe something else, if you get any link error)
-# 
+.
+├── CMakeLists.txt          # 主CMake构建文件
+├── include/                # 公共头文件
+│   ├── ijkplayer/         # ijkplayer API头文件
+│   ├── ijksdl/            # ijksdl头文件
+│   └── global/            # 全局工具头文件
+├── src/                    # 源代码
+│   ├── ijkplayer/         # ijkplayer实现
+│   ├── ijksdl/            # ijksdl Windows实现
+│   ├── global/            # 全局工具实现
+│   └── dxva2/             # DXVA2硬件加速
+├── lib/                    # 编译输出库文件
+│   ├── Win32/
+│   │   ├── Debug/
+│   │   └── Release/
+│   └── x64/
+│       ├── Debug/
+│       └── Release/
+├── third_party/            # 第三方依赖库
+│   ├── ffmpeg/            # FFmpeg库
+│   ├── sdl2/              # SDL2库
+│   ├── pthread-win32/     # pthread-win32库
+│   └── iLog3/             # iLog3日志库
+└── demo/                   # 示例程序
+    ├── TestDemo/          # 控制台示例
+    ├── MediaPlayer/       # MFC GUI示例
+    └── ijkDemo/          # 简单示例
 ```
 
+## 构建要求
 
-### Support (支持) ###
-- Please do not send e-mail to me. Public technical discussion on github is preferred.
-- 请尽量在 github 上公开讨论[技术问题](https://github.com/bilibili/ijkplayer/issues)，不要以邮件方式私下询问，恕不一一回复。
+- **CMake**: 3.15 或更高版本
+- **编译器**: Visual Studio 2019 或更高版本
+- **平台**: Windows (Win32/x64)
 
+## 构建步骤
 
-### License
+### 1. 使用构建脚本（推荐）
+
+项目提供了便捷的构建脚本，会自动处理所有构建步骤：
+
+**Windows批处理脚本：**
+```bash
+# Win32 Release版本（默认）
+build.bat
+
+# Win32 Debug版本
+build.bat Win32 Debug
+
+# x64 Release版本
+build.bat x64 Release
+
+# x64 Debug版本
+build.bat x64 Debug
+```
+
+**PowerShell脚本：**
+```powershell
+# Win32 Release版本（默认）
+.\build.ps1
+
+# 指定平台和配置
+.\build.ps1 -Platform Win32 -BuildType Release
+.\build.ps1 -Platform x64 -BuildType Debug
+```
+
+**清理构建文件：**
+```bash
+# 清理build和output目录
+clean.bat
+# 或
+.\clean.ps1
+```
+
+### 2. 使用CMake命令行构建
+
+```bash
+# 在项目根目录下创建构建目录
+mkdir build
+cd build
+
+# 配置CMake（Win32平台）
+cmake .. -G "Visual Studio 16 2019" -A Win32
+
+# 或配置为x64平台
+cmake .. -G "Visual Studio 16 2019" -A x64
+
+# 编译
+cmake --build . --config Release
+
+# 或编译Debug版本
+cmake --build . --config Debug
+```
+
+### 2. 使用Visual Studio 2019打开
+
+```bash
+# 在项目根目录下生成Visual Studio解决方案
+mkdir build
+cd build
+cmake .. -G "Visual Studio 16 2019" -A Win32
+
+# 打开生成的解决方案文件
+start IJKMediaPlayer_Win.sln
+```
+
+在Visual Studio中：
+1. 选择配置（Debug/Release）
+2. 选择平台（Win32/x64）
+3. 生成解决方案（Build Solution）
+
+### 3. 使用CMake GUI
+
+1. 打开CMake GUI
+2. 设置源代码目录为项目根目录
+3. 设置构建目录（例如 `build`）
+4. 点击 "Configure"，选择 "Visual Studio 16 2019" 和平台（Win32或x64）
+5. 点击 "Generate"
+6. 点击 "Open Project" 在Visual Studio中打开
+
+## 输出文件
+
+编译完成后，所有输出文件位于 `output` 目录：
+
+- **库文件**: `output/ijkwin.lib`
+- **可执行文件**: `output/`
+  - `TestDemo.exe` - 控制台示例程序
+  - `ijkDemo.exe` - 简单示例程序
+  - `MediaPlayer.exe` - MFC GUI示例（如果启用）
+- **依赖DLL**: `output/`
+  - FFmpeg DLL文件（avcodec-57.dll, avformat-57.dll等）
+  - SDL2.dll
+  - pthreadVC2.dll
+
+所有文件都在 `output` 目录的根目录下，方便直接运行。
+
+## 第三方依赖库
+
+项目依赖以下第三方库，已包含在 `third_party` 目录中：
+
+- **FFmpeg**: 音视频编解码库
+- **SDL2**: 跨平台多媒体库
+- **pthread-win32**: Windows平台的pthread实现
+- **iLog3**: 日志库
+
+### 依赖库目录结构
+
+每个第三方库的目录结构如下：
 
 ```
-Copyright (C) 2013-2016 Zhang Rui <bbcallen@gmail.com> 
-Licensed under LGPLv2.1 or later
+third_party/{library}/
+├── include/          # 头文件
+└── lib/
+    ├── Win32/       # Win32平台库文件
+    └── x64/         # x64平台库文件
 ```
 
-ijkplayer required features are based on or derives from projects below:
-- LGPL
-  - [FFmpeg](http://git.videolan.org/?p=ffmpeg.git)
-  - [libVLC](http://git.videolan.org/?p=vlc.git)
-  - [kxmovie](https://github.com/kolyvan/kxmovie)
-- zlib license
-  - [SDL](http://www.libsdl.org)
-- BSD-style license
-  - [libyuv](https://code.google.com/p/libyuv/)
-- ISC license
-  - [libyuv/source/x86inc.asm](https://code.google.com/p/libyuv/source/browse/trunk/source/x86inc.asm)
+## 配置选项
 
-android/ijkplayer-exo is based on or derives from projects below:
-- Apache License 2.0
-  - [ExoPlayer](https://github.com/google/ExoPlayer)
+### 构建MediaPlayer示例
 
-android/example is based on or derives from projects below:
-- GPL
-  - [android-ndk-profiler](https://github.com/richq/android-ndk-profiler) (not included by default)
+MediaPlayer是MFC应用程序，默认不构建。要启用它：
 
-ios/IJKMediaDemo is based on or derives from projects below:
-- Unknown license
-  - [iOS7-BarcodeScanner](https://github.com/jpwiddy/iOS7-BarcodeScanner)
+```bash
+cmake .. -DBUILD_MEDIAPLAYER=ON
+```
 
-ijkplayer's build scripts are based on or derives from projects below:
-- [gas-preprocessor](http://git.libav.org/?p=gas-preprocessor.git)
-- [VideoLAN](http://git.videolan.org)
-- [yixia/FFmpeg-Android](https://github.com/yixia/FFmpeg-Android)
-- [kewlbear/FFmpeg-iOS-build-script](https://github.com/kewlbear/FFmpeg-iOS-build-script) 
+或在CMake GUI中设置 `BUILD_MEDIAPLAYER` 为 `ON`。
 
-### Commercial Use
-ijkplayer is licensed under LGPLv2.1 or later, so itself is free for commercial use under LGPLv2.1 or later
+## 运行示例程序
 
-But ijkplayer is also based on other different projects under various licenses, which I have no idea whether they are compatible to each other or to your product.
+### TestDemo
 
-[IANAL](https://en.wikipedia.org/wiki/IANAL), you should always ask your lawyer for these stuffs before use it in your product.
+```bash
+cd output
+TestDemo.exe <video_file>
+```
 
+### ijkDemo
 
+```bash
+cd output
+ijkDemo.exe <video_file>
+```
 
+所有依赖的DLL文件已经自动复制到 `output` 目录，可以直接运行。
+
+## 常见问题
+
+### 1. DLL文件找不到
+
+确保以下DLL文件在可执行文件同一目录下：
+- FFmpeg DLL文件（avcodec-57.dll, avformat-57.dll等）
+- SDL2.dll
+- pthreadVC2.dll
+
+CMakeLists.txt已配置自动复制这些DLL文件到输出目录。
+
+### 2. 链接错误
+
+检查第三方库文件是否存在于 `third_party/{library}/lib/{Win32|x64}/` 目录中。
+
+### 3. 包含路径错误
+
+确保使用正确的include路径：
+- 公共API: `#include "ijkplayer/ijk_ffplay_decoder.h"`
+- 第三方库: `#include "SDL.h"`, `#include "libavformat/avformat.h"`
+
+## 开发说明
+
+### 添加新的源文件
+
+1. 将源文件添加到 `src` 目录的相应子目录
+2. 在 `src/CMakeLists.txt` 中添加源文件路径
+
+### 添加新的demo
+
+1. 在 `demo` 目录下创建新目录
+2. 创建 `CMakeLists.txt`
+3. 在 `demo/CMakeLists.txt` 中添加 `add_subdirectory()`
+
+## 许可证
+
+请参考项目根目录的LICENSE文件。
 

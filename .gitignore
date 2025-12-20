@@ -41,3 +41,4 @@ xcshareddata
 *.xccheckout
 
 /win/Debug
+/output
