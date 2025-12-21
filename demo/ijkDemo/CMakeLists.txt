@@ -6,6 +6,7 @@ add_executable(ijkDemo
 # 链接ijkwin库
 target_link_libraries(ijkDemo
     ijkwin
+    SDL2main
 )
 
 # 设置包含目录

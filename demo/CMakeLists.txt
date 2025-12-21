@@ -1,6 +1,7 @@
 # Demo程序目录
 add_subdirectory(TestDemo)
 add_subdirectory(ijkDemo)
+add_subdirectory(IJKPlayer)
 
 # MediaPlayer需要MFC，可选编译
 if(MSVC)

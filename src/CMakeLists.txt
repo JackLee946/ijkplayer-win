@@ -1,4 +1,56 @@
-# ijkwin静态库
+# ijkwin静态库 - 明确设置为C语言
+set_source_files_properties(
+    ijkplayer/ff_cmdutils.c
+    ijkplayer/ff_ffpipeline.c
+    ijkplayer/ff_ffpipenode.c
+    ijkplayer/ff_ffplay.c
+    ijkplayer/ijk_ffplay_decoder.c
+    ijkplayer/ijkmeta.c
+    ijkplayer/ijkplayer.c
+    ijkplayer/ijkavformat/allformats.c
+    ijkplayer/ijkavformat/ijkasync.c
+    ijkplayer/ijkavformat/ijklivehook.c
+    ijkplayer/ijkavformat/ijklongurl.c
+    ijkplayer/ijkavformat/ijkmediadatasource.c
+    ijkplayer/ijkavformat/ijksegment.c
+    ijkplayer/ijkavformat/ijkurlhook.c
+    ijkplayer/pipeline/ffpipeline_ffplay.c
+    ijkplayer/pipeline/ffpipenode_ffplay_vdec.c
+    ijkplayer/pipeline/ffpipeline_win.c
+    ijksdl/ijksdl_aout.c
+    ijksdl/ijksdl_audio.c
+    ijksdl/ijksdl_error.c
+    ijksdl/ijksdl_mutex.c
+    ijksdl/ijksdl_stdinc.c
+    ijksdl/ijksdl_thread.c
+    ijksdl/ijksdl_timer.c
+    ijksdl/ijksdl_vout.c
+    ijksdl/ijksdl_aout_mixer.c
+    ijksdl/ijksdl_aout_win_audio_directsound.c
+    ijksdl/ijksdl_vout_win_ffmpeg.c
+    ijksdl/win_directsound.c
+    ijksdl/ffmpeg/abi_all/image_convert.c
+    ijksdl/ffmpeg/ijksdl_vout_overlay_ffmpeg.c
+    global/src/application.c
+    global/src/Counter.c
+    global/src/CpuInfo.c
+    global/src/ifaddrs.c
+    global/src/LoadAvg.c
+    global/src/MemInfo.c
+    global/src/network.c
+    global/src/ptw32_MCS_lock.c
+    global/src/resource.c
+    global/src/time.c
+    global/src/uio.c
+    global/src/unistd.c
+    global/src/UpTime.c
+    global/src/Util.c
+    global/src/utils.c
+    global/src/win-pthread.c
+    dxva2/ffmpeg_dxva2.c
+    PROPERTIES LANGUAGE C
+)
+
 add_library(ijkwin STATIC
     # ijkplayer核心
     ijkplayer/ff_cmdutils.c
@@ -21,7 +73,6 @@ add_library(ijkwin STATIC
     # ijkplayer pipeline
     ijkplayer/pipeline/ffpipeline_ffplay.c
     ijkplayer/pipeline/ffpipenode_ffplay_vdec.c
-    ijkplayer/pipeline/ffpipeline_win.c
     ijkplayer/pipeline/ffpipeline_win.c
     
     # ijksdl核心
@@ -86,7 +137,6 @@ target_link_libraries(ijkwin
     
     # SDL2库
     SDL2
-    SDL2main
     
     # pthread-win32
     pthreadVC2
@@ -113,6 +163,59 @@ target_include_directories(ijkwin PRIVATE
 target_compile_options(ijkwin PRIVATE
     /W3
     /wd4996  # 禁用deprecated警告
+)
+
+# 对于C文件，使用C编译器
+set_source_files_properties(
+    ijkplayer/ff_cmdutils.c
+    ijkplayer/ff_ffpipeline.c
+    ijkplayer/ff_ffpipenode.c
+    ijkplayer/ff_ffplay.c
+    ijkplayer/ijk_ffplay_decoder.c
+    ijkplayer/ijkmeta.c
+    ijkplayer/ijkplayer.c
+    ijkplayer/ijkavformat/allformats.c
+    ijkplayer/ijkavformat/ijkasync.c
+    ijkplayer/ijkavformat/ijklivehook.c
+    ijkplayer/ijkavformat/ijklongurl.c
+    ijkplayer/ijkavformat/ijkmediadatasource.c
+    ijkplayer/ijkavformat/ijksegment.c
+    ijkplayer/ijkavformat/ijkurlhook.c
+    ijkplayer/pipeline/ffpipeline_ffplay.c
+    ijkplayer/pipeline/ffpipenode_ffplay_vdec.c
+    ijkplayer/pipeline/ffpipeline_win.c
+    ijksdl/ijksdl_aout.c
+    ijksdl/ijksdl_audio.c
+    ijksdl/ijksdl_error.c
+    ijksdl/ijksdl_mutex.c
+    ijksdl/ijksdl_stdinc.c
+    ijksdl/ijksdl_thread.c
+    ijksdl/ijksdl_timer.c
+    ijksdl/ijksdl_vout.c
+    ijksdl/ijksdl_aout_mixer.c
+    ijksdl/ijksdl_aout_win_audio_directsound.c
+    ijksdl/ijksdl_vout_win_ffmpeg.c
+    ijksdl/win_directsound.c
+    ijksdl/ffmpeg/abi_all/image_convert.c
+    ijksdl/ffmpeg/ijksdl_vout_overlay_ffmpeg.c
+    global/src/application.c
+    global/src/Counter.c
+    global/src/CpuInfo.c
+    global/src/ifaddrs.c
+    global/src/LoadAvg.c
+    global/src/MemInfo.c
+    global/src/network.c
+    global/src/ptw32_MCS_lock.c
+    global/src/resource.c
+    global/src/time.c
+    global/src/uio.c
+    global/src/unistd.c
+    global/src/UpTime.c
+    global/src/Util.c
+    global/src/utils.c
+    global/src/win-pthread.c
+    dxva2/ffmpeg_dxva2.c
+    PROPERTIES COMPILE_FLAGS "/TC"
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")

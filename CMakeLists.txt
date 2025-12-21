@@ -87,6 +87,7 @@ link_directories(
 )
 
 # 添加子目录
+add_subdirectory(third_party/duilib)
 add_subdirectory(src)
 add_subdirectory(demo)
 

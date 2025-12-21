@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Window size="1000,700" sizebox="4,4,4,4" caption="0,0,0,34" mininfo="800,600">
+    <Font name="微软雅黑" size="13" default="true" />
+    <VerticalLayout>
+        <!-- 菜单栏 -->
+        <HorizontalLayout height="34" bkcolor="#FF2B2B2B" padding="10,6,10,6">
+            <Button name="btn_file" text="文件" width="60" height="22" textcolor="#FFFFFFFF" />
+            <Button name="btn_play_menu" text="播放" width="60" height="22" textcolor="#FFFFFFFF" />
+            <Button name="btn_view" text="视图" width="60" height="22" textcolor="#FFFFFFFF" />
+            <Button name="btn_tools" text="工具" width="60" height="22" textcolor="#FFFFFFFF" />
+            <Button name="btn_help" text="帮助" width="60" height="22" textcolor="#FFFFFFFF" />
+            <Control />
+            <!-- 窗口控制按钮（duilib 约定名称：minbtn/maxbtn/restorebtn/closebtn） -->
+            <Button name="minbtn" text="—" width="38" height="22" textcolor="#FFFFFFFF" />
+            <Button name="maxbtn" text="□" width="38" height="22" textcolor="#FFFFFFFF" />
+            <Button name="restorebtn" text="❐" width="38" height="22" textcolor="#FFFFFFFF" visible="false" />
+            <Button name="closebtn" text="×" width="38" height="22" textcolor="#FFFFFFFF" />
+        </HorizontalLayout>
+
+        <!-- 工具栏 -->
+        <HorizontalLayout height="46" bkcolor="#FF202020" padding="10,8,10,8">
+            <Button name="btn_open" text="打开" width="70" height="28" textcolor="#FFFFFFFF" />
+            <Button name="btn_play" text="播放" width="70" height="28" textcolor="#FFFFFFFF" />
+            <Button name="btn_pause" text="暂停" width="70" height="28" visible="false" textcolor="#FFFFFFFF" />
+            <Button name="btn_stop" text="停止" width="70" height="28" textcolor="#FFFFFFFF" />
+            <Button name="btn_fullscreen" text="全屏" width="70" height="28" textcolor="#FFFFFFFF" />
+        </HorizontalLayout>
+
+        <!-- 主内容区域 -->
+        <HorizontalLayout>
+            <!-- 播放列表面板 -->
+            <VerticalLayout width="240" bkcolor="#FF252525">
+                <Label text="播放列表" height="34" valign="center" padding="12,0,0,0" textcolor="#FFFFFFFF" />
+                <List name="list_playlist" bkcolor="#FF1C1C1C" textcolor="#FFFFFFFF" />
+            </VerticalLayout>
+
+            <!-- 视频显示区域 -->
+            <VerticalLayout>
+                <Container name="video_container" bkcolor="#FF000000" />
+            </VerticalLayout>
+        </HorizontalLayout>
+
+        <!-- 播放控制栏 -->
+        <HorizontalLayout height="64" bkcolor="#FF2B2B2B" padding="10,10,10,10">
+            <Button name="btn_prev" text="上一首" width="70" height="28" textcolor="#FFFFFFFF" />
+            <Button name="btn_play_control" text="播放" width="70" height="28" textcolor="#FFFFFFFF" />
+            <Button name="btn_pause_control" text="暂停" width="70" height="28" visible="false" textcolor="#FFFFFFFF" />
+            <Button name="btn_stop_control" text="停止" width="70" height="28" textcolor="#FFFFFFFF" />
+            <Button name="btn_next" text="下一首" width="70" height="28" textcolor="#FFFFFFFF" />
+            
+            <Label text=" " width="6" />
+            <Slider name="slider_progress" width="380" height="18" />
+            <Label name="label_time" text="00:00 / 00:00" width="140" textcolor="#FFFFFFFF" align="center" />
+            
+            <Label text="音量" width="40" textcolor="#FFFFFFFF" align="center" />
+            <Slider name="slider_volume" width="140" height="18" value="50" />
+        </HorizontalLayout>
+
+        <!-- 状态栏 -->
+        <HorizontalLayout height="28" bkcolor="#FF1E1E1E" padding="10,4,10,4">
+            <Label name="label_status" text="就绪" width="900" textcolor="#FFBFBFBF" />
+        </HorizontalLayout>
+    </VerticalLayout>
+</Window>
+
+
