@@ -5,6 +5,7 @@
 #include "PlayerController.h"
 #include "VideoRenderer.h"
 #include "PlaylistManager.h"
+#include "MenuWnd.h"
 #include <memory>
 #include <string>
 
@@ -90,6 +91,9 @@ private:
     CLabelUI* m_timeLabel;
     CLabelUI* m_statusLabel;
     CListUI* m_playlistList;
+    
+    // 下拉菜单窗口
+    MenuWnd* m_pMenuWnd;
 
     // 状态
     bool m_isPlaying;

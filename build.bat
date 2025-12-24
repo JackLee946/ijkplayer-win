@@ -77,5 +77,5 @@ echo Output directory: output
 echo.
 dir output /b
 echo.
-
+pause
 endlocal

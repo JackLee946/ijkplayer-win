@@ -6,6 +6,7 @@ add_executable(IJKPlayer WIN32
     VideoRenderer.cpp
     PlaylistManager.cpp
     logging.cpp
+    MenuWnd.cpp
 )
 
 # 链接库

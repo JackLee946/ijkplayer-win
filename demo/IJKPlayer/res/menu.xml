@@ -18,6 +18,12 @@
 		<ListContainerElement name="menu_ExitFullScreen" height="22" inset="2,0,0,0">
 			<Label text="退出全屏" mouse="true" textcolor="FFFFFFFF"/>
 		</ListContainerElement>
+		<ListContainerElement name="menu_AddToPlaylist" height="22" inset="2,0,0,0">
+			<Label text="添加到播放列表" mouse="true" textcolor="FFFFFFFF"/>
+		</ListContainerElement>
+		<ListContainerElement name="menu_Exit" height="22" inset="2,0,0,0">
+			<Label text="退出" mouse="true" textcolor="FFFFFFFF"/>
+		</ListContainerElement>
 	</List>
 </HorizontalLayout>
 </Window>

@@ -66,6 +66,7 @@ IJKPlayerWindow::IJKPlayerWindow()
     , m_timeLabel(nullptr)
     , m_statusLabel(nullptr)
     , m_playlistList(nullptr)
+    , m_pMenuWnd(nullptr)
     , m_isPlaying(false)
     , m_isPaused(false)
     , m_updateTimer(0)
@@ -339,6 +340,23 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
         else if (name == kOpenMiniButton) {
             OnOpenFile();
         }
+        else if (name == _T("logotext") || name == _T("logo")) {
+            // 点击标题按钮或logo显示下拉菜单
+            POINT pt = { msg.ptMouse.x, msg.ptMouse.y };
+            CDuiRect rc = msg.pSender->GetPos();
+            pt.x = rc.left;
+            pt.y = rc.bottom;
+            
+            // 创建并显示自定义菜单窗口
+            if (m_pMenuWnd == nullptr) {
+                m_pMenuWnd = new MenuWnd(_T("menu.xml"));
+            }
+            
+            if (m_pMenuWnd != nullptr) {
+                m_pMenuWnd->Init(&m_pm, pt);
+                m_pMenuWnd->ShowWindow(true);
+            }
+        }
         else if (name == kPlaylistShowButton) {
             // 显示播放列表
             if (m_playlistShowButton && m_playlistHideButton) {
@@ -385,6 +403,16 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
         }
         else if (name == _T("btn_open")) {
             OnOpenFile();
+        }
+        // 处理菜单点击事件
+        else if (name == _T("menu_OpenFile")) {
+            OnOpenFile();
+        }
+        else if (name == _T("menu_AddToPlaylist")) {
+            OnAddToPlaylist();
+        }
+        else if (name == _T("menu_Exit")) {
+            ::SendMessage(m_hWnd, WM_CLOSE, 0, 0);
         }
     }
     else if (msg.sType == DUI_MSGTYPE_VALUECHANGED) {
