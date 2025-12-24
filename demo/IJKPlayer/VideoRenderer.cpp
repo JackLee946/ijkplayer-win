@@ -130,8 +130,11 @@ void VideoRenderer::SubmitFrame(IjkVideoFrame* frame)
 void VideoRenderer::RenderPending()
 {
     if (!m_initialized || !m_sdlWindow) {
+        Log::Warn("RenderPending: Not initialized or SDL window is null");
         return;
     }
+
+    Log::Debug("RenderPending: Starting render process");
 
     // 关键：我们没有 SDL 的事件循环，手动泵一下事件让 SDL 同步窗口状态（尤其是 resize/maximize）
     SDL_PumpEvents();
@@ -142,6 +145,7 @@ void VideoRenderer::RenderPending()
     {
         std::lock_guard<std::mutex> lock(m_frameMutex);
         if (!m_hasPendingFrame) {
+            Log::Debug("RenderPending: No pending frame");
             return;
         }
         w = m_frameW;
@@ -149,22 +153,44 @@ void VideoRenderer::RenderPending()
         fmt = m_frameFormat;
     }
 
+    Log::Debug("RenderPending: Frame available: %dx%d, format=%d", w, h, fmt);
+
+    // 确保SDL渲染器和纹理已经创建
     if (m_videoWidth != w || m_videoHeight != h || m_pixelFormat != fmt) {
+        Log::Debug("RenderPending: Resolution or format changed, calling SetupSDL");
         SetupSDL(w, h, fmt);
     }
 
     if (!m_sdlRenderer || !m_sdlTexture) {
-        return;
+        // 如果渲染器或纹理创建失败，尝试重新创建
+        Log::Warn("Renderer or texture missing, trying to recreate");
+        SetupSDL(w, h, fmt);
+        if (!m_sdlRenderer || !m_sdlTexture) {
+            Log::Error("Failed to recreate renderer or texture");
+            return;
+        }
     }
 
+    Log::Debug("RenderPending: Renderer and texture available, updating texture");
     UpdateTextureFromBuffer();
+    
+    Log::Debug("RenderPending: Updating destination rectangle");
     UpdateDestinationRect();
 
     // 确保 viewport 不残留导致裁剪
     SDL_RenderSetViewport(m_sdlRenderer, NULL);
+    
+    Log::Debug("RenderPending: Clearing renderer");
     SDL_RenderClear(m_sdlRenderer);
+    
+    Log::Debug("RenderPending: Copying texture to renderer with rect: x=%d, y=%d, w=%d, h=%d", 
+               m_sdlRect.x, m_sdlRect.y, m_sdlRect.w, m_sdlRect.h);
     SDL_RenderCopy(m_sdlRenderer, m_sdlTexture, NULL, &m_sdlRect);
+    
+    Log::Debug("RenderPending: Presenting renderer");
     SDL_RenderPresent(m_sdlRenderer);
+    
+    Log::Debug("RenderPending: Render process completed successfully");
 }
 
 void VideoRenderer::SetFullscreen(bool fullscreen)
@@ -199,6 +225,8 @@ void VideoRenderer::CleanupTexture()
 
 void VideoRenderer::SetupSDL(int width, int height, IjkPixelFormat format)
 {
+    Log::Info("SetupSDL: Start with width=%d, height=%d, format=%d", width, height, format);
+    
     // 不能销毁/重建 SDL_Window（它来自 HWND），否则 SDL_CreateRenderer 可能失败
     CleanupTexture();
 
@@ -216,6 +244,7 @@ void VideoRenderer::SetupSDL(int width, int height, IjkPixelFormat format)
 
     // 创建 renderer（首帧创建，尽量贴近 MediaPlayer 示例）
     if (!m_sdlRenderer) {
+        Log::Debug("Creating SDL renderer...");
         m_sdlRenderer = SDL_CreateRenderer(m_sdlWindow, -1, SDL_RENDERER_ACCELERATED);
         if (!m_sdlRenderer) {
             Log::Warn("SDL_CreateRenderer accelerated failed: %s, fallback to software", SDL_GetError());
@@ -225,12 +254,14 @@ void VideoRenderer::SetupSDL(int width, int height, IjkPixelFormat format)
             Log::Error("Failed to create SDL renderer: %s", SDL_GetError());
             return;
         }
+        Log::Debug("SDL renderer created successfully: %p", m_sdlRenderer);
     }
 
     // 不使用 logical size（否则 dstRect 会在“逻辑坐标系”里计算，导致缩放/裁剪异常）
     SDL_RenderSetLogicalSize(m_sdlRenderer, 0, 0);
 
     // 根据格式创建纹理
+    Log::Debug("Creating SDL texture with format=%d, size=%dx%d", format, screen_w, screen_h);
     if (format == PIX_FMT_YUV420P) {
         m_sdlTexture = SDL_CreateTexture(m_sdlRenderer, SDL_PIXELFORMAT_IYUV,
             SDL_TEXTUREACCESS_STREAMING, screen_w, screen_h);
@@ -246,15 +277,12 @@ void VideoRenderer::SetupSDL(int width, int height, IjkPixelFormat format)
         Log::Error("Failed to create SDL texture: %s", SDL_GetError());
         return;
     }
+    Log::Debug("SDL texture created successfully: %p", m_sdlTexture);
 
-    m_sdlRect.x = 0;
-    m_sdlRect.y = 0;
-    m_sdlRect.w = screen_w;
-    m_sdlRect.h = screen_h;
     m_lastWndW = 0;
     m_lastWndH = 0;
 
-    Log::Info("SDL setup: %dx%d, format=%d", screen_w, screen_h, format);
+    Log::Info("SDL setup completed: %dx%d, format=%d", screen_w, screen_h, format);
 }
 
 void VideoRenderer::UpdateDestinationRect()
@@ -339,6 +367,8 @@ void VideoRenderer::ResetRendererForResizeIfNeeded(int wndW, int wndH)
         SDL_DestroyRenderer(m_sdlRenderer);
         m_sdlRenderer = nullptr;
     }
+    
+    // 确保渲染器尺寸与窗口一致
     m_sdlRenderer = SDL_CreateRenderer(m_sdlWindow, -1, SDL_RENDERER_ACCELERATED);
     if (!m_sdlRenderer) {
         Log::Warn("SDL_CreateRenderer accelerated failed after resize: %s, fallback to software", SDL_GetError());
@@ -348,6 +378,9 @@ void VideoRenderer::ResetRendererForResizeIfNeeded(int wndW, int wndH)
         Log::Error("Failed to recreate SDL renderer: %s", SDL_GetError());
         return;
     }
+    
+    // 不使用 logical size，确保 dstRect 在像素坐标系中计算
+    SDL_RenderSetLogicalSize(m_sdlRenderer, 0, 0);
 
     // 重新创建 texture（沿用当前视频尺寸/格式）
     SetupSDL(m_videoWidth, m_videoHeight, m_pixelFormat);
@@ -356,24 +389,59 @@ void VideoRenderer::ResetRendererForResizeIfNeeded(int wndW, int wndH)
 void VideoRenderer::UpdateTextureFromBuffer()
 {
     if (!m_sdlTexture) {
+        Log::Warn("UpdateTextureFromBuffer: SDL texture is null");
         return;
     }
 
     std::lock_guard<std::mutex> lock(m_frameMutex);
     if (!m_hasPendingFrame || m_frameBuffer.empty()) {
+        Log::Warn("UpdateTextureFromBuffer: No pending frame or buffer empty");
         return;
     }
+
+    Log::Debug("UpdateTextureFromBuffer: frame=%dx%d, format=%d, buffer size=%zu", 
+               m_frameW, m_frameH, m_frameFormat, m_frameBuffer.size());
+    
+    // 获取纹理的实际尺寸
+    int textureW, textureH;
+    if (SDL_QueryTexture(m_sdlTexture, NULL, NULL, &textureW, &textureH) != 0) {
+        Log::Error("SDL_QueryTexture failed: %s", SDL_GetError());
+        return;
+    }
+    Log::Debug("UpdateTextureFromBuffer: Texture size=%dx%d, Frame size=%dx%d", textureW, textureH, m_frameW, m_frameH);
 
     if (m_frameFormat == PIX_FMT_YUV420P) {
         const size_t ySize = (size_t)m_frameH * (size_t)m_frameLinesize0;
         const size_t uSize = (size_t)(m_frameH / 2) * (size_t)m_frameLinesize1;
+        const size_t vSize = (size_t)(m_frameH / 2) * (size_t)m_frameLinesize2;
         const unsigned char* y = m_frameBuffer.data();
         const unsigned char* u = m_frameBuffer.data() + ySize;
         const unsigned char* v = m_frameBuffer.data() + ySize + uSize;
-        SDL_UpdateYUVTexture(m_sdlTexture, NULL, y, m_frameLinesize0, u, m_frameLinesize1, v, m_frameLinesize2);
+        
+        Log::Debug("YUV420P Update: ySize=%zu, uSize=%zu, vSize=%zu, total=%zu", 
+                  ySize, uSize, vSize, ySize + uSize + vSize);
+        Log::Debug("YUV420P linesizes: y=%d, u=%d, v=%d", 
+                  m_frameLinesize0, m_frameLinesize1, m_frameLinesize2);
+        Log::Debug("YUV420P frame dimensions: w=%d, h=%d", m_frameW, m_frameH);
+        Log::Debug("YUV420P expected linesizes: y=%d, u=%d, v=%d", 
+                  m_frameW, m_frameW / 2, m_frameW / 2);
+        
+        // 使用整个纹理区域更新
+        int result = SDL_UpdateYUVTexture(m_sdlTexture, NULL, y, m_frameLinesize0, u, m_frameLinesize1, v, m_frameLinesize2);
+        if (result < 0) {
+            Log::Error("SDL_UpdateYUVTexture failed: %s", SDL_GetError());
+        } else {
+            Log::Debug("SDL_UpdateYUVTexture succeeded");
+        }
     } else if (m_frameFormat == PIX_FMT_NV12) {
-        SDL_UpdateTexture(m_sdlTexture, NULL, m_frameBuffer.data(), m_frameLinesize0);
+        int result = SDL_UpdateTexture(m_sdlTexture, NULL, m_frameBuffer.data(), m_frameLinesize0);
+        if (result < 0) {
+            Log::Error("SDL_UpdateTexture failed: %s", SDL_GetError());
+        } else {
+            Log::Debug("SDL_UpdateTexture succeeded");
+        }
     }
+    Log::Debug("UpdateTextureFromBuffer: Texture updated successfully");
 }
 
 

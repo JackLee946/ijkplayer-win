@@ -66,7 +66,6 @@ IJKPlayerWindow::IJKPlayerWindow()
     , m_timeLabel(nullptr)
     , m_statusLabel(nullptr)
     , m_playlistList(nullptr)
-    , m_pMenuWnd(nullptr)
     , m_isPlaying(false)
     , m_isPaused(false)
     , m_updateTimer(0)
@@ -233,8 +232,16 @@ HWND IJKPlayerWindow::GetVideoContainerHWND()
             NULL);
         
         if (m_videoHwnd) {
+            // 设置窗口背景为黑色，确保视频渲染区域可见
+            SetWindowLong(m_videoHwnd, GWL_STYLE, GetWindowLong(m_videoHwnd, GWL_STYLE) & ~WS_BORDER);
+            SetClassLong(m_videoHwnd, GCL_HBRBACKGROUND, (LONG)CreateSolidBrush(RGB(0, 0, 0)));
+            RedrawWindow(m_videoHwnd, NULL, NULL, RDW_ERASE | RDW_INVALIDATE);
+            
             // 注册到duilib的原生窗口管理
             m_pm.AddNativeWindow(m_videoContainer, m_videoHwnd);
+            
+            Log::Info("Created video hwnd: %p, pos: %d,%d,%d,%d", 
+                     m_videoHwnd, rect.left, rect.top, rect.right, rect.bottom);
         }
     } else {
         // 更新窗口位置和大小
@@ -348,13 +355,11 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
             pt.y = rc.bottom;
             
             // 创建并显示自定义菜单窗口
-            if (m_pMenuWnd == nullptr) {
-                m_pMenuWnd = new MenuWnd(_T("menu.xml"));
-            }
-            
-            if (m_pMenuWnd != nullptr) {
-                m_pMenuWnd->Init(&m_pm, pt);
-                m_pMenuWnd->ShowWindow(true);
+            // 每次都创建新实例，避免生命周期管理问题
+            MenuWnd* pMenuWnd = new MenuWnd(_T("menu.xml"));
+            if (pMenuWnd != nullptr) {
+                pMenuWnd->Init(&m_pm, pt);
+                pMenuWnd->ShowWindow(true);
             }
         }
         else if (name == kPlaylistShowButton) {
@@ -407,6 +412,18 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
         // 处理菜单点击事件
         else if (name == _T("menu_OpenFile")) {
             OnOpenFile();
+        }
+        else if (name == _T("menu_OpenFolder")) {
+            OnOpenFolder();
+        }
+        else if (name == _T("menu_NoFrame")) {
+            OnToggleNoFrame();
+        }
+        else if (name == _T("menu_SetFullScreen")) {
+            OnFullscreen();
+        }
+        else if (name == _T("menu_ExitFullScreen")) {
+            OnScreenNormal();
         }
         else if (name == _T("menu_AddToPlaylist")) {
             OnAddToPlaylist();
@@ -523,6 +540,9 @@ LRESULT IJKPlayerWindow::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lP
                             Log::Info("VideoRenderer initialized after layout: %dx%d", w, h);
                             m_videoInitPending = false;
                             ::KillTimer(m_hWnd, 2);
+                            
+                            // 初始化完成后立即同步一次窗口大小
+                            ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
                         } else {
                             Log::Error("Failed to initialize VideoRenderer on hwnd: %p", hwnd);
                         }
@@ -544,6 +564,13 @@ LRESULT IJKPlayerWindow::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lP
 
         if (m_videoContainer && m_videoHwnd && ::IsWindow(m_videoHwnd)) {
             RECT rect = m_videoContainer->GetPos();
+            
+            // 确保视频渲染窗口始终可见
+            if (!::IsWindowVisible(m_videoHwnd)) {
+                ::ShowWindow(m_videoHwnd, SW_SHOW);
+            }
+            
+            // 更新视频渲染窗口的位置和大小
             ::SetWindowPos(
                 m_videoHwnd,
                 NULL,
@@ -577,23 +604,30 @@ LRESULT IJKPlayerWindow::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lP
 
 void IJKPlayerWindow::OnOpenFile()
 {
-    OPENFILENAMEA ofn;
-    char szFile[260] = { 0 };
+    // 检查必要的指针是否为空
+    if (!m_playlistManager || !m_playerController) {
+        if (m_statusLabel) m_statusLabel->SetText(_T("Internal error: missing components"));
+        return;
+    }
+
+    OPENFILENAMEW ofn;
+    wchar_t szFile[260] = { 0 };
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = m_hWnd;
     ofn.lpstrFile = szFile;
-    ofn.nMaxFile = sizeof(szFile);
+    ofn.nMaxFile = sizeof(szFile) / sizeof(wchar_t);
     // 注意：filter 需要以双 '\0' 结尾
-    ofn.lpstrFilter = "Media Files\0*.mp4;*.avi;*.mkv;*.flv;*.mov;*.wmv;*.mp3;*.wav;*.aac\0All Files\0*.*\0\0";
+    ofn.lpstrFilter = L"Media Files\0*.mp4;*.avi;*.mkv;*.flv;*.mov;*.wmv;*.mp3;*.wav;*.aac\0All Files\0*.*\0\0";
     ofn.nFilterIndex = 1;
     ofn.lpstrFileTitle = NULL;
     ofn.nMaxFileTitle = 0;
     ofn.lpstrInitialDir = NULL;
     ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
 
-    if (GetOpenFileNameA(&ofn)) {
-        std::string filePath = szFile;
+    if (GetOpenFileNameW(&ofn)) {
+        std::wstring filePathW = szFile;
+        std::string filePath(filePathW.begin(), filePathW.end());
         m_playlistManager->AddItem(filePath);
         m_playlistManager->SetCurrentIndex(m_playlistManager->GetCount() - 1);
         UpdatePlaylistUI();
@@ -758,6 +792,30 @@ void IJKPlayerWindow::OnAddToPlaylist()
         std::string filePath = szFile;
         m_playlistManager->AddItem(filePath);
         UpdatePlaylistUI();
+    }
+}
+
+void IJKPlayerWindow::OnOpenFolder()
+{
+    // 简单实现，仅显示状态
+    if (m_statusLabel) {
+        m_statusLabel->SetText(_T("Open Folder not implemented yet"));
+    }
+}
+
+void IJKPlayerWindow::OnScreenNormal()
+{
+    // 简单实现，仅显示状态
+    if (m_statusLabel) {
+        m_statusLabel->SetText(_T("Screen Normal not implemented yet"));
+    }
+}
+
+void IJKPlayerWindow::OnToggleNoFrame()
+{
+    // 简单实现，仅显示状态
+    if (m_statusLabel) {
+        m_statusLabel->SetText(_T("No Frame mode not implemented yet"));
     }
 }
 

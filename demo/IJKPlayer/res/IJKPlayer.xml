@@ -18,10 +18,7 @@
     <HorizontalLayout>
         <VerticalLayout>
     
-            <HorizontalLayout name="PlayWnd">
-            <Button name="MediaBkg" bkcolor="#FF2f2f2f" normalimage="playerbk.png" visible="true" />
-            <Container name="video_container" bkcolor="#FF000000" visible="false" />
-            </HorizontalLayout>
+            <Container name="video_container" bkcolor="#FF000000" visible="true" />
         
         <!-- 播放控制栏 -->
         <VerticalLayout height="90" bkcolor="#FF1b1b1b" padding="0,10,10,0">

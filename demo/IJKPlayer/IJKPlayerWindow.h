@@ -91,9 +91,6 @@ private:
     CLabelUI* m_timeLabel;
     CLabelUI* m_statusLabel;
     CListUI* m_playlistList;
-    
-    // 下拉菜单窗口
-    MenuWnd* m_pMenuWnd;
 
     // 状态
     bool m_isPlaying;
@@ -111,6 +108,7 @@ private:
 
     // 播放控制
     void OnOpenFile();
+    void OnOpenFolder();
     void OnPlay();
     void OnPause();
     void OnStop();
@@ -119,6 +117,8 @@ private:
     void OnFastBackward();
     void OnFastForward();
     void OnFullscreen();
+    void OnScreenNormal();
+    void OnToggleNoFrame();
     void OnSeek(int position);
     void OnVolumeChanged(int volume);
     void OnPlaylistItemSelected(int index);
