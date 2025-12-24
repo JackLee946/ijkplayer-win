@@ -58,7 +58,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 
     // 初始化duilib
     CPaintManagerUI::SetInstance(hInstance);
-    CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath());
+    CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("res/"));
 
     // 创建主窗口
     IJKPlayerWindow* pFrame = new IJKPlayerWindow();

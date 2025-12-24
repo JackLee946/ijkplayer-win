@@ -28,25 +28,26 @@ echo Platform: %PLATFORM%
 echo Build Type: %BUILD_TYPE%
 echo.
 
-REM 清理旧的构建目录
-if exist build (
-    echo Cleaning old build directory...
-    rmdir /s /q build
+REM 创建构建目录（如果不存在）
+if not exist build (
+    echo Creating build directory...
+    mkdir build
 )
-
-REM 创建构建目录
-echo Creating build directory...
-mkdir build
 cd build
 
-REM 配置CMake
-echo.
-echo Configuring CMake...
-cmake .. -G "Visual Studio 16 2019" -A %PLATFORM%
-if %errorlevel% neq 0 (
-    echo Error: CMake configuration failed
-    cd ..
-    exit /b 1
+REM 配置CMake（仅当构建系统文件不存在时）
+if not exist CMakeCache.txt (
+    echo.
+    echo Configuring CMake...
+    cmake .. -G "Visual Studio 16 2019" -A %PLATFORM%
+    if %errorlevel% neq 0 (
+        echo Error: CMake configuration failed
+        cd ..
+        exit /b 1
+    )
+) else (
+    echo.
+    echo CMake already configured, skipping...
 )
 
 REM 编译项目
@@ -78,4 +79,3 @@ dir output /b
 echo.
 
 endlocal
-

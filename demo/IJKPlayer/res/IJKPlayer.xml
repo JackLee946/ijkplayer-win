@@ -1,65 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Window size="1000,700" sizebox="4,4,4,4" caption="0,0,0,34" mininfo="800,600">
-    <Font name="微软雅黑" size="13" default="true" />
-    <VerticalLayout>
-        <!-- 菜单栏 -->
-        <HorizontalLayout height="34" bkcolor="#FF2B2B2B" padding="10,6,10,6">
-            <Button name="btn_file" text="文件" width="60" height="22" textcolor="#FFFFFFFF" />
-            <Button name="btn_play_menu" text="播放" width="60" height="22" textcolor="#FFFFFFFF" />
-            <Button name="btn_view" text="视图" width="60" height="22" textcolor="#FFFFFFFF" />
-            <Button name="btn_tools" text="工具" width="60" height="22" textcolor="#FFFFFFFF" />
-            <Button name="btn_help" text="帮助" width="60" height="22" textcolor="#FFFFFFFF" />
-            <Control />
-            <!-- 窗口控制按钮（duilib 约定名称：minbtn/maxbtn/restorebtn/closebtn） -->
-            <Button name="minbtn" text="—" width="38" height="22" textcolor="#FFFFFFFF" />
-            <Button name="maxbtn" text="□" width="38" height="22" textcolor="#FFFFFFFF" />
-            <Button name="restorebtn" text="❐" width="38" height="22" textcolor="#FFFFFFFF" visible="false" />
-            <Button name="closebtn" text="×" width="38" height="22" textcolor="#FFFFFFFF" />
-        </HorizontalLayout>
-
-        <!-- 工具栏 -->
-        <HorizontalLayout height="46" bkcolor="#FF202020" padding="10,8,10,8">
-            <Button name="btn_open" text="打开" width="70" height="28" textcolor="#FFFFFFFF" />
-            <Button name="btn_play" text="播放" width="70" height="28" textcolor="#FFFFFFFF" />
-            <Button name="btn_pause" text="暂停" width="70" height="28" visible="false" textcolor="#FFFFFFFF" />
-            <Button name="btn_stop" text="停止" width="70" height="28" textcolor="#FFFFFFFF" />
-            <Button name="btn_fullscreen" text="全屏" width="70" height="28" textcolor="#FFFFFFFF" />
-        </HorizontalLayout>
-
-        <!-- 主内容区域 -->
-        <HorizontalLayout>
-            <!-- 播放列表面板 -->
-            <VerticalLayout width="240" bkcolor="#FF252525">
-                <Label text="播放列表" height="34" valign="center" padding="12,0,0,0" textcolor="#FFFFFFFF" />
-                <List name="list_playlist" bkcolor="#FF1C1C1C" textcolor="#FFFFFFFF" />
-            </VerticalLayout>
-
-            <!-- 视频显示区域 -->
-            <VerticalLayout>
-                <Container name="video_container" bkcolor="#FF000000" />
-            </VerticalLayout>
-        </HorizontalLayout>
-
+<Window size="960,660" caption="0,0,0,30" sizebox="6,6,6,6" mininfo="960,660"> <!-- 窗口的初始尺寸 -->
+    <VerticalLayout bkcolor="#FF000000"> <!-- 整个窗口的背景 -->
+    
+    <HorizontalLayout name="title" height="30" bkcolor="#FF1b1b1b" > <!-- 标题栏背景色 -->
+    <HorizontalLayout width="5" />
+    <Button name="logo"  width="30" height="30" normalimage="file='logo.png'" />
+    <Button name="logotext"  width="100" text="JCHPlayer" textcolor="#FFFFFFFF" align="center" />
+    <HorizontalLayout />
+    <HorizontalLayout width="90">
+        <Button name="minbtn"   tooltip="最小化"   normalimage="file='img\btn_suo_1.png'" hotimage="file='img\btn_suo_2.png'" pushedimage="file='img\btn_suo_3.png'"/>
+        <Button name="maxbtn"   tooltip="最大化"  normalimage="file='img\btn_da_1.png'" hotimage="file='img\btn_da_2.png'" pushedimage="file='img\btn_da_3.png'" />
+        <Button name="restorebtn" visible="false" tooltip="还原"  normalimage="file='img\btn_xiao_1.png'" hotimage="file='img\btn_xiao_2.png'" pushedimage="file='img\btn_xiao_3.png'" />
+        <Button name="closebtn" tooltip="关闭"     normalimage="file='img\btn_guan_1.png'" hotimage="file='img\btn_guan_2.png'" pushedimage="file='img\btn_guan_3.png'"/>
+    </HorizontalLayout>
+    </HorizontalLayout>
+    
+    <HorizontalLayout>
+        <VerticalLayout>
+    
+            <HorizontalLayout name="PlayWnd">
+            <Button name="MediaBkg" bkcolor="#FF2f2f2f" normalimage="playerbk.png" visible="true" />
+            <Container name="video_container" bkcolor="#FF000000" visible="false" />
+            </HorizontalLayout>
+        
         <!-- 播放控制栏 -->
-        <HorizontalLayout height="64" bkcolor="#FF2B2B2B" padding="10,10,10,10">
-            <Button name="btn_prev" text="上一首" width="70" height="28" textcolor="#FFFFFFFF" />
-            <Button name="btn_play_control" text="播放" width="70" height="28" textcolor="#FFFFFFFF" />
-            <Button name="btn_pause_control" text="暂停" width="70" height="28" visible="false" textcolor="#FFFFFFFF" />
-            <Button name="btn_stop_control" text="停止" width="70" height="28" textcolor="#FFFFFFFF" />
-            <Button name="btn_next" text="下一首" width="70" height="28" textcolor="#FFFFFFFF" />
+        <VerticalLayout height="90" bkcolor="#FF1b1b1b" padding="0,10,10,0">
+            <VerticalLayout height="10" />
+            <HorizontalLayout height="20">
+                <HorizontalLayout name="ctnSlider">
+                    <VerticalLayout width="27">
+                        <Button name="btnFastBackward" tooltip="快退" width="17" height="13" normalimage="file='btn_fast_backward.png' source='0,0,17,13'" hotimage="file='btn_fast_backward.png' source='18,0,35,13'" pushedimage="file='btn_fast_backward.png' source='36,0,53,13'" />
+                    </VerticalLayout>
+                    <VerticalLayout>
+                        <Slider name="slider_progress" height="20" bkimage="slider\SliderBack.png" foreimage="slider\SliderFore.png" min="0" max="1000" value="0" hor="true" thumbhotimage="file='slider\SliderBar.png' source='21,0,41,20'" thumbpushedimage="file='slider\SliderBar.png' source='42,0,62,20'" thumbsize="20,20" />
+                    </VerticalLayout>
+                    <VerticalLayout width="24"> 
+                        <Button name="btnFastForward" tooltip="快进" width="17" height="13" normalimage="file='btn_fast_forward.png' source='0,0,17,13'" hotimage="file='btn_fast_forward.png' source='18,0,35,13'" pushedimage="file='btn_fast_forward.png' source='36,0,53,13'" />
+                    </VerticalLayout>   
+                </HorizontalLayout>
+            </HorizontalLayout>
             
-            <Label text=" " width="6" />
-            <Slider name="slider_progress" width="380" height="18" />
-            <Label name="label_time" text="00:00 / 00:00" width="140" textcolor="#FFFFFFFF" align="center" />
-            
-            <Label text="音量" width="40" textcolor="#FFFFFFFF" align="center" />
-            <Slider name="slider_volume" width="140" height="18" value="50" />
-        </HorizontalLayout>
+            <HorizontalLayout>
+                <HorizontalLayout width="25" />
+                <VerticalLayout>
+                    <Label name="label_time" text="00:00 / 00:00" width="120" height="18" textcolor="#FF85909F" align="center" />
+                </VerticalLayout>
+                <HorizontalLayout width="350" height="48">
+                    <HorizontalLayout width="40" inset="0,4,0,4">
+                        <Button name="btn_stop" tooltip="停止" width="40" height="40" normalimage="file='btn_stop.png' source='0,0,40,40'" hotimage="file='btn_stop.png' source='41,0,81,40'" pushedimage="file='btn_stop.png' source='82,0,122,40'" />
+                    </HorizontalLayout>
+                    <HorizontalLayout width="40" inset="0,4,0,4">
+                        <Button name="btn_prev" tooltip="上一首" width="40" height="40" normalimage="file='btn_previous.png' source='0,0,40,40'" hotimage="file='btn_previous.png' source='41,0,81,40'" pushedimage="file='btn_previous.png' source='82,0,122,40'" />
+                    </HorizontalLayout>
+                    <Button name="btn_play" tooltip="播放" visible="true" width="48" height="48" normalimage="file='btn_play.png' source='0,0,48,50'" hotimage="file='btn_play.png' source='49,0,97,48'" pushedimage="file='btn_play.png' source='98,0,146,48'" />
+                    <Button name="btn_pause" tooltip="暂停" visible="false" width="48" height="48" normalimage="file='btn_pause.png' source='0,0,48,50'" hotimage="file='btn_pause.png' source='49,0,97,48'" pushedimage="file='btn_pause.png' source='98,0,146,48'" />
+                    <HorizontalLayout width="40" inset="0,4,0,4">
+                        <Button name="btn_next" tooltip="下一首" width="40" height="40" normalimage="file='btn_next.png' source='0,0,40,40'" hotimage="file='btn_next.png' source='41,0,81,40'" pushedimage="file='btn_next.png' source='82,0,122,40'" />
+                    </HorizontalLayout>
+                    <HorizontalLayout width="16" inset="0,16,0,16">
+                        <Button name="btn_volume" tooltip="静音" width="16" height="16" normalimage="file='btn_volume.png' source='0,0,16,16'" hotimage="file='btn_volume.png' source='17,0,33,16'" pushedimage="file='btn_volume.png' source='34,0,50,16'" />
+                        <Button name="btn_volume_zero" tooltip="取消静音" visible="false" width="16" height="16" normalimage="file='btn_volume_zero.png' source='0,0,16,16'" hotimage="file='btn_volume_zero.png' source='17,0,33,16'" pushedimage="file='btn_volume_zero.png' source='34,0,50,16'" />
+                    </HorizontalLayout>
+                    <HorizontalLayout width="100" inset="0,14,0,14">
+                        <Slider name="slider_volume" min="0" height="20" max="100" value="100" bkimage="slider\SliderBackVolume.png" foreimage="slider\SliderForeVolume.png" hor="true" thumbimage="slider\btn_huadong_1.png" thumbhotimage="slider\btn_huadong_2.png" thumbpushedimage="slider\btn_huadong_3.png" thumbsize="19,19" />
+                    </HorizontalLayout>
+                </HorizontalLayout>
+                
+                <VerticalLayout>
+                <VerticalLayout height="12"/>
+                <HorizontalLayout height="18">
+                <HorizontalLayout />
+                <HorizontalLayout width="66">
+                    <HorizontalLayout width="24" >
+                        <Button name="btn_open_mini" tooltip="打开文件" width="24" height="18" normalimage="file='btn_open_mini.png' source='0,0,24,18'" hotimage="file='btn_open_mini.png' source='25,0,49,18'" pushedimage="file='btn_open_mini.png' source='50,0,74,18'" />
+                    </HorizontalLayout>
+                    <HorizontalLayout width="18">
+                        <Button name="btnPlaylistShow" tooltip="显示播放列表" visible="false" width="18" height="18" normalimage="file='btn_playlist.png' source='0,0,18,18'" hotimage="file='btn_playlist.png' source='19,0,37,18'" pushedimage="file='btn_playlist.png' source='38,0,56,18'" />
+                        <Button name="btnPlaylistHide" tooltip="隐藏播放列表" visible="true" width="18" height="18" normalimage="file='btn_playlist_hide.png' source='0,0,18,18'" hotimage="file='btn_playlist_hide.png' source='19,0,37,18'" pushedimage="file='btn_playlist_hide.png' source='38,0,56,18'" />
+                    </HorizontalLayout>
+                    <HorizontalLayout width="24">
+                        <Button name="btn_fullscreen" tooltip="全屏" width="24" height="18" normalimage="file='btn_screen_full.png' source='0,0,24,18'" hotimage="file='btn_screen_full.png' source='25,0,49,18'" pushedimage="file='btn_screen_full.png' source='50,0,74,18'" />
+                        <Button name="btn_screen_normal" tooltip="退出全屏" visible="false" width="24" height="18" normalimage="file='btn_screen_normal.png' source='0,0,24,18'" hotimage="file='btn_screen_normal.png' source='25,0,49,18'" pushedimage="file='btn_screen_normal.png' source='50,0,74,18'" />
+                    </HorizontalLayout>
+                </HorizontalLayout>		 
+                <HorizontalLayout width="10"/>
+                </HorizontalLayout>
+                </VerticalLayout> 
+            </HorizontalLayout>
+        </VerticalLayout>
+        </VerticalLayout>
 
-        <!-- 状态栏 -->
-        <HorizontalLayout height="28" bkcolor="#FF1E1E1E" padding="10,4,10,4">
-            <Label name="label_status" text="就绪" width="900" textcolor="#FFBFBFBF" />
+    <!-- 播放列表面板 -->
+    <VerticalLayout name="playlist_panel" width="225" bkcolor="#FF000000">
+        <Button name="playlist" text="播放列表" textcolor="#FFFFFFFF" bordersize="1" bordercolor="#FF2f2f2f" bkcolor="#FF1b1b1b" height="30" tooltip="播放列表" />
+        <HorizontalLayout>
+            <VerticalLayout width="17" inset="0,50,0,0">
+                <HorizontalLayout />
+                <HorizontalLayout height="77">
+                    <Button name="btnSideHide" tooltip="隐藏列表" normalimage="btn_suojing_1.png" hotimage="btn_suojing_2.png" pushedimage="btn_suojing_2.png" />
+                    <Button name="btnSideShow" tooltip="显示列表" visible="false" normalimage="btn_dakai_1.png" hotimage="btn_dakai_2.png" pushedimage="btn_dakai_2.png" />
+                </HorizontalLayout>
+                <HorizontalLayout />
+            </VerticalLayout>
+            <HorizontalLayout>
+                <TreeView name="treePlaylist" childpadding="4" multipleitem="true" inset="4,0,3,0" bordersize="0" bordercolor="#FFadb6c6" itemtextcolor="#FF164f7d" itemhottextcolor="#FFC8C6CB" selitemtextcolor="#FFFFFFFF" itemhotbkcolor="#FF1b1b1b" itemselectedbkcolor="#FFadb6c6" font="18" vscrollbar="true" hscrollbar="true">
+                </TreeView>
+            </HorizontalLayout>
         </HorizontalLayout>
+    </VerticalLayout>
+     </HorizontalLayout>
     </VerticalLayout>
 </Window>
 

@@ -16,17 +16,51 @@ const TCHAR* const IJKPlayerWindow::kVideoContainer = _T("video_container");
 const TCHAR* const IJKPlayerWindow::kPlayButton = _T("btn_play");
 const TCHAR* const IJKPlayerWindow::kPauseButton = _T("btn_pause");
 const TCHAR* const IJKPlayerWindow::kStopButton = _T("btn_stop");
+const TCHAR* const IJKPlayerWindow::kPrevButton = _T("btn_prev");
+const TCHAR* const IJKPlayerWindow::kNextButton = _T("btn_next");
+const TCHAR* const IJKPlayerWindow::kFastBackwardButton = _T("btn_fast_backward");
+const TCHAR* const IJKPlayerWindow::kFastForwardButton = _T("btn_fast_forward");
+const TCHAR* const IJKPlayerWindow::kFullscreenButton = _T("btn_fullscreen");
 const TCHAR* const IJKPlayerWindow::kProgressSlider = _T("slider_progress");
 const TCHAR* const IJKPlayerWindow::kVolumeSlider = _T("slider_volume");
 const TCHAR* const IJKPlayerWindow::kTimeLabel = _T("label_time");
 const TCHAR* const IJKPlayerWindow::kStatusLabel = _T("label_status");
 const TCHAR* const IJKPlayerWindow::kPlaylistList = _T("list_playlist");
+const TCHAR* const IJKPlayerWindow::kMinimizeButton = _T("btn_minimize");
+const TCHAR* const IJKPlayerWindow::kMaximizeButton = _T("btn_maximize");
+const TCHAR* const IJKPlayerWindow::kCloseButton = _T("btn_close");
+const TCHAR* const IJKPlayerWindow::kVolumeButton = _T("btn_volume");
+const TCHAR* const IJKPlayerWindow::kVolumeZeroButton = _T("btn_volume_zero");
+const TCHAR* const IJKPlayerWindow::kOpenMiniButton = _T("btn_open_mini");
+const TCHAR* const IJKPlayerWindow::kPlaylistShowButton = _T("btnPlaylistShow");
+const TCHAR* const IJKPlayerWindow::kPlaylistHideButton = _T("btnPlaylistHide");
+const TCHAR* const IJKPlayerWindow::kScreenNormalButton = _T("btn_screen_normal");
+const TCHAR* const IJKPlayerWindow::kSideHideButton = _T("btnSideHide");
+const TCHAR* const IJKPlayerWindow::kSideShowButton = _T("btnSideShow");
+const TCHAR* const IJKPlayerWindow::kPlaylistPanel = _T("playlist_panel");
 
 IJKPlayerWindow::IJKPlayerWindow()
     : m_videoContainer(nullptr)
     , m_playButton(nullptr)
     , m_pauseButton(nullptr)
     , m_stopButton(nullptr)
+    , m_prevButton(nullptr)
+    , m_nextButton(nullptr)
+    , m_fastBackwardButton(nullptr)
+    , m_fastForwardButton(nullptr)
+    , m_fullscreenButton(nullptr)
+    , m_minimizeButton(nullptr)
+    , m_maximizeButton(nullptr)
+    , m_closeButton(nullptr)
+    , m_volumeButton(nullptr)
+    , m_volumeZeroButton(nullptr)
+    , m_openMiniButton(nullptr)
+    , m_playlistShowButton(nullptr)
+    , m_playlistHideButton(nullptr)
+    , m_screenNormalButton(nullptr)
+    , m_sideHideButton(nullptr)
+    , m_sideShowButton(nullptr)
+    , m_playlistPanel(nullptr)
     , m_progressSlider(nullptr)
     , m_volumeSlider(nullptr)
     , m_timeLabel(nullptr)
@@ -62,7 +96,7 @@ IJKPlayerWindow::~IJKPlayerWindow()
 
 CDuiString IJKPlayerWindow::GetSkinFile()
 {
-    return _T("res/IJKPlayer.xml");
+    return _T("IJKPlayer.xml");
 }
 
 LPCTSTR IJKPlayerWindow::GetWindowClassName(void) const
@@ -101,6 +135,23 @@ void IJKPlayerWindow::SetupUI()
     m_playButton = static_cast<CButtonUI*>(m_pm.FindControl(kPlayButton));
     m_pauseButton = static_cast<CButtonUI*>(m_pm.FindControl(kPauseButton));
     m_stopButton = static_cast<CButtonUI*>(m_pm.FindControl(kStopButton));
+    m_prevButton = static_cast<CButtonUI*>(m_pm.FindControl(kPrevButton));
+    m_nextButton = static_cast<CButtonUI*>(m_pm.FindControl(kNextButton));
+    m_fastBackwardButton = static_cast<CButtonUI*>(m_pm.FindControl(kFastBackwardButton));
+    m_fastForwardButton = static_cast<CButtonUI*>(m_pm.FindControl(kFastForwardButton));
+    m_fullscreenButton = static_cast<CButtonUI*>(m_pm.FindControl(kFullscreenButton));
+    m_screenNormalButton = static_cast<CButtonUI*>(m_pm.FindControl(kScreenNormalButton));
+    m_minimizeButton = static_cast<CButtonUI*>(m_pm.FindControl(kMinimizeButton));
+    m_maximizeButton = static_cast<CButtonUI*>(m_pm.FindControl(kMaximizeButton));
+    m_closeButton = static_cast<CButtonUI*>(m_pm.FindControl(kCloseButton));
+    m_volumeButton = static_cast<CButtonUI*>(m_pm.FindControl(kVolumeButton));
+    m_volumeZeroButton = static_cast<CButtonUI*>(m_pm.FindControl(kVolumeZeroButton));
+    m_openMiniButton = static_cast<CButtonUI*>(m_pm.FindControl(kOpenMiniButton));
+    m_playlistShowButton = static_cast<CButtonUI*>(m_pm.FindControl(kPlaylistShowButton));
+    m_playlistHideButton = static_cast<CButtonUI*>(m_pm.FindControl(kPlaylistHideButton));
+    m_sideHideButton = static_cast<CButtonUI*>(m_pm.FindControl(kSideHideButton));
+    m_sideShowButton = static_cast<CButtonUI*>(m_pm.FindControl(kSideShowButton));
+    m_playlistPanel = m_pm.FindControl(kPlaylistPanel);
     m_progressSlider = static_cast<CSliderUI*>(m_pm.FindControl(kProgressSlider));
     m_volumeSlider = static_cast<CSliderUI*>(m_pm.FindControl(kVolumeSlider));
     m_timeLabel = static_cast<CLabelUI*>(m_pm.FindControl(kTimeLabel));
@@ -111,14 +162,20 @@ void IJKPlayerWindow::SetupUI()
     if (m_pauseButton) {
         m_pauseButton->SetVisible(false);
     }
+    if (m_screenNormalButton) {
+        m_screenNormalButton->SetVisible(false);
+    }
     if (m_progressSlider) {
         m_progressSlider->SetMinValue(0);
-        m_progressSlider->SetMaxValue(100);
+        m_progressSlider->SetMaxValue(1000);
     }
     if (m_volumeSlider) {
         m_volumeSlider->SetMinValue(0);
         m_volumeSlider->SetMaxValue(100);
-        m_volumeSlider->SetValue(50); // 默认50%音量
+        m_volumeSlider->SetValue(100); // 默认100%音量
+    }
+    if (m_volumeZeroButton) {
+        m_volumeZeroButton->SetVisible(false);
     }
 }
 
@@ -199,8 +256,25 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
             return;
         }
 
+        // 窗口控制按钮
+        if (name == kMinimizeButton) {
+            ::SendMessage(m_hWnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
+            return;
+        }
+        else if (name == kMaximizeButton) {
+            if (::IsZoomed(m_hWnd)) {
+                ::SendMessage(m_hWnd, WM_SYSCOMMAND, SC_RESTORE, 0);
+            } else {
+                ::SendMessage(m_hWnd, WM_SYSCOMMAND, SC_MAXIMIZE, 0);
+            }
+            return;
+        }
+        else if (name == kCloseButton) {
+            ::SendMessage(m_hWnd, WM_CLOSE, 0, 0);
+            return;
+        }
         // “全屏”按钮：用主窗口最大化/还原实现（嵌入 HWND 的 SDL_Window 不适合 SDL_SetWindowFullscreen）
-        if (name == _T("btn_fullscreen")) {
+        else if (name == kFullscreenButton) {
             if (::IsZoomed(m_hWnd)) {
                 ::SendMessage(m_hWnd, WM_SYSCOMMAND, SC_RESTORE, 0);
             } else {
@@ -217,6 +291,97 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
         }
         else if (name == kStopButton) {
             OnStop();
+        }
+        else if (name == kPrevButton) {
+            OnPrev();
+        }
+        else if (name == kNextButton) {
+            OnNext();
+        }
+        else if (name == kFastBackwardButton) {
+            OnFastBackward();
+        }
+        else if (name == kFastForwardButton) {
+            OnFastForward();
+        }
+        else if (name == kFullscreenButton) {
+            OnFullscreen();
+        }
+        else if (name == kScreenNormalButton) {
+            OnFullscreen(); // 退出全屏与全屏使用相同的逻辑
+        }
+        else if (name == kVolumeButton) {
+            // 点击音量按钮切换到静音状态
+            if (m_volumeButton && m_volumeZeroButton) {
+                m_volumeButton->SetVisible(false);
+                m_volumeZeroButton->SetVisible(true);
+                if (m_playerController) {
+                    m_playerController->SetVolume(0.0f);
+                    if (m_volumeSlider) {
+                        m_volumeSlider->SetValue(0);
+                    }
+                }
+            }
+        }
+        else if (name == kVolumeZeroButton) {
+            // 点击静音按钮恢复音量
+            if (m_volumeButton && m_volumeZeroButton) {
+                m_volumeButton->SetVisible(true);
+                m_volumeZeroButton->SetVisible(false);
+                if (m_playerController) {
+                    m_playerController->SetVolume(50.0f); // 恢复到50%音量
+                    if (m_volumeSlider) {
+                        m_volumeSlider->SetValue(50);
+                    }
+                }
+            }
+        }
+        else if (name == kOpenMiniButton) {
+            OnOpenFile();
+        }
+        else if (name == kPlaylistShowButton) {
+            // 显示播放列表
+            if (m_playlistShowButton && m_playlistHideButton) {
+                m_playlistShowButton->SetVisible(false);
+                m_playlistHideButton->SetVisible(true);
+                // 显示播放列表面板
+                if (m_playlistPanel) {
+                    m_playlistPanel->SetVisible(true);
+                }
+            }
+        }
+        else if (name == kPlaylistHideButton) {
+            // 隐藏播放列表
+            if (m_playlistShowButton && m_playlistHideButton) {
+                m_playlistShowButton->SetVisible(true);
+                m_playlistHideButton->SetVisible(false);
+                // 隐藏播放列表面板
+                if (m_playlistPanel) {
+                    m_playlistPanel->SetVisible(false);
+                }
+            }
+        }
+        else if (name == kSideHideButton) {
+            // 隐藏播放列表
+            if (m_sideHideButton && m_sideShowButton) {
+                m_sideHideButton->SetVisible(false);
+                m_sideShowButton->SetVisible(true);
+                // 隐藏播放列表面板
+                if (m_playlistPanel) {
+                    m_playlistPanel->SetVisible(false);
+                }
+            }
+        }
+        else if (name == kSideShowButton) {
+            // 显示播放列表
+            if (m_sideHideButton && m_sideShowButton) {
+                m_sideHideButton->SetVisible(true);
+                m_sideShowButton->SetVisible(false);
+                // 显示播放列表面板
+                if (m_playlistPanel) {
+                    m_playlistPanel->SetVisible(true);
+                }
+            }
         }
         else if (name == _T("btn_open")) {
             OnOpenFile();
@@ -256,6 +421,49 @@ LRESULT IJKPlayerWindow::OnClose(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& 
     return 0;
 }
 
+LRESULT IJKPlayerWindow::OnContextMenu(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+    POINT pt;
+    pt.x = LOWORD(lParam);
+    pt.y = HIWORD(lParam);
+    ::ClientToScreen(m_hWnd, &pt);
+
+    HMENU hMenu = ::CreatePopupMenu();
+    if (hMenu) {
+        ::AppendMenu(hMenu, MF_STRING, 1001, _T("打开文件"));
+        ::AppendMenu(hMenu, MF_STRING, 1002, _T("添加到播放列表"));
+        ::AppendMenu(hMenu, MF_SEPARATOR, 0, NULL);
+        ::AppendMenu(hMenu, MF_STRING, 1003, _T("退出"));
+
+        ::TrackPopupMenu(hMenu, TPM_LEFTALIGN | TPM_LEFTBUTTON, pt.x, pt.y, 0, m_hWnd, NULL);
+        ::DestroyMenu(hMenu);
+    }
+
+    bHandled = TRUE;
+    return 0;
+}
+
+LRESULT IJKPlayerWindow::OnCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+    int id = LOWORD(wParam);
+    if (id == 1001) {
+        OnOpenFile();
+        bHandled = TRUE;
+        return 0;
+    } else if (id == 1002) {
+        OnAddToPlaylist();
+        bHandled = TRUE;
+        return 0;
+    } else if (id == 1003) {
+        ::SendMessage(m_hWnd, WM_CLOSE, 0, 0);
+        bHandled = TRUE;
+        return 0;
+    }
+
+    bHandled = FALSE;
+    return 0;
+}
+
 LRESULT IJKPlayerWindow::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
     // 注意：duilib 的布局刷新发生在 WindowImplBase::HandleMessage() 后续的 m_pm.MessageHandler() 中，
@@ -282,10 +490,14 @@ LRESULT IJKPlayerWindow::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lP
                 const int h = rc.bottom - rc.top;
                 if (w > 10 && h > 10) {
                     HWND hwnd = GetVideoContainerHWND();
-                    if (hwnd && m_videoRenderer && m_videoRenderer->Initialize(hwnd)) {
-                        Log::Info("VideoRenderer initialized after layout: %dx%d", w, h);
-                        m_videoInitPending = false;
-                        ::KillTimer(m_hWnd, 2);
+                    if (hwnd && m_videoRenderer) {
+                        if (m_videoRenderer->Initialize(hwnd)) {
+                            Log::Info("VideoRenderer initialized after layout: %dx%d", w, h);
+                            m_videoInitPending = false;
+                            ::KillTimer(m_hWnd, 2);
+                        } else {
+                            Log::Error("Failed to initialize VideoRenderer on hwnd: %p", hwnd);
+                        }
                     }
                 }
             }
@@ -414,6 +626,54 @@ void IJKPlayerWindow::OnStop()
     }
 }
 
+void IJKPlayerWindow::OnPrev()
+{
+    auto prevItem = m_playlistManager->GetPrevious();
+    if (prevItem) {
+        OnPlaylistItemSelected(m_playlistManager->GetCurrentIndex());
+        OnPlay();
+    }
+}
+
+void IJKPlayerWindow::OnNext()
+{
+    auto nextItem = m_playlistManager->GetNext();
+    if (nextItem) {
+        OnPlaylistItemSelected(m_playlistManager->GetCurrentIndex());
+        OnPlay();
+    }
+}
+
+void IJKPlayerWindow::OnFastBackward()
+{
+    if (m_playerController) {
+        long currentPos = m_playerController->GetCurrentPosition();
+        long newPos = currentPos - 10000; // 快退10秒
+        if (newPos < 0) newPos = 0;
+        m_playerController->SeekTo(newPos);
+    }
+}
+
+void IJKPlayerWindow::OnFastForward()
+{
+    if (m_playerController) {
+        long currentPos = m_playerController->GetCurrentPosition();
+        long duration = m_playerController->GetDuration();
+        long newPos = currentPos + 10000; // 快进10秒
+        if (newPos > duration) newPos = duration;
+        m_playerController->SeekTo(newPos);
+    }
+}
+
+void IJKPlayerWindow::OnFullscreen()
+{
+    if (::IsZoomed(m_hWnd)) {
+        ::SendMessage(m_hWnd, WM_SYSCOMMAND, SC_RESTORE, 0);
+    } else {
+        ::SendMessage(m_hWnd, WM_SYSCOMMAND, SC_MAXIMIZE, 0);
+    }
+}
+
 void IJKPlayerWindow::OnSeek(int position)
 {
     if (m_progressSlider && m_playerController) {
@@ -447,6 +707,29 @@ void IJKPlayerWindow::OnPlaylistItemSelected(int index)
                 }
             }
         }
+    }
+}
+
+void IJKPlayerWindow::OnAddToPlaylist()
+{
+    OPENFILENAMEA ofn;
+    char szFile[260] = { 0 };
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = m_hWnd;
+    ofn.lpstrFile = szFile;
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFilter = "Media Files\0*.mp4;*.avi;*.mkv;*.flv;*.mov;*.wmv;*.mp3;*.wav;*.aac\0All Files\0*.*\0\0";
+    ofn.nFilterIndex = 1;
+    ofn.lpstrFileTitle = NULL;
+    ofn.nMaxFileTitle = 0;
+    ofn.lpstrInitialDir = NULL;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT;
+
+    if (GetOpenFileNameA(&ofn)) {
+        std::string filePath = szFile;
+        m_playlistManager->AddItem(filePath);
+        UpdatePlaylistUI();
     }
 }
 
@@ -552,6 +835,7 @@ void IJKPlayerWindow::UpdatePlaylistUI()
         if (item) {
             CListTextElementUI* pListElement = new CListTextElementUI;
             pListElement->SetText(0, item->fileName.c_str());
+            pListElement->SetText(1, item->filePath.c_str());
             m_playlistList->Add(pListElement);
         }
     }

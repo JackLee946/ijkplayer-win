@@ -24,6 +24,8 @@ public:
     // 窗口消息处理
     virtual LRESULT OnClose(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) override;
     virtual LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) override;
+    LRESULT OnContextMenu(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+    LRESULT OnCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
     virtual LRESULT HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) override;
 
 protected:
@@ -32,11 +34,28 @@ protected:
     static const TCHAR* const kPlayButton;
     static const TCHAR* const kPauseButton;
     static const TCHAR* const kStopButton;
+    static const TCHAR* const kPrevButton;
+    static const TCHAR* const kNextButton;
+    static const TCHAR* const kFastBackwardButton;
+    static const TCHAR* const kFastForwardButton;
+    static const TCHAR* const kFullscreenButton;
     static const TCHAR* const kProgressSlider;
     static const TCHAR* const kVolumeSlider;
     static const TCHAR* const kTimeLabel;
     static const TCHAR* const kStatusLabel;
     static const TCHAR* const kPlaylistList;
+    static const TCHAR* const kMinimizeButton;
+    static const TCHAR* const kMaximizeButton;
+    static const TCHAR* const kCloseButton;
+    static const TCHAR* const kVolumeButton;
+    static const TCHAR* const kVolumeZeroButton;
+    static const TCHAR* const kOpenMiniButton;
+    static const TCHAR* const kPlaylistShowButton;
+    static const TCHAR* const kPlaylistHideButton;
+    static const TCHAR* const kScreenNormalButton;
+    static const TCHAR* const kSideHideButton;
+    static const TCHAR* const kSideShowButton;
+    static const TCHAR* const kPlaylistPanel;
 
 private:
     // 播放器组件
@@ -49,6 +68,23 @@ private:
     CButtonUI* m_playButton;
     CButtonUI* m_pauseButton;
     CButtonUI* m_stopButton;
+    CButtonUI* m_prevButton;
+    CButtonUI* m_nextButton;
+    CButtonUI* m_fastBackwardButton;
+    CButtonUI* m_fastForwardButton;
+    CButtonUI* m_fullscreenButton;
+    CButtonUI* m_minimizeButton;
+    CButtonUI* m_maximizeButton;
+    CButtonUI* m_closeButton;
+    CButtonUI* m_volumeButton;
+    CButtonUI* m_volumeZeroButton;
+    CButtonUI* m_openMiniButton;
+    CButtonUI* m_playlistShowButton;
+    CButtonUI* m_playlistHideButton;
+    CButtonUI* m_screenNormalButton;
+    CButtonUI* m_sideHideButton;
+    CButtonUI* m_sideShowButton;
+    CControlUI* m_playlistPanel;
     CSliderUI* m_progressSlider;
     CSliderUI* m_volumeSlider;
     CLabelUI* m_timeLabel;
@@ -74,9 +110,15 @@ private:
     void OnPlay();
     void OnPause();
     void OnStop();
+    void OnPrev();
+    void OnNext();
+    void OnFastBackward();
+    void OnFastForward();
+    void OnFullscreen();
     void OnSeek(int position);
     void OnVolumeChanged(int volume);
     void OnPlaylistItemSelected(int index);
+    void OnAddToPlaylist();
 
     // 回调处理
     void OnPlayerStateChanged(IjkMsgState state, int arg1, int arg2);
