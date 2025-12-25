@@ -66,6 +66,8 @@ void MenuWnd::Notify( TNotifyUI& msg )
     {
         if(m_pOwnerPM)
         {
+            // 将ITEMCLICK事件转换为CLICK事件，确保主窗口能正确处理
+            msg.sType = DUI_MSGTYPE_CLICK;
             m_pOwnerPM->SendNotify(msg);
         }
 

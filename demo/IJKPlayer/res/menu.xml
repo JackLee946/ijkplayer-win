@@ -9,6 +9,9 @@
 		<ListContainerElement name="menu_OpenFolder" height="22" inset="2,0,0,0">
 			<Label text="打开文件夹" mouse="true" textcolor="FFFFFFFF"/>
 		</ListContainerElement>
+		<ListContainerElement name="menu_OpenNetworkStream" height="22" inset="2,0,0,0">
+			<Label text="打开网络流" mouse="true" textcolor="FFFFFFFF"/>
+		</ListContainerElement>
 		<ListContainerElement name="menu_NoFrame" height="22" inset="2,0,0,0">
 			<Label text="无边框模式" mouse="true" textcolor="FFFFFFFF"/>
 		</ListContainerElement>

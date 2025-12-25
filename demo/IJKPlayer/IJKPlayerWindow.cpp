@@ -383,6 +383,9 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
         else if (name == _T("menu_OpenFolder")) {
             OnOpenFolder();
         }
+        else if (name == _T("menu_OpenNetworkStream")) {
+            OnOpenNetworkStream();
+        }
         else if (name == _T("menu_NoFrame")) {
             OnToggleNoFrame();
         }
@@ -861,6 +864,240 @@ void IJKPlayerWindow::OnOpenFolder()
     // 简单实现，仅显示状态
     if (m_statusLabel) {
         m_statusLabel->SetText(_T("Open Folder not implemented yet"));
+    }
+}
+
+// 简单的输入对话框函数
+bool InputBox(HWND hwndParent, LPCWSTR title, LPCWSTR prompt, LPWSTR buffer, DWORD bufferSize)
+{
+    // 创建一个简单的对话框，让用户输入文本
+    HWND hEdit = CreateWindowW(
+        L"EDIT", L"",
+        WS_VISIBLE | WS_CHILD | WS_BORDER | ES_AUTOHSCROLL,
+        10, 30, 300, 20,
+        hwndParent, NULL, GetModuleHandle(NULL), NULL);
+
+    HWND hOK = CreateWindowW(
+        L"BUTTON", L"确定",
+        WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+        10, 60, 80, 25,
+        hwndParent, (HMENU)1, GetModuleHandle(NULL), NULL);
+
+    HWND hCancel = CreateWindowW(
+        L"BUTTON", L"取消",
+        WS_VISIBLE | WS_CHILD,
+        100, 60, 80, 25,
+        hwndParent, (HMENU)2, GetModuleHandle(NULL), NULL);
+
+    // 显示对话框
+    ShowWindow(hEdit, SW_SHOW);
+    ShowWindow(hOK, SW_SHOW);
+    ShowWindow(hCancel, SW_SHOW);
+
+    // 处理消息
+    MSG msg;
+    bool okClicked = false;
+    while (GetMessage(&msg, NULL, 0, 0)) {
+        if (msg.message == WM_COMMAND) {
+            if (LOWORD(msg.wParam) == 1) { // OK按钮
+                GetWindowTextW(hEdit, buffer, bufferSize);
+                okClicked = true;
+                break;
+            } else if (LOWORD(msg.wParam) == 2) { // 取消按钮
+                break;
+            }
+        }
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
+
+    // 清理
+    DestroyWindow(hEdit);
+    DestroyWindow(hOK);
+    DestroyWindow(hCancel);
+
+    return okClicked;
+}
+
+// 对话框数据结构，用于传递和保存数据
+struct NetworkStreamDialogData {
+    IJKPlayerWindow* pThis;
+    std::wstring networkUrl;
+    bool bOK; // 记录用户是否点击了确定按钮
+};
+
+// 对话框回调函数
+INT_PTR CALLBACK NetworkStreamDialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    NetworkStreamDialogData* pData = NULL;
+    
+    // 在初始化时保存对话框数据
+    if (message == WM_INITDIALOG) {
+        pData = (NetworkStreamDialogData*)lParam;
+        SetWindowLongPtrW(hDlg, DWL_USER, (LONG_PTR)pData);
+        
+        // 设置对话框位置（居中显示）
+        RECT dialogRect, parentRect;
+        GetWindowRect(hDlg, &dialogRect);
+        GetWindowRect(GetParent(hDlg), &parentRect);
+        int x = parentRect.left + (parentRect.right - parentRect.left - dialogRect.right + dialogRect.left) / 2;
+        int y = parentRect.top + (parentRect.bottom - parentRect.top - dialogRect.bottom + dialogRect.top) / 2;
+        SetWindowPos(hDlg, NULL, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+        
+        // 创建提示标签
+        CreateWindowW(
+            L"STATIC", L"请输入网络流地址:",
+            WS_VISIBLE | WS_CHILD,
+            10, 10, 380, 20,
+            hDlg, (HMENU)1000, GetModuleHandle(NULL), NULL);
+        
+        // 创建编辑框
+        CreateWindowW(
+            L"EDIT", L"",
+            WS_VISIBLE | WS_CHILD | WS_BORDER | ES_AUTOHSCROLL,
+            10, 35, 380, 25,
+            hDlg, (HMENU)1001, GetModuleHandle(NULL), NULL);
+        
+        // 创建确定按钮
+        CreateWindowW(
+            L"BUTTON", L"确定",
+            WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+            120, 70, 80, 25,
+            hDlg, (HMENU)IDOK, GetModuleHandle(NULL), NULL);
+        
+        // 创建取消按钮
+        CreateWindowW(
+            L"BUTTON", L"取消",
+            WS_VISIBLE | WS_CHILD,
+            220, 70, 80, 25,
+            hDlg, (HMENU)IDCANCEL, GetModuleHandle(NULL), NULL);
+        
+        // 设置对话框字体
+        ::SendMessageW(hDlg, WM_SETFONT, (WPARAM)GetStockObject(DEFAULT_GUI_FONT), (LPARAM)TRUE);
+        
+        // 设置焦点到编辑框
+        SetFocus(GetDlgItem(hDlg, 1001));
+        return TRUE;
+    }
+    
+    // 获取对话框数据
+    pData = (NetworkStreamDialogData*)GetWindowLongPtrW(hDlg, DWL_USER);
+    
+    switch (message)
+    {
+    case WM_COMMAND:
+        // 检查是否是按钮点击事件
+        if (HIWORD(wParam) == BN_CLICKED) {
+            if (LOWORD(wParam) == IDOK) {
+                // 确定按钮被点击
+                WCHAR buffer[1024] = { 0 };
+                GetDlgItemTextW(hDlg, 1001, buffer, 1024);
+                
+                // 保存用户输入的网络地址
+                if (pData) {
+                    pData->networkUrl = buffer;
+                    pData->bOK = true;
+                }
+                
+                // 关闭对话框
+                DestroyWindow(hDlg);
+                return TRUE;
+            }
+            else if (LOWORD(wParam) == IDCANCEL) {
+                // 取消按钮被点击
+                if (pData) {
+                    pData->bOK = false;
+                }
+                
+                // 关闭对话框
+                DestroyWindow(hDlg);
+                return TRUE;
+            }
+        }
+        break;
+        
+    case WM_CLOSE:
+        // 用户点击了关闭按钮
+        if (pData) {
+            pData->bOK = false;
+        }
+        
+        // 关闭对话框
+        DestroyWindow(hDlg);
+        return TRUE;
+        
+    case WM_DESTROY:
+        // 对话框被销毁时发送WM_QUIT消息终止消息循环
+        PostQuitMessage(0);
+        return TRUE;
+    }
+    return FALSE;
+}
+
+void IJKPlayerWindow::OnOpenNetworkStream()
+{
+    // 创建对话框数据
+    NetworkStreamDialogData dialogData;
+    dialogData.pThis = this;
+    dialogData.networkUrl.clear();
+    dialogData.bOK = false;
+    
+    // 使用CreateWindowExW创建动态对话框
+    HWND hDialog = CreateWindowExW(
+        WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE,
+        L"#32770", // 标准对话框类名
+        L"打开网络流", // 对话框标题
+        WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_VISIBLE,
+        0, 0, 400, 120, // 位置和大小
+        GetHWND(), // 父窗口
+        NULL, // 菜单
+        GetModuleHandle(NULL), // 实例句柄
+        (LPVOID)&dialogData // 参数
+    );
+    
+    if (hDialog) {
+        // 设置对话框为可见
+        ShowWindow(hDialog, SW_SHOW);
+        
+        // 处理对话框消息
+        MSG msg;
+        BOOL bRet;
+        while ((bRet = GetMessage(&msg, NULL, 0, 0)) != 0) {
+            if (bRet == -1) {
+                break;
+            }
+            
+            // 让IsDialogMessage处理所有对话框消息
+            if (!IsDialogMessage(hDialog, &msg)) {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
+        }
+        
+        // 处理对话框返回结果
+        if (dialogData.bOK && !dialogData.networkUrl.empty()) {
+            // 将宽字符转换为多字节字符串
+            int bufferSize = WideCharToMultiByte(CP_UTF8, 0, dialogData.networkUrl.c_str(), -1, NULL, 0, NULL, NULL);
+            std::string networkUrl;
+            if (bufferSize > 0) {
+                networkUrl.resize(bufferSize - 1);
+                WideCharToMultiByte(CP_UTF8, 0, dialogData.networkUrl.c_str(), -1, &networkUrl[0], bufferSize, NULL, NULL);
+            }
+            
+            if (!networkUrl.empty()) {
+                // 将网络流添加到播放列表
+                m_playlistManager->AddItem(networkUrl);
+                m_playlistManager->SetCurrentIndex(m_playlistManager->GetCount() - 1);
+                UpdatePlaylistUI();
+
+                // 打开并播放网络流
+                if (m_playerController->OpenFile(networkUrl) && m_playerController->Prepare()) {
+                    m_currentFile = networkUrl;
+                    if (m_statusLabel) m_statusLabel->SetText(_T("正在播放网络流..."));
+                    m_autoPlayPending = true;
+                }
+            }
+        }
     }
 }
 
