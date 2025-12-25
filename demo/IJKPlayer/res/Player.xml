@@ -5,7 +5,7 @@
 	<HorizontalLayout name="title" height="30" bkcolor="#FF1b1b1b" > <!-- 标题栏背景色 bkcolor、bkcolor2、bkcolor3分别是渐变色的三个值-->
 	<HorizontalLayout width="5" />
 	<Button name="logo"  width="30" height="30" normalimage=" file='logo.png'" />
-	<Button name="logotext"  width="100" text="JCHPlayer" textcolor="#FFFFFFFF" align="center" />
+	<Button name="logotext"  width="100" text="IJKPlayer" textcolor="#FFFFFFFF" align="center" />
 	<HorizontalLayout />
 	<HorizontalLayout width="90">
 		<Button name="minbtn"   tooltip="最小化"   normalimage=" file='img\btn_suo_1.png' " hotimage=" file='img\btn_suo_2.png' " pushedimage=" file='img\btn_suo_3.png' "/>

@@ -111,6 +111,7 @@ private:
     // 播放控制
     void OnOpenFile();
     void OnOpenFolder();
+    void OnOpenNetworkStream();
     void OnPlay();
     void OnPause();
     void OnStop();

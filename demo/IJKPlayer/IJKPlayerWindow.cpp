@@ -1047,17 +1047,95 @@ void IJKPlayerWindow::OnOpenNetworkStream()
         WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE,
         L"#32770", // 标准对话框类名
         L"打开网络流", // 对话框标题
-        WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_VISIBLE,
-        0, 0, 400, 120, // 位置和大小
+        WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
+        0, 0, 450, 200, // 更协调的初始大小比例
         GetHWND(), // 父窗口
         NULL, // 菜单
         GetModuleHandle(NULL), // 实例句柄
-        (LPVOID)&dialogData // 参数
+        NULL // 参数
     );
     
     if (hDialog) {
-        // 设置对话框为可见
-        ShowWindow(hDialog, SW_SHOW);
+        // 将对话框数据保存到窗口
+        SetWindowLongPtrW(hDialog, GWLP_USERDATA, (LONG_PTR)&dialogData);
+        
+        // 设置对话框位置（居中显示）
+        RECT dialogRect, parentRect;
+        GetWindowRect(hDialog, &dialogRect);
+        GetWindowRect(GetHWND(), &parentRect);
+        int x = parentRect.left + (parentRect.right - parentRect.left - (dialogRect.right - dialogRect.left)) / 2;
+        int y = parentRect.top + (parentRect.bottom - parentRect.top - (dialogRect.bottom - dialogRect.top)) / 2;
+        
+        // 获取对话框尺寸
+        int dialogWidth = dialogRect.right - dialogRect.left;
+        int dialogHeight = dialogRect.bottom - dialogRect.top;
+        
+        // 设置对话框位置和大小
+        SetWindowPos(hDialog, NULL, x, y, dialogWidth, dialogHeight, SWP_NOZORDER);
+        
+        // 计算控件的位置和大小比例
+        int marginX = static_cast<int>(dialogWidth * 0.055); // 5.5%的边距，增加左右边距
+        int marginY = static_cast<int>(dialogHeight * 0.12); // 12%的边距
+        
+        // 标签控件
+        int labelX = marginX;
+        int labelY = static_cast<int>(dialogHeight * 0.15); // 15%的高度位置
+        int labelWidth = dialogWidth - 2 * marginX;
+        int labelHeight = static_cast<int>(dialogHeight * 0.14); // 14%的高度
+        
+        // 创建提示标签
+        HWND hLabel = CreateWindowW(
+            L"STATIC", L"请输入网络流地址:",
+            WS_VISIBLE | WS_CHILD | SS_LEFT,
+            labelX, labelY, labelWidth, labelHeight,
+            hDialog, (HMENU)1000, GetModuleHandle(NULL), NULL);
+        
+        // 编辑框控件
+        int editX = marginX;
+        int editY = static_cast<int>(dialogHeight * 0.38); // 38%的高度位置，提高位置补偿更小的高度
+        int editWidth = dialogWidth - 2 * marginX;
+        int editHeight = static_cast<int>(dialogHeight * 0.12); // 5%的高度，按照要求调整
+        
+        // 创建编辑框
+        HWND hEdit = CreateWindowW(
+            L"EDIT", L"",
+            WS_VISIBLE | WS_CHILD | WS_BORDER | ES_AUTOHSCROLL,
+            editX, editY, editWidth, editHeight,
+            hDialog, (HMENU)1001, GetModuleHandle(NULL), NULL);
+        
+        // 按钮控件
+        int buttonHeight = static_cast<int>(dialogHeight * 0.18); // 18%的高度
+        int buttonWidth = static_cast<int>(dialogWidth * 0.18); // 18%的宽度，确保按钮文本完全显示
+        int buttonY = static_cast<int>(dialogHeight * 0.55); // 55%的高度位置，上移按钮适应编辑框高度减小
+        int buttonSpacing = static_cast<int>(dialogWidth * 0.05); // 5%的间距，增加按钮间距离
+        int rightMargin = static_cast<int>(dialogWidth * 0.055); // 5.5%的右边距，与整体边距一致
+        int cancelButtonX = dialogWidth - buttonWidth - rightMargin;
+        int okButtonX = cancelButtonX - buttonWidth - buttonSpacing;
+        
+        // 创建确定按钮
+        HWND hOKButton = CreateWindowW(
+            L"BUTTON", L"确定",
+            WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
+            okButtonX, buttonY, buttonWidth, buttonHeight,
+            hDialog, (HMENU)IDOK, GetModuleHandle(NULL), NULL);
+        
+        // 创建取消按钮
+        HWND hCancelButton = CreateWindowW(
+            L"BUTTON", L"取消",
+            WS_VISIBLE | WS_CHILD,
+            cancelButtonX, buttonY, buttonWidth, buttonHeight,
+            hDialog, (HMENU)IDCANCEL, GetModuleHandle(NULL), NULL);
+        
+        // 设置对话框字体
+        HFONT hFont = (HFONT)GetStockObject(DEFAULT_GUI_FONT);
+        ::SendMessageW(hDialog, WM_SETFONT, (WPARAM)hFont, (LPARAM)TRUE);
+        ::SendMessageW(hLabel, WM_SETFONT, (WPARAM)hFont, (LPARAM)TRUE);
+        ::SendMessageW(hEdit, WM_SETFONT, (WPARAM)hFont, (LPARAM)TRUE);
+        ::SendMessageW(hOKButton, WM_SETFONT, (WPARAM)hFont, (LPARAM)TRUE);
+        ::SendMessageW(hCancelButton, WM_SETFONT, (WPARAM)hFont, (LPARAM)TRUE);
+        
+        // 设置焦点到编辑框
+        SetFocus(hEdit);
         
         // 处理对话框消息
         MSG msg;
@@ -1067,12 +1145,70 @@ void IJKPlayerWindow::OnOpenNetworkStream()
                 break;
             }
             
-            // 让IsDialogMessage处理所有对话框消息
-            if (!IsDialogMessage(hDialog, &msg)) {
+            // 处理WM_SIZE消息，实现控件自适应大小
+            if (msg.hwnd == hDialog && msg.message == WM_SIZE) {
+                // 获取新的对话框尺寸
+                RECT newDialogRect;
+                GetWindowRect(hDialog, &newDialogRect);
+                int newDialogWidth = newDialogRect.right - newDialogRect.left;
+                int newDialogHeight = newDialogRect.bottom - newDialogRect.top;
+                
+                // 重新计算控件位置和大小
+                int marginX = static_cast<int>(newDialogWidth * 0.055); // 5.5%的边距
+                
+                // 更新标签控件
+                int labelX = marginX;
+                int labelY = static_cast<int>(newDialogHeight * 0.15);
+                int labelWidth = newDialogWidth - 2 * marginX;
+                int labelHeight = static_cast<int>(newDialogHeight * 0.14);
+                SetWindowPos(hLabel, NULL, labelX, labelY, labelWidth, labelHeight, SWP_NOZORDER);
+                
+                // 更新编辑框控件
+                int editX = marginX;
+                int editY = static_cast<int>(newDialogHeight * 0.38); // 38%的高度位置，进一步提高位置补偿更小的高度
+                int editWidth = newDialogWidth - 2 * marginX;
+                int editHeight = static_cast<int>(newDialogHeight * 0.05); // 5%的高度，按照要求调整
+                SetWindowPos(hEdit, NULL, editX, editY, editWidth, editHeight, SWP_NOZORDER);
+                
+                // 更新按钮控件
+                int buttonHeight = static_cast<int>(newDialogHeight * 0.18); // 18%的高度
+                int buttonWidth = static_cast<int>(newDialogWidth * 0.18); // 18%的宽度，确保按钮文本完全显示
+                int buttonY = static_cast<int>(newDialogHeight * 0.55); // 55%的高度位置，上移按钮适应编辑框高度减小
+                int buttonSpacing = static_cast<int>(newDialogWidth * 0.05); // 5%的间距
+                int rightMargin = static_cast<int>(newDialogWidth * 0.055); // 5.5%的右边距
+                int cancelButtonX = newDialogWidth - buttonWidth - rightMargin;
+                int okButtonX = cancelButtonX - buttonWidth - buttonSpacing;
+                SetWindowPos(hOKButton, NULL, okButtonX, buttonY, buttonWidth, buttonHeight, SWP_NOZORDER);
+                SetWindowPos(hCancelButton, NULL, cancelButtonX, buttonY, buttonWidth, buttonHeight, SWP_NOZORDER);
+            }
+            
+            // 检查是否是对话框消息
+            if (IsDialogMessage(hDialog, &msg)) {
+                // 处理按钮点击事件
+                if (msg.message == WM_COMMAND) {
+                    if (HIWORD(msg.wParam) == BN_CLICKED) {
+                        if (LOWORD(msg.wParam) == IDOK) {
+                            // 确定按钮被点击
+                            WCHAR buffer[1024] = { 0 };
+                            GetDlgItemTextW(hDialog, 1001, buffer, 1024);
+                            dialogData.networkUrl = buffer;
+                            dialogData.bOK = true;
+                            break;
+                        } else if (LOWORD(msg.wParam) == IDCANCEL) {
+                            // 取消按钮被点击
+                            dialogData.bOK = false;
+                            break;
+                        }
+                    }
+                }
+            } else {
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             }
         }
+        
+        // 关闭对话框
+        DestroyWindow(hDialog);
         
         // 处理对话框返回结果
         if (dialogData.bOK && !dialogData.networkUrl.empty()) {
