@@ -107,8 +107,8 @@ void IJKPlayerWindow::InitWindow()
     // 自测功能已移除：不再自动最大化或自动退出
     // 如需自测，请手动创建 selftest.maximize 文件并重新编译启用相关代码
 
-    // 自动播放同目录下的测试文件，便于验证播放链路
-    if (m_currentFile.empty() && _access("./test.flv", 0) == 0) {
+    // 自动播放功能已禁用：不再自动播放测试文件
+    /*if (m_currentFile.empty() && _access("./test.flv", 0) == 0) {
         const std::string filePath = "./test.flv";
         m_playlistManager->AddItem(filePath);
         m_playlistManager->SetCurrentIndex(m_playlistManager->GetCount() - 1);
@@ -120,7 +120,7 @@ void IJKPlayerWindow::InitWindow()
             m_autoPlayPending = true;
             if (m_statusLabel) m_statusLabel->SetText(_T("Preparing test.flv..."));
         }
-    }
+    }*/
 }
 
 void IJKPlayerWindow::SetupUI()
