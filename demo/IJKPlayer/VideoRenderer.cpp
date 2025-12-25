@@ -306,13 +306,13 @@ void VideoRenderer::UpdateDestinationRect()
     // 让 SDL 同步窗口尺寸（我们是 CreateWindowFrom 场景，SDL 内部不一定能及时感知 HWND resize）
     SDL_SetWindowSize(m_sdlWindow, wndW, wndH);
 
-    // 如果 renderer 的输出仍然是旧尺寸，会导致 RenderCopy 被裁剪（只显示一部分）
-    // 这里检测 mismatch，并重建 renderer/texture（在 UI 线程调用，安全）
+    // 强制更新渲染器尺寸
+    SDL_RenderSetLogicalSize(m_sdlRenderer, 0, 0);
+    
+    // 确保渲染器输出尺寸与窗口尺寸匹配
     ResetRendererForResizeIfNeeded(wndW, wndH);
 
-    if (wndW == m_lastWndW && wndH == m_lastWndH) {
-        return;
-    }
+    // 即使尺寸没有变化，也重新计算渲染区域（解决窗口恢复后可能出现的显示问题）
     m_lastWndW = wndW;
     m_lastWndH = wndH;
 
@@ -336,6 +336,10 @@ void VideoRenderer::UpdateDestinationRect()
         outW = wndW;
         outH = (int)(outW / srcAspect);
     }
+
+    // 确保渲染区域至少为1x1，避免SDL渲染错误
+    outW = (outW < 1) ? 1 : outW;
+    outH = (outH < 1) ? 1 : outH;
 
     m_sdlRect.w = outW;
     m_sdlRect.h = outH;
