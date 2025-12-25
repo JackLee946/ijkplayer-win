@@ -80,13 +80,8 @@ IJKPlayerWindow::IJKPlayerWindow()
 
 IJKPlayerWindow::~IJKPlayerWindow()
 {
-    StopUpdateTimer();
-    if (m_playerController) {
-        m_playerController->Release();
-    }
-    if (m_videoRenderer) {
-        m_videoRenderer->Release();
-    }
+    // 智能指针会自动释放资源，不需要手动调用Release()
+    // 确保视频窗口先被销毁
     if (m_videoHwnd && IsWindow(m_videoHwnd)) {
         m_pm.RemoveNativeWindow(m_videoHwnd);
         DestroyWindow(m_videoHwnd);
@@ -455,15 +450,83 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
 LRESULT IJKPlayerWindow::OnClose(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
     StopUpdateTimer();
+    
+    // 停止定时器2（用于视频初始化）
+    ::KillTimer(m_hWnd, 2);
+    
     if (m_playerController) {
         m_playerController->Stop();
-        m_playerController->Release();
     }
-    if (m_videoRenderer) {
-        m_videoRenderer->Release();
-    }
+    
+    // 允许默认关闭流程继续，触发WM_DESTROY
     bHandled = FALSE;
     return 0;
+}
+
+LRESULT IJKPlayerWindow::OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+    // 释放所有资源
+    StopUpdateTimer();
+    
+    // 停止定时器2（用于视频初始化）
+    ::KillTimer(m_hWnd, 2);
+    
+    // 先停止播放器
+    if (m_playerController) {
+        m_playerController->Stop();
+    }
+    
+    // 销毁视频渲染窗口（必须在释放渲染器之前）
+    if (m_videoHwnd && IsWindow(m_videoHwnd)) {
+        m_pm.RemoveNativeWindow(m_videoHwnd);
+        DestroyWindow(m_videoHwnd);
+        m_videoHwnd = nullptr;
+    }
+    
+    // 智能指针会在析构时自动释放资源，不需要手动调用Release()
+    // 调用基类的OnDestroy方法
+    bHandled = FALSE;
+    return 0;
+}
+
+void IJKPlayerWindow::OnFinalMessage(HWND hWnd)
+{
+    Log::Info("OnFinalMessage: Start");
+    
+    // 确保所有定时器都被停止 - 使用传入的hWnd参数而不是m_hWnd
+    StopUpdateTimer();
+    ::KillTimer(hWnd, 1);
+    ::KillTimer(hWnd, 2);
+    
+    // 确保视频窗口已经销毁
+    if (m_videoHwnd && IsWindow(m_videoHwnd)) {
+        Log::Info("OnFinalMessage: Destroying video hwnd: %p", m_videoHwnd);
+        m_pm.RemoveNativeWindow(m_videoHwnd);
+        DestroyWindow(m_videoHwnd);
+        m_videoHwnd = nullptr;
+    }
+    
+    // 彻底停止播放器和解码器
+    if (m_playerController) {
+        Log::Info("OnFinalMessage: Stopping player controller");
+        m_playerController->Stop();
+        // 清除智能指针，强制释放资源
+        m_playerController.reset();
+    }
+    
+    // 确保视频渲染器资源被释放
+    if (m_videoRenderer) {
+        Log::Info("OnFinalMessage: Releasing video renderer");
+        m_videoRenderer.reset();
+    }
+    
+    // 调用基类的OnFinalMessage方法
+    Log::Info("OnFinalMessage: Calling base class");
+    WindowImplBase::OnFinalMessage(hWnd);
+    
+    // 强制退出进程，确保不会有残留线程
+    Log::Info("OnFinalMessage: Exiting process");
+    ::ExitProcess(0);
 }
 
 LRESULT IJKPlayerWindow::OnContextMenu(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -870,7 +933,8 @@ void IJKPlayerWindow::OnVideoFrame(IjkVideoFrame* frame)
 void IJKPlayerWindow::StartUpdateTimer()
 {
     if (m_updateTimer == 0) {
-        m_updateTimer = ::SetTimer(m_hWnd, 1, 100, NULL); // 100ms更新一次
+        ::SetTimer(m_hWnd, 1, 100, NULL); // 100ms更新一次
+        m_updateTimer = 1;
     }
 }
 
