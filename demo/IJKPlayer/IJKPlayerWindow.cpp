@@ -366,6 +366,8 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
                 if (m_playlistPanel) {
                     m_playlistPanel->SetVisible(true);
                 }
+                // 触发视频窗口大小调整，以适应播放列表状态变化
+                ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
             }
         }
         else if (name == kPlaylistHideButton) {
@@ -377,6 +379,8 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
                 if (m_playlistPanel) {
                     m_playlistPanel->SetVisible(false);
                 }
+                // 触发视频窗口大小调整，以适应播放列表状态变化
+                ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
             }
         }
         else if (name == kSideHideButton) {
@@ -388,6 +392,8 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
                 if (m_playlistPanel) {
                     m_playlistPanel->SetVisible(false);
                 }
+                // 触发视频窗口大小调整，以适应播放列表状态变化
+                ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
             }
         }
         else if (name == kSideShowButton) {
@@ -399,6 +405,8 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
                 if (m_playlistPanel) {
                     m_playlistPanel->SetVisible(true);
                 }
+                // 触发视频窗口大小调整，以适应播放列表状态变化
+                ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
             }
         }
         else if (name == _T("btn_open")) {
