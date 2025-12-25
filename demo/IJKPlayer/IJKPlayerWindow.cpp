@@ -342,8 +342,8 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
         else if (name == kOpenMiniButton) {
             OnOpenFile();
         }
-        else if (name == _T("logotext") || name == _T("logo")) {
-            // 点击标题按钮或logo显示下拉菜单
+        else if (name == _T("logo")) {
+            // 点击logo显示下拉菜单
             POINT pt = { msg.ptMouse.x, msg.ptMouse.y };
             CDuiRect rc = msg.pSender->GetPos();
             pt.x = rc.left;
@@ -359,55 +359,19 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
         }
         else if (name == kPlaylistShowButton) {
             // 显示播放列表
-            if (m_playlistShowButton && m_playlistHideButton) {
-                m_playlistShowButton->SetVisible(false);
-                m_playlistHideButton->SetVisible(true);
-                // 显示播放列表面板
-                if (m_playlistPanel) {
-                    m_playlistPanel->SetVisible(true);
-                }
-                // 触发视频窗口大小调整，以适应播放列表状态变化
-                ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
-            }
+            SetPlaylistVisible(true);
         }
         else if (name == kPlaylistHideButton) {
             // 隐藏播放列表
-            if (m_playlistShowButton && m_playlistHideButton) {
-                m_playlistShowButton->SetVisible(true);
-                m_playlistHideButton->SetVisible(false);
-                // 隐藏播放列表面板
-                if (m_playlistPanel) {
-                    m_playlistPanel->SetVisible(false);
-                }
-                // 触发视频窗口大小调整，以适应播放列表状态变化
-                ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
-            }
+            SetPlaylistVisible(false);
         }
         else if (name == kSideHideButton) {
             // 隐藏播放列表
-            if (m_sideHideButton && m_sideShowButton) {
-                m_sideHideButton->SetVisible(false);
-                m_sideShowButton->SetVisible(true);
-                // 隐藏播放列表面板
-                if (m_playlistPanel) {
-                    m_playlistPanel->SetVisible(false);
-                }
-                // 触发视频窗口大小调整，以适应播放列表状态变化
-                ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
-            }
+            SetPlaylistVisible(false);
         }
         else if (name == kSideShowButton) {
             // 显示播放列表
-            if (m_sideHideButton && m_sideShowButton) {
-                m_sideHideButton->SetVisible(true);
-                m_sideShowButton->SetVisible(false);
-                // 显示播放列表面板
-                if (m_playlistPanel) {
-                    m_playlistPanel->SetVisible(true);
-                }
-                // 触发视频窗口大小调整，以适应播放列表状态变化
-                ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
-            }
+            SetPlaylistVisible(true);
         }
         else if (name == _T("btn_open")) {
             OnOpenFile();
@@ -864,6 +828,32 @@ void IJKPlayerWindow::OnAddToPlaylist()
         m_playlistManager->AddItem(filePath);
         UpdatePlaylistUI();
     }
+}
+
+void IJKPlayerWindow::SetPlaylistVisible(bool visible)
+{
+    // 同步第一组按钮状态（playlistShow/playlistHide）
+    if (m_playlistShowButton && m_playlistHideButton)
+    {
+        m_playlistShowButton->SetVisible(!visible);
+        m_playlistHideButton->SetVisible(visible);
+    }
+    
+    // 同步第二组按钮状态（sideShow/sideHide）
+    if (m_sideShowButton && m_sideHideButton)
+    {
+        m_sideShowButton->SetVisible(!visible);
+        m_sideHideButton->SetVisible(visible);
+    }
+    
+    // 设置播放列表面板的可见性
+    if (m_playlistPanel)
+    {
+        m_playlistPanel->SetVisible(visible);
+    }
+    
+    // 触发视频窗口大小调整，以适应播放列表状态变化
+    ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
 }
 
 void IJKPlayerWindow::OnOpenFolder()

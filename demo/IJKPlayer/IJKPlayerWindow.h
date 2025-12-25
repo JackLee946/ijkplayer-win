@@ -125,6 +125,9 @@ private:
     void OnVolumeChanged(int volume);
     void OnPlaylistItemSelected(int index);
     void OnAddToPlaylist();
+    
+    // 播放列表控制
+    void SetPlaylistVisible(bool visible);
 
     // 回调处理
     void OnPlayerStateChanged(IjkMsgState state, int arg1, int arg2);
