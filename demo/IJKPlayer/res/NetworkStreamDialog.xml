@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Window size="450,200" caption="0,0,0,25" sizebox="6,6,6,6" mininfo="450,200" maxinfo="450,200">
+    <VerticalLayout bkcolor="#FF000000" padding="25,30,25,25">
+        <!-- 标签控件 -->
+        <Label name="label_url" text="请输入网络流地址:" textcolor="#FFFFFFFF" height="35" align="left" />
+        
+        <!-- 编辑框控件 - 高度设置为5% -->
+        <Edit name="edit_url" bkcolor="#FFFFFFFF" textcolor="#FF000000" height="5%" bordercolor="#FF2f2f2f" bordersize="1" vscrollbar="false" hscrollbar="false" />
+        
+        <!-- 占位空间 -->
+        <VerticalLayout height="40" />
+        
+        <!-- 按钮区域 - 使用居中布局 -->
+        <HorizontalLayout height="40">
+            <HorizontalLayout width="*" />
+            <Button name="btn_ok" text="确定" textcolor="#FFFFFFFF" bkcolor="#FF1b1b1b" height="40" width="80" bordersize="1" bordercolor="#FF2f2f2f" hotbkcolor="#FF333333" pushedbkcolor="#FF444444" />
+            <HorizontalLayout width="20" />
+            <Button name="btn_cancel" text="取消" textcolor="#FFFFFFFF" bkcolor="#FF1b1b1b" height="40" width="80" bordersize="1" bordercolor="#FF2f2f2f" hotbkcolor="#FF333333" pushedbkcolor="#FF444444" />
+            <HorizontalLayout width="*" />
+        </HorizontalLayout>
+    </VerticalLayout>
+</Window>

@@ -7,6 +7,7 @@ add_executable(IJKPlayer WIN32
     PlaylistManager.cpp
     logging.cpp
     MenuWnd.cpp
+    NetworkStreamDialog.cpp
 )
 
 # 链接库
