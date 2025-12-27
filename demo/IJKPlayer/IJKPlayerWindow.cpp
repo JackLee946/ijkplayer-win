@@ -4,6 +4,7 @@
 #include "Control/UISlider.h"
 #include "Control/UILabel.h"
 #include "Control/UIList.h"
+#include "Control/UITreeView.h"
 #include "Core/UIManager.h"
 #include "logging.h"
 #include <commdlg.h>
@@ -44,17 +45,21 @@ const TCHAR* const IJKPlayerWindow::kPlaylistPanel = _T("playlist_panel");
 
 namespace {
 
-std::string WideToUtf8(const std::wstring& w)
+static std::string WideToMultiByte(UINT codepage, const std::wstring& w)
 {
     if (w.empty()) return {};
-    int len = WideCharToMultiByte(CP_UTF8, 0, w.c_str(), (int)w.size(), NULL, 0, NULL, NULL);
+    int len = WideCharToMultiByte(codepage, 0, w.c_str(), (int)w.size(), NULL, 0, NULL, NULL);
     if (len <= 0) return {};
     std::string out;
     out.resize((size_t)len);
     // 注意：部分 MSVC 标准库下 std::string::data() 返回 const char*；用 &out[0] 获取可写缓冲区
-    WideCharToMultiByte(CP_UTF8, 0, w.c_str(), (int)w.size(), &out[0], len, NULL, NULL);
+    WideCharToMultiByte(codepage, 0, w.c_str(), (int)w.size(), &out[0], len, NULL, NULL);
     return out;
 }
+
+// 本工程默认是 MBCS（见根目录 CMakeLists.txt 的 -D_MBCS），UI/duilib 使用系统代码页(ACP)显示。
+// 因此：本地文件路径/文件名要用 ACP，而不是 UTF-8。
+static std::string WideToAcp(const std::wstring& w) { return WideToMultiByte(CP_ACP, w); }
 
 bool BrowseForFolder(HWND owner, std::wstring& outFolder)
 {
@@ -794,7 +799,7 @@ void IJKPlayerWindow::OnOpenFile()
 
     if (GetOpenFileNameW(&ofn)) {
         std::wstring filePathW = szFile;
-        std::string filePath = WideToUtf8(filePathW);
+        std::string filePath = WideToAcp(filePathW);
         if (filePath.empty()) {
             if (m_statusLabel) m_statusLabel->SetText(_T("Invalid path"));
             return;
@@ -984,7 +989,7 @@ void IJKPlayerWindow::OnAddToPlaylist()
 
     // 只选了一个文件：buffer 里直接是完整路径，后面紧跟 \0\0
     if (*p == L'\0') {
-        std::string one = WideToUtf8(dir);
+        std::string one = WideToAcp(dir);
         if (!one.empty()) m_playlistManager->AddItem(one);
         UpdatePlaylistUI();
         return;
@@ -1000,9 +1005,9 @@ void IJKPlayerWindow::OnAddToPlaylist()
         if (!fullPath.empty() && fullPath.back() != L'\\' && fullPath.back() != L'/') fullPath += L'\\';
         fullPath += fileName;
 
-        std::string u8 = WideToUtf8(fullPath);
-        if (!u8.empty()) {
-            m_playlistManager->AddItem(u8);
+        std::string acp = WideToAcp(fullPath);
+        if (!acp.empty()) {
+            m_playlistManager->AddItem(acp);
             added++;
         }
     }
@@ -1054,9 +1059,9 @@ void IJKPlayerWindow::OnOpenFolder()
 
     size_t added = 0;
     for (const auto& fullPath : files) {
-        std::string pathUtf8 = WideToUtf8(fullPath);
-        if (pathUtf8.empty()) continue;
-        m_playlistManager->AddItem(pathUtf8);
+        std::string pathAcp = WideToAcp(fullPath);
+        if (pathAcp.empty()) continue;
+        m_playlistManager->AddItem(pathAcp);
         added++;
     }
 
@@ -1219,15 +1224,39 @@ void IJKPlayerWindow::UpdatePlaylistUI()
         return;
     }
 
+    // res/IJKPlayer.xml 的播放列表是 TreeView（继承自 CListUI），这里优先按 TreeView 的方式填充
+    if (auto* pTree = static_cast<CTreeViewUI*>(m_playlistList->GetInterface(DUI_CTR_TREEVIEW))) {
+        pTree->RemoveAll();
+        // TreeView 默认会显示“文件夹按钮”，这里关闭（我们当普通列表用）
+        pTree->SetVisibleFolderBtn(false);
+        pTree->SetVisibleCheckBtn(false);
+        for (size_t i = 0; i < m_playlistManager->GetCount(); ++i) {
+            auto item = m_playlistManager->GetItem(i);
+            if (!item) continue;
+
+            CTreeNodeUI* pNode = new CTreeNodeUI();
+            // 明确设置文字颜色：否则默认 0x00000000（黑字），在黑底上不可见
+            pNode->SetItemTextColor(0xFF85909F);
+            pNode->SetItemHotTextColor(0xFFFFFFFF);
+            pNode->SetSelItemTextColor(0xFFFFFFFF);
+            pNode->SetSelItemHotTextColor(0xFFFFFFFF);
+            pNode->SetFixedHeight(26);
+
+            // 本工程为 MBCS：fileName 使用 ACP 存储，直接显示即可
+            pNode->SetItemText(CDuiString(item->fileName.c_str()));
+            pTree->Add(pNode);
+        }
+        return;
+    }
+
+    // fallback：普通 List
     m_playlistList->RemoveAll();
-    
     for (size_t i = 0; i < m_playlistManager->GetCount(); ++i) {
         auto item = m_playlistManager->GetItem(i);
-        if (item) {
-            CListTextElementUI* pListElement = new CListTextElementUI;
-            pListElement->SetText(0, item->fileName.c_str());
-            m_playlistList->Add(pListElement);
-        }
+        if (!item) continue;
+        CListLabelElementUI* pListElement = new CListLabelElementUI;
+        pListElement->SetText(CDuiString(item->fileName.c_str()));
+        m_playlistList->Add(pListElement);
     }
 }
 
