@@ -1,4 +1,5 @@
 #include "IJKPlayerWindow.h"
+#include "NetworkStreamDialog.h"
 #include "Control/UIButton.h"
 #include "Control/UISlider.h"
 #include "Control/UILabel.h"
@@ -6,10 +7,13 @@
 #include "Core/UIManager.h"
 #include "logging.h"
 #include <commdlg.h>
+#include <shlobj.h>
 #include <sstream>
 #include <iomanip>
 #include <windows.h>
 #include <io.h>
+#include <vector>
+#include <algorithm>
 
 // 控件ID定义
 const TCHAR* const IJKPlayerWindow::kVideoContainer = _T("video_container");
@@ -18,17 +22,16 @@ const TCHAR* const IJKPlayerWindow::kPauseButton = _T("btn_pause");
 const TCHAR* const IJKPlayerWindow::kStopButton = _T("btn_stop");
 const TCHAR* const IJKPlayerWindow::kPrevButton = _T("btn_prev");
 const TCHAR* const IJKPlayerWindow::kNextButton = _T("btn_next");
-const TCHAR* const IJKPlayerWindow::kFastBackwardButton = _T("btn_fast_backward");
-const TCHAR* const IJKPlayerWindow::kFastForwardButton = _T("btn_fast_forward");
+// 注意：res/IJKPlayer.xml 里是 btnFastBackward / btnFastForward
+const TCHAR* const IJKPlayerWindow::kFastBackwardButton = _T("btnFastBackward");
+const TCHAR* const IJKPlayerWindow::kFastForwardButton = _T("btnFastForward");
 const TCHAR* const IJKPlayerWindow::kFullscreenButton = _T("btn_fullscreen");
 const TCHAR* const IJKPlayerWindow::kProgressSlider = _T("slider_progress");
 const TCHAR* const IJKPlayerWindow::kVolumeSlider = _T("slider_volume");
 const TCHAR* const IJKPlayerWindow::kTimeLabel = _T("label_time");
 const TCHAR* const IJKPlayerWindow::kStatusLabel = _T("label_status");
-const TCHAR* const IJKPlayerWindow::kPlaylistList = _T("list_playlist");
-const TCHAR* const IJKPlayerWindow::kMinimizeButton = _T("btn_minimize");
-const TCHAR* const IJKPlayerWindow::kMaximizeButton = _T("btn_maximize");
-const TCHAR* const IJKPlayerWindow::kCloseButton = _T("btn_close");
+// res/IJKPlayer.xml 里播放列表是 TreeView name="treePlaylist"
+const TCHAR* const IJKPlayerWindow::kPlaylistList = _T("treePlaylist");
 const TCHAR* const IJKPlayerWindow::kVolumeButton = _T("btn_volume");
 const TCHAR* const IJKPlayerWindow::kVolumeZeroButton = _T("btn_volume_zero");
 const TCHAR* const IJKPlayerWindow::kOpenMiniButton = _T("btn_open_mini");
@@ -38,6 +41,95 @@ const TCHAR* const IJKPlayerWindow::kScreenNormalButton = _T("btn_screen_normal"
 const TCHAR* const IJKPlayerWindow::kSideHideButton = _T("btnSideHide");
 const TCHAR* const IJKPlayerWindow::kSideShowButton = _T("btnSideShow");
 const TCHAR* const IJKPlayerWindow::kPlaylistPanel = _T("playlist_panel");
+
+namespace {
+
+std::string WideToUtf8(const std::wstring& w)
+{
+    if (w.empty()) return {};
+    int len = WideCharToMultiByte(CP_UTF8, 0, w.c_str(), (int)w.size(), NULL, 0, NULL, NULL);
+    if (len <= 0) return {};
+    std::string out;
+    out.resize((size_t)len);
+    // 注意：部分 MSVC 标准库下 std::string::data() 返回 const char*；用 &out[0] 获取可写缓冲区
+    WideCharToMultiByte(CP_UTF8, 0, w.c_str(), (int)w.size(), &out[0], len, NULL, NULL);
+    return out;
+}
+
+bool BrowseForFolder(HWND owner, std::wstring& outFolder)
+{
+    BROWSEINFOW bi{};
+    bi.hwndOwner = owner;
+    bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
+    bi.lpszTitle = L"请选择要导入的文件夹";
+
+    PIDLIST_ABSOLUTE pidl = SHBrowseForFolderW(&bi);
+    if (!pidl) return false;
+
+    wchar_t path[MAX_PATH]{};
+    bool ok = (SHGetPathFromIDListW(pidl, path) == TRUE);
+    CoTaskMemFree(pidl);
+
+    if (!ok || path[0] == L'\0') return false;
+    outFolder = path;
+    return true;
+}
+
+bool IsMediaFileExt(const std::wstring& extLower)
+{
+    // 与打开文件的 filter 保持一致（不区分大小写）
+    static const wchar_t* kExts[] = {
+        L".mp4", L".avi", L".mkv", L".flv", L".mov", L".wmv", L".mp3", L".wav", L".aac"
+    };
+    for (auto* e : kExts) {
+        if (extLower == e) return true;
+    }
+    return false;
+}
+
+bool EnumerateMediaFilesInFolder(const std::wstring& folder, std::vector<std::wstring>& outFiles)
+{
+    outFiles.clear();
+    if (folder.empty()) return false;
+
+    std::wstring pattern = folder;
+    if (!pattern.empty() && pattern.back() != L'\\' && pattern.back() != L'/') pattern += L'\\';
+    pattern += L"*";
+
+    WIN32_FIND_DATAW ffd{};
+    HANDLE hFind = FindFirstFileW(pattern.c_str(), &ffd);
+    if (hFind == INVALID_HANDLE_VALUE) {
+        return false;
+    }
+
+    do {
+        const wchar_t* name = ffd.cFileName;
+        if (!name || name[0] == L'\0') continue;
+        if (wcscmp(name, L".") == 0 || wcscmp(name, L"..") == 0) continue;
+
+        const bool isDir = (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0;
+        if (isDir) continue; // 这里只导入当前目录，不递归
+
+        std::wstring fileName(name);
+        std::wstring fullPath = folder;
+        if (!fullPath.empty() && fullPath.back() != L'\\' && fullPath.back() != L'/') fullPath += L'\\';
+        fullPath += fileName;
+
+        // ext lower
+        std::wstring ext;
+        size_t dot = fileName.find_last_of(L'.');
+        if (dot != std::wstring::npos) ext = fileName.substr(dot);
+        std::transform(ext.begin(), ext.end(), ext.begin(), [](wchar_t c) { return (wchar_t)towlower(c); });
+        if (!IsMediaFileExt(ext)) continue;
+
+        outFiles.push_back(fullPath);
+    } while (FindNextFileW(hFind, &ffd));
+
+    FindClose(hFind);
+    return true;
+}
+
+} // namespace
 
 IJKPlayerWindow::IJKPlayerWindow()
     : m_videoContainer(nullptr)
@@ -49,9 +141,6 @@ IJKPlayerWindow::IJKPlayerWindow()
     , m_fastBackwardButton(nullptr)
     , m_fastForwardButton(nullptr)
     , m_fullscreenButton(nullptr)
-    , m_minimizeButton(nullptr)
-    , m_maximizeButton(nullptr)
-    , m_closeButton(nullptr)
     , m_volumeButton(nullptr)
     , m_volumeZeroButton(nullptr)
     , m_openMiniButton(nullptr)
@@ -72,6 +161,7 @@ IJKPlayerWindow::IJKPlayerWindow()
     , m_videoHwnd(nullptr)
     , m_autoPlayPending(false)
     , m_videoInitPending(false)
+    , m_lastVolumeBeforeMute(50)
 {
     m_playerController = std::make_unique<PlayerController>();
     m_videoRenderer = std::make_unique<VideoRenderer>();
@@ -136,9 +226,6 @@ void IJKPlayerWindow::SetupUI()
     m_fastForwardButton = static_cast<CButtonUI*>(m_pm.FindControl(kFastForwardButton));
     m_fullscreenButton = static_cast<CButtonUI*>(m_pm.FindControl(kFullscreenButton));
     m_screenNormalButton = static_cast<CButtonUI*>(m_pm.FindControl(kScreenNormalButton));
-    m_minimizeButton = static_cast<CButtonUI*>(m_pm.FindControl(kMinimizeButton));
-    m_maximizeButton = static_cast<CButtonUI*>(m_pm.FindControl(kMaximizeButton));
-    m_closeButton = static_cast<CButtonUI*>(m_pm.FindControl(kCloseButton));
     m_volumeButton = static_cast<CButtonUI*>(m_pm.FindControl(kVolumeButton));
     m_volumeZeroButton = static_cast<CButtonUI*>(m_pm.FindControl(kVolumeZeroButton));
     m_openMiniButton = static_cast<CButtonUI*>(m_pm.FindControl(kOpenMiniButton));
@@ -167,7 +254,8 @@ void IJKPlayerWindow::SetupUI()
     if (m_volumeSlider) {
         m_volumeSlider->SetMinValue(0);
         m_volumeSlider->SetMaxValue(100);
-        m_volumeSlider->SetValue(100); // 默认100%音量
+        // 默认值以 XML 为准；同时记录一份用于“取消静音”的恢复
+        m_lastVolumeBeforeMute = m_volumeSlider->GetValue();
     }
     if (m_volumeZeroButton) {
         m_volumeZeroButton->SetVisible(false);
@@ -198,7 +286,11 @@ void IJKPlayerWindow::InitializeComponents()
     ::SetTimer(m_hWnd, 2, 100, NULL);
 
     // 设置初始音量（0~100）
-    m_playerController->SetVolume(50.0f);
+    if (m_volumeSlider) {
+        m_playerController->SetVolume((float)m_volumeSlider->GetValue());
+    } else {
+        m_playerController->SetVolume(50.0f);
+    }
 }
 
 HWND IJKPlayerWindow::GetVideoContainerHWND()
@@ -259,30 +351,13 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
             return;
         }
 
-        // 窗口控制按钮
-        if (name == kMinimizeButton) {
-            ::SendMessage(m_hWnd, WM_SYSCOMMAND, SC_MINIMIZE, 0);
-            return;
-        }
-        else if (name == kMaximizeButton) {
-            if (::IsZoomed(m_hWnd)) {
-                ::SendMessage(m_hWnd, WM_SYSCOMMAND, SC_RESTORE, 0);
-            } else {
-                ::SendMessage(m_hWnd, WM_SYSCOMMAND, SC_MAXIMIZE, 0);
-            }
-            return;
-        }
-        else if (name == kCloseButton) {
-            ::SendMessage(m_hWnd, WM_CLOSE, 0, 0);
-            return;
-        }
         // “全屏”按钮：用主窗口最大化/还原实现（嵌入 HWND 的 SDL_Window 不适合 SDL_SetWindowFullscreen）
         else if (name == kFullscreenButton) {
-            if (::IsZoomed(m_hWnd)) {
-                ::SendMessage(m_hWnd, WM_SYSCOMMAND, SC_RESTORE, 0);
-            } else {
-                ::SendMessage(m_hWnd, WM_SYSCOMMAND, SC_MAXIMIZE, 0);
-            }
+            OnFullscreen();
+            return;
+        }
+        else if (name == kScreenNormalButton) {
+            OnScreenNormal();
             return;
         }
         
@@ -307,15 +382,13 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
         else if (name == kFastForwardButton) {
             OnFastForward();
         }
-        else if (name == kFullscreenButton) {
-            OnFullscreen();
-        }
-        else if (name == kScreenNormalButton) {
-            OnFullscreen(); // 退出全屏与全屏使用相同的逻辑
-        }
         else if (name == kVolumeButton) {
             // 点击音量按钮切换到静音状态
             if (m_volumeButton && m_volumeZeroButton) {
+                if (m_volumeSlider) {
+                    int v = m_volumeSlider->GetValue();
+                    if (v > 0) m_lastVolumeBeforeMute = v;
+                }
                 m_volumeButton->SetVisible(false);
                 m_volumeZeroButton->SetVisible(true);
                 if (m_playerController) {
@@ -332,10 +405,9 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
                 m_volumeButton->SetVisible(true);
                 m_volumeZeroButton->SetVisible(false);
                 if (m_playerController) {
-                    m_playerController->SetVolume(50.0f); // 恢复到50%音量
-                    if (m_volumeSlider) {
-                        m_volumeSlider->SetValue(50);
-                    }
+                    int restore = (m_lastVolumeBeforeMute > 0) ? m_lastVolumeBeforeMute : 50;
+                    m_playerController->SetVolume((float)restore);
+                    if (m_volumeSlider) m_volumeSlider->SetValue(restore);
                 }
             }
         }
@@ -414,10 +486,16 @@ void IJKPlayerWindow::Notify(TNotifyUI& msg)
             OnVolumeChanged(value);
         }
     }
-    else if (msg.sType == DUI_MSGTYPE_ITEMDBCLICK) {
-        if (m_playlistList && msg.pSender == m_playlistList) {
-            int index = m_playlistList->GetCurSel();
+    else if (msg.sType == DUI_MSGTYPE_ITEMCLICK || msg.sType == DUI_MSGTYPE_ITEMACTIVATE) {
+        // TreeView 的条目也是 ListItem，点击/双击都会从 item 发送通知；通过 owner 判断是否来自播放列表
+        IListItemUI* pItem = static_cast<IListItemUI*>(msg.pSender->GetInterface(DUI_CTR_LISTITEM));
+        if (pItem && m_playlistList && pItem->GetOwner() == m_playlistList) {
+            int index = pItem->GetIndex();
             OnPlaylistItemSelected(index);
+            if (msg.sType == DUI_MSGTYPE_ITEMACTIVATE) {
+                // 双击/回车直接播放
+                m_autoPlayPending = true;
+            }
         }
     }
 }
@@ -428,6 +506,12 @@ LRESULT IJKPlayerWindow::OnClose(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& 
     
     // 停止定时器2（用于视频初始化）
     ::KillTimer(m_hWnd, 2);
+
+    // 关键：窗口关闭阶段先断开回调，避免解码线程在对象析构期间继续回调到 UI
+    if (m_playerController) {
+        m_playerController->SetVideoFrameCallback(nullptr);
+        m_playerController->SetStateCallback(nullptr);
+    }
     
     if (m_playerController) {
         m_playerController->Stop();
@@ -445,6 +529,12 @@ LRESULT IJKPlayerWindow::OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL
     
     // 停止定时器2（用于视频初始化）
     ::KillTimer(m_hWnd, 2);
+
+    // 再次确保回调被断开（防止 OnClose 未触发的路径）
+    if (m_playerController) {
+        m_playerController->SetVideoFrameCallback(nullptr);
+        m_playerController->SetStateCallback(nullptr);
+    }
     
     // 先停止播放器
     if (m_playerController) {
@@ -495,13 +585,9 @@ void IJKPlayerWindow::OnFinalMessage(HWND hWnd)
         m_videoRenderer.reset();
     }
     
-    // 调用基类的OnFinalMessage方法
+    // 调用基类的OnFinalMessage方法（不要强退进程，主线程 MessageLoop 退出后会正常 delete pFrame）
     Log::Info("OnFinalMessage: Calling base class");
     WindowImplBase::OnFinalMessage(hWnd);
-    
-    // 强制退出进程，确保不会有残留线程
-    Log::Info("OnFinalMessage: Exiting process");
-    ::ExitProcess(0);
 }
 
 LRESULT IJKPlayerWindow::OnContextMenu(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -541,6 +627,38 @@ LRESULT IJKPlayerWindow::OnCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL
         ::SendMessage(m_hWnd, WM_CLOSE, 0, 0);
         bHandled = TRUE;
         return 0;
+    } else if (id == 2001) {
+        OnOpenFile();
+        bHandled = TRUE;
+        return 0;
+    } else if (id == 2002) {
+        OnOpenFolder();
+        bHandled = TRUE;
+        return 0;
+    } else if (id == 2003) {
+        OnOpenNetworkStream();
+        bHandled = TRUE;
+        return 0;
+    } else if (id == 2004) {
+        OnToggleNoFrame();
+        bHandled = TRUE;
+        return 0;
+    } else if (id == 2005) {
+        OnFullscreen();
+        bHandled = TRUE;
+        return 0;
+    } else if (id == 2006) {
+        OnScreenNormal();
+        bHandled = TRUE;
+        return 0;
+    } else if (id == 2007) {
+        OnAddToPlaylist();
+        bHandled = TRUE;
+        return 0;
+    } else if (id == 2008) {
+        ::SendMessage(m_hWnd, WM_CLOSE, 0, 0);
+        bHandled = TRUE;
+        return 0;
     }
 
     bHandled = FALSE;
@@ -554,11 +672,22 @@ LRESULT IJKPlayerWindow::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& b
     // 做法：先让消息继续往下走完成布局，然后异步触发一次“子窗口对齐”。
     LRESULT lRes = WindowImplBase::OnSize(uMsg, wParam, lParam, bHandled);
     ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
+    // 同步全屏/退出全屏按钮
+    const bool zoomed = ::IsZoomed(m_hWnd) != FALSE;
+    if (m_fullscreenButton) m_fullscreenButton->SetVisible(!zoomed);
+    if (m_screenNormalButton) m_screenNormalButton->SetVisible(zoomed);
     return lRes;
 }
 
 LRESULT IJKPlayerWindow::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
+    // 处理从 MenuWnd 投递过来的命令（以及其他 WM_COMMAND）
+    if (uMsg == WM_COMMAND) {
+        BOOL handled = FALSE;
+        LRESULT ret = OnCommand(uMsg, wParam, lParam, handled);
+        bHandled = handled;
+        return ret;
+    }
     if (uMsg == WM_TIMER && wParam == 1) {
         UpdateProgress();
         bHandled = TRUE;
@@ -665,7 +794,11 @@ void IJKPlayerWindow::OnOpenFile()
 
     if (GetOpenFileNameW(&ofn)) {
         std::wstring filePathW = szFile;
-        std::string filePath(filePathW.begin(), filePathW.end());
+        std::string filePath = WideToUtf8(filePathW);
+        if (filePath.empty()) {
+            if (m_statusLabel) m_statusLabel->SetText(_T("Invalid path"));
+            return;
+        }
         m_playlistManager->AddItem(filePath);
         m_playlistManager->SetCurrentIndex(m_playlistManager->GetCount() - 1);
         UpdatePlaylistUI();
@@ -731,7 +864,7 @@ void IJKPlayerWindow::OnPrev()
     auto prevItem = m_playlistManager->GetPrevious();
     if (prevItem) {
         OnPlaylistItemSelected(m_playlistManager->GetCurrentIndex());
-        OnPlay();
+        m_autoPlayPending = true;
     }
 }
 
@@ -740,7 +873,7 @@ void IJKPlayerWindow::OnNext()
     auto nextItem = m_playlistManager->GetNext();
     if (nextItem) {
         OnPlaylistItemSelected(m_playlistManager->GetCurrentIndex());
-        OnPlay();
+        m_autoPlayPending = true;
     }
 }
 
@@ -779,8 +912,12 @@ void IJKPlayerWindow::OnSeek(int position)
     if (m_progressSlider && m_playerController) {
         long duration = m_playerController->GetDuration();
         if (duration > 0) {
-            long seekPos = (long)((double)position / 100.0 * duration);
+            // slider_progress 取值范围是 0~1000
+            const int maxV = m_progressSlider->GetMaxValue();
+            const double denom = (maxV > 0) ? (double)maxV : 1000.0;
+            long seekPos = (long)((double)position / denom * (double)duration);
             m_playerController->SeekTo(seekPos);
+            UpdateProgress();
         }
     }
 }
@@ -789,6 +926,14 @@ void IJKPlayerWindow::OnVolumeChanged(int volume)
 {
     if (m_playerController) {
         m_playerController->SetVolume((float)volume);
+        if (volume <= 0) {
+            if (m_volumeButton) m_volumeButton->SetVisible(false);
+            if (m_volumeZeroButton) m_volumeZeroButton->SetVisible(true);
+        } else {
+            m_lastVolumeBeforeMute = volume;
+            if (m_volumeButton) m_volumeButton->SetVisible(true);
+            if (m_volumeZeroButton) m_volumeZeroButton->SetVisible(false);
+        }
     }
 }
 
@@ -799,6 +944,10 @@ void IJKPlayerWindow::OnPlaylistItemSelected(int index)
         auto item = m_playlistManager->GetCurrentItem();
         if (item) {
             m_currentFile = item->filePath;
+            // 切换媒体前先 stop，避免前一个播放线程/音视频设备占用
+            if (m_playerController) {
+                m_playerController->Stop();
+            }
             if (m_playerController->OpenFile(item->filePath)) {
                 if (m_playerController->Prepare()) {
                     if (m_statusLabel) {
@@ -812,25 +961,53 @@ void IJKPlayerWindow::OnPlaylistItemSelected(int index)
 
 void IJKPlayerWindow::OnAddToPlaylist()
 {
-    OPENFILENAMEA ofn;
-    char szFile[260] = { 0 };
-    ZeroMemory(&ofn, sizeof(ofn));
+    if (!m_playlistManager) return;
+
+    OPENFILENAMEW ofn{};
+    // 多选时返回缓冲区格式为：dir\0file1\0file2\0...\0\0
+    std::vector<wchar_t> buffer;
+    buffer.resize(64 * 1024, L'\0');
+
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = m_hWnd;
-    ofn.lpstrFile = szFile;
-    ofn.nMaxFile = sizeof(szFile);
-    ofn.lpstrFilter = "Media Files\0*.mp4;*.avi;*.mkv;*.flv;*.mov;*.wmv;*.mp3;*.wav;*.aac\0All Files\0*.*\0\0";
+    ofn.lpstrFile = buffer.data();
+    ofn.nMaxFile = (DWORD)buffer.size();
+    ofn.lpstrFilter = L"Media Files\0*.mp4;*.avi;*.mkv;*.flv;*.mov;*.wmv;*.mp3;*.wav;*.aac\0All Files\0*.*\0\0";
     ofn.nFilterIndex = 1;
-    ofn.lpstrFileTitle = NULL;
-    ofn.nMaxFileTitle = 0;
-    ofn.lpstrInitialDir = NULL;
-    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_ALLOWMULTISELECT | OFN_EXPLORER;
 
-    if (GetOpenFileNameA(&ofn)) {
-        std::string filePath = szFile;
-        m_playlistManager->AddItem(filePath);
+    if (!GetOpenFileNameW(&ofn)) return;
+
+    const wchar_t* p = buffer.data();
+    std::wstring dir = p;
+    p += dir.size() + 1;
+
+    // 只选了一个文件：buffer 里直接是完整路径，后面紧跟 \0\0
+    if (*p == L'\0') {
+        std::string one = WideToUtf8(dir);
+        if (!one.empty()) m_playlistManager->AddItem(one);
         UpdatePlaylistUI();
+        return;
     }
+
+    // 多选：dir + 多个文件名
+    size_t added = 0;
+    while (*p) {
+        std::wstring fileName = p;
+        p += fileName.size() + 1;
+
+        std::wstring fullPath = dir;
+        if (!fullPath.empty() && fullPath.back() != L'\\' && fullPath.back() != L'/') fullPath += L'\\';
+        fullPath += fileName;
+
+        std::string u8 = WideToUtf8(fullPath);
+        if (!u8.empty()) {
+            m_playlistManager->AddItem(u8);
+            added++;
+        }
+    }
+
+    UpdatePlaylistUI();
 }
 
 void IJKPlayerWindow::SetPlaylistVisible(bool visible)
@@ -861,396 +1038,85 @@ void IJKPlayerWindow::SetPlaylistVisible(bool visible)
 
 void IJKPlayerWindow::OnOpenFolder()
 {
-    // 简单实现，仅显示状态
+    if (!m_playlistManager) return;
+
+    std::wstring folder;
+    if (!BrowseForFolder(m_hWnd, folder)) {
+        return;
+    }
+
+    const size_t oldCount = m_playlistManager->GetCount();
+    std::vector<std::wstring> files;
+    if (!EnumerateMediaFilesInFolder(folder, files)) {
+        if (m_statusLabel) m_statusLabel->SetText(_T("Invalid folder"));
+        return;
+    }
+
+    size_t added = 0;
+    for (const auto& fullPath : files) {
+        std::string pathUtf8 = WideToUtf8(fullPath);
+        if (pathUtf8.empty()) continue;
+        m_playlistManager->AddItem(pathUtf8);
+        added++;
+    }
+
+    UpdatePlaylistUI();
+
     if (m_statusLabel) {
-        m_statusLabel->SetText(_T("Open Folder not implemented yet"));
-    }
-}
-
-// 简单的输入对话框函数
-bool InputBox(HWND hwndParent, LPCWSTR title, LPCWSTR prompt, LPWSTR buffer, DWORD bufferSize)
-{
-    // 创建一个简单的对话框，让用户输入文本
-    HWND hEdit = CreateWindowW(
-        L"EDIT", L"",
-        WS_VISIBLE | WS_CHILD | WS_BORDER | ES_AUTOHSCROLL,
-        10, 30, 300, 20,
-        hwndParent, NULL, GetModuleHandle(NULL), NULL);
-
-    HWND hOK = CreateWindowW(
-        L"BUTTON", L"确定",
-        WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
-        10, 60, 80, 25,
-        hwndParent, (HMENU)1, GetModuleHandle(NULL), NULL);
-
-    HWND hCancel = CreateWindowW(
-        L"BUTTON", L"取消",
-        WS_VISIBLE | WS_CHILD,
-        100, 60, 80, 25,
-        hwndParent, (HMENU)2, GetModuleHandle(NULL), NULL);
-
-    // 显示对话框
-    ShowWindow(hEdit, SW_SHOW);
-    ShowWindow(hOK, SW_SHOW);
-    ShowWindow(hCancel, SW_SHOW);
-
-    // 处理消息
-    MSG msg;
-    bool okClicked = false;
-    while (GetMessage(&msg, NULL, 0, 0)) {
-        if (msg.message == WM_COMMAND) {
-            if (LOWORD(msg.wParam) == 1) { // OK按钮
-                GetWindowTextW(hEdit, buffer, bufferSize);
-                okClicked = true;
-                break;
-            } else if (LOWORD(msg.wParam) == 2) { // 取消按钮
-                break;
-            }
-        }
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
+        CDuiString s;
+        s.Format(_T("Folder imported: %u files"), (UINT)added);
+        m_statusLabel->SetText(s);
     }
 
-    // 清理
-    DestroyWindow(hEdit);
-    DestroyWindow(hOK);
-    DestroyWindow(hCancel);
-
-    return okClicked;
-}
-
-// 对话框数据结构，用于传递和保存数据
-struct NetworkStreamDialogData {
-    IJKPlayerWindow* pThis;
-    std::wstring networkUrl;
-    bool bOK; // 记录用户是否点击了确定按钮
-};
-
-// 对话框回调函数
-INT_PTR CALLBACK NetworkStreamDialogProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    NetworkStreamDialogData* pData = NULL;
-    
-    // 在初始化时保存对话框数据
-    if (message == WM_INITDIALOG) {
-        pData = (NetworkStreamDialogData*)lParam;
-        SetWindowLongPtrW(hDlg, DWL_USER, (LONG_PTR)pData);
-        
-        // 设置对话框位置（居中显示）
-        RECT dialogRect, parentRect;
-        GetWindowRect(hDlg, &dialogRect);
-        GetWindowRect(GetParent(hDlg), &parentRect);
-        int x = parentRect.left + (parentRect.right - parentRect.left - dialogRect.right + dialogRect.left) / 2;
-        int y = parentRect.top + (parentRect.bottom - parentRect.top - dialogRect.bottom + dialogRect.top) / 2;
-        SetWindowPos(hDlg, NULL, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-        
-        // 创建提示标签
-        CreateWindowW(
-            L"STATIC", L"请输入网络流地址:",
-            WS_VISIBLE | WS_CHILD,
-            10, 10, 380, 20,
-            hDlg, (HMENU)1000, GetModuleHandle(NULL), NULL);
-        
-        // 创建编辑框
-        CreateWindowW(
-            L"EDIT", L"",
-            WS_VISIBLE | WS_CHILD | WS_BORDER | ES_AUTOHSCROLL,
-            10, 35, 380, 25,
-            hDlg, (HMENU)1001, GetModuleHandle(NULL), NULL);
-        
-        // 创建确定按钮
-        CreateWindowW(
-            L"BUTTON", L"确定",
-            WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
-            120, 70, 80, 25,
-            hDlg, (HMENU)IDOK, GetModuleHandle(NULL), NULL);
-        
-        // 创建取消按钮
-        CreateWindowW(
-            L"BUTTON", L"取消",
-            WS_VISIBLE | WS_CHILD,
-            220, 70, 80, 25,
-            hDlg, (HMENU)IDCANCEL, GetModuleHandle(NULL), NULL);
-        
-        // 设置对话框字体
-        ::SendMessageW(hDlg, WM_SETFONT, (WPARAM)GetStockObject(DEFAULT_GUI_FONT), (LPARAM)TRUE);
-        
-        // 设置焦点到编辑框
-        SetFocus(GetDlgItem(hDlg, 1001));
-        return TRUE;
+    // 若之前播放列表为空，默认选中并准备第一首
+    if (oldCount == 0 && added > 0) {
+        OnPlaylistItemSelected(0);
+        m_autoPlayPending = true;
     }
-    
-    // 获取对话框数据
-    pData = (NetworkStreamDialogData*)GetWindowLongPtrW(hDlg, DWL_USER);
-    
-    switch (message)
-    {
-    case WM_COMMAND:
-        // 检查是否是按钮点击事件
-        if (HIWORD(wParam) == BN_CLICKED) {
-            if (LOWORD(wParam) == IDOK) {
-                // 确定按钮被点击
-                WCHAR buffer[1024] = { 0 };
-                GetDlgItemTextW(hDlg, 1001, buffer, 1024);
-                
-                // 保存用户输入的网络地址
-                if (pData) {
-                    pData->networkUrl = buffer;
-                    pData->bOK = true;
-                }
-                
-                // 关闭对话框
-                DestroyWindow(hDlg);
-                return TRUE;
-            }
-            else if (LOWORD(wParam) == IDCANCEL) {
-                // 取消按钮被点击
-                if (pData) {
-                    pData->bOK = false;
-                }
-                
-                // 关闭对话框
-                DestroyWindow(hDlg);
-                return TRUE;
-            }
-        }
-        break;
-        
-    case WM_CLOSE:
-        // 用户点击了关闭按钮
-        if (pData) {
-            pData->bOK = false;
-        }
-        
-        // 关闭对话框
-        DestroyWindow(hDlg);
-        return TRUE;
-        
-    case WM_DESTROY:
-        // 对话框被销毁时发送WM_QUIT消息终止消息循环
-        PostQuitMessage(0);
-        return TRUE;
-    }
-    return FALSE;
 }
 
 void IJKPlayerWindow::OnOpenNetworkStream()
 {
-    // 创建对话框数据
-    NetworkStreamDialogData dialogData;
-    dialogData.pThis = this;
-    dialogData.networkUrl.clear();
-    dialogData.bOK = false;
-    
-    // 使用CreateWindowExW创建动态对话框
-    HWND hDialog = CreateWindowExW(
-        WS_EX_DLGMODALFRAME | WS_EX_WINDOWEDGE,
-        L"#32770", // 标准对话框类名
-        L"打开网络流", // 对话框标题
-        WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
-        0, 0, 450, 200, // 更协调的初始大小比例
-        GetHWND(), // 父窗口
-        NULL, // 菜单
-        GetModuleHandle(NULL), // 实例句柄
-        NULL // 参数
-    );
-    
-    if (hDialog) {
-        // 将对话框数据保存到窗口
-        SetWindowLongPtrW(hDialog, GWLP_USERDATA, (LONG_PTR)&dialogData);
-        
-        // 设置对话框位置（居中显示）
-        RECT dialogRect, parentRect;
-        GetWindowRect(hDialog, &dialogRect);
-        GetWindowRect(GetHWND(), &parentRect);
-        int x = parentRect.left + (parentRect.right - parentRect.left - (dialogRect.right - dialogRect.left)) / 2;
-        int y = parentRect.top + (parentRect.bottom - parentRect.top - (dialogRect.bottom - dialogRect.top)) / 2;
-        
-        // 获取对话框尺寸
-        int dialogWidth = dialogRect.right - dialogRect.left;
-        int dialogHeight = dialogRect.bottom - dialogRect.top;
-        
-        // 设置对话框位置和大小
-        SetWindowPos(hDialog, NULL, x, y, dialogWidth, dialogHeight, SWP_NOZORDER);
-        
-        // 计算控件的位置和大小比例
-        int marginX = static_cast<int>(dialogWidth * 0.055); // 5.5%的边距，增加左右边距
-        int marginY = static_cast<int>(dialogHeight * 0.12); // 12%的边距
-        
-        // 标签控件
-        int labelX = marginX;
-        int labelY = static_cast<int>(dialogHeight * 0.15); // 15%的高度位置
-        int labelWidth = dialogWidth - 2 * marginX;
-        int labelHeight = static_cast<int>(dialogHeight * 0.14); // 14%的高度
-        
-        // 创建提示标签
-        HWND hLabel = CreateWindowW(
-            L"STATIC", L"请输入网络流地址:",
-            WS_VISIBLE | WS_CHILD | SS_LEFT,
-            labelX, labelY, labelWidth, labelHeight,
-            hDialog, (HMENU)1000, GetModuleHandle(NULL), NULL);
-        
-        // 编辑框控件
-        int editX = marginX;
-        int editY = static_cast<int>(dialogHeight * 0.38); // 38%的高度位置，提高位置补偿更小的高度
-        int editWidth = dialogWidth - 2 * marginX;
-        int editHeight = static_cast<int>(dialogHeight * 0.12); // 5%的高度，按照要求调整
-        
-        // 创建编辑框
-        HWND hEdit = CreateWindowW(
-            L"EDIT", L"",
-            WS_VISIBLE | WS_CHILD | WS_BORDER | ES_AUTOHSCROLL,
-            editX, editY, editWidth, editHeight,
-            hDialog, (HMENU)1001, GetModuleHandle(NULL), NULL);
-        
-        // 按钮控件
-        int buttonHeight = static_cast<int>(dialogHeight * 0.18); // 18%的高度
-        int buttonWidth = static_cast<int>(dialogWidth * 0.18); // 18%的宽度，确保按钮文本完全显示
-        int buttonY = static_cast<int>(dialogHeight * 0.55); // 55%的高度位置，上移按钮适应编辑框高度减小
-        int buttonSpacing = static_cast<int>(dialogWidth * 0.05); // 5%的间距，增加按钮间距离
-        int rightMargin = static_cast<int>(dialogWidth * 0.055); // 5.5%的右边距，与整体边距一致
-        int cancelButtonX = dialogWidth - buttonWidth - rightMargin;
-        int okButtonX = cancelButtonX - buttonWidth - buttonSpacing;
-        
-        // 创建确定按钮
-        HWND hOKButton = CreateWindowW(
-            L"BUTTON", L"确定",
-            WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,
-            okButtonX, buttonY, buttonWidth, buttonHeight,
-            hDialog, (HMENU)IDOK, GetModuleHandle(NULL), NULL);
-        
-        // 创建取消按钮
-        HWND hCancelButton = CreateWindowW(
-            L"BUTTON", L"取消",
-            WS_VISIBLE | WS_CHILD,
-            cancelButtonX, buttonY, buttonWidth, buttonHeight,
-            hDialog, (HMENU)IDCANCEL, GetModuleHandle(NULL), NULL);
-        
-        // 设置对话框字体
-        HFONT hFont = (HFONT)GetStockObject(DEFAULT_GUI_FONT);
-        ::SendMessageW(hDialog, WM_SETFONT, (WPARAM)hFont, (LPARAM)TRUE);
-        ::SendMessageW(hLabel, WM_SETFONT, (WPARAM)hFont, (LPARAM)TRUE);
-        ::SendMessageW(hEdit, WM_SETFONT, (WPARAM)hFont, (LPARAM)TRUE);
-        ::SendMessageW(hOKButton, WM_SETFONT, (WPARAM)hFont, (LPARAM)TRUE);
-        ::SendMessageW(hCancelButton, WM_SETFONT, (WPARAM)hFont, (LPARAM)TRUE);
-        
-        // 设置焦点到编辑框
-        SetFocus(hEdit);
-        
-        // 处理对话框消息
-        MSG msg;
-        BOOL bRet;
-        while ((bRet = GetMessage(&msg, NULL, 0, 0)) != 0) {
-            if (bRet == -1) {
-                break;
-            }
-            
-            // 处理WM_SIZE消息，实现控件自适应大小
-            if (msg.hwnd == hDialog && msg.message == WM_SIZE) {
-                // 获取新的对话框尺寸
-                RECT newDialogRect;
-                GetWindowRect(hDialog, &newDialogRect);
-                int newDialogWidth = newDialogRect.right - newDialogRect.left;
-                int newDialogHeight = newDialogRect.bottom - newDialogRect.top;
-                
-                // 重新计算控件位置和大小
-                int marginX = static_cast<int>(newDialogWidth * 0.055); // 5.5%的边距
-                
-                // 更新标签控件
-                int labelX = marginX;
-                int labelY = static_cast<int>(newDialogHeight * 0.15);
-                int labelWidth = newDialogWidth - 2 * marginX;
-                int labelHeight = static_cast<int>(newDialogHeight * 0.14);
-                SetWindowPos(hLabel, NULL, labelX, labelY, labelWidth, labelHeight, SWP_NOZORDER);
-                
-                // 更新编辑框控件
-                int editX = marginX;
-                int editY = static_cast<int>(newDialogHeight * 0.38); // 38%的高度位置，进一步提高位置补偿更小的高度
-                int editWidth = newDialogWidth - 2 * marginX;
-                int editHeight = static_cast<int>(newDialogHeight * 0.05); // 5%的高度，按照要求调整
-                SetWindowPos(hEdit, NULL, editX, editY, editWidth, editHeight, SWP_NOZORDER);
-                
-                // 更新按钮控件
-                int buttonHeight = static_cast<int>(newDialogHeight * 0.18); // 18%的高度
-                int buttonWidth = static_cast<int>(newDialogWidth * 0.18); // 18%的宽度，确保按钮文本完全显示
-                int buttonY = static_cast<int>(newDialogHeight * 0.55); // 55%的高度位置，上移按钮适应编辑框高度减小
-                int buttonSpacing = static_cast<int>(newDialogWidth * 0.05); // 5%的间距
-                int rightMargin = static_cast<int>(newDialogWidth * 0.055); // 5.5%的右边距
-                int cancelButtonX = newDialogWidth - buttonWidth - rightMargin;
-                int okButtonX = cancelButtonX - buttonWidth - buttonSpacing;
-                SetWindowPos(hOKButton, NULL, okButtonX, buttonY, buttonWidth, buttonHeight, SWP_NOZORDER);
-                SetWindowPos(hCancelButton, NULL, cancelButtonX, buttonY, buttonWidth, buttonHeight, SWP_NOZORDER);
-            }
-            
-            // 检查是否是对话框消息
-            if (IsDialogMessage(hDialog, &msg)) {
-                // 处理按钮点击事件
-                if (msg.message == WM_COMMAND) {
-                    if (HIWORD(msg.wParam) == BN_CLICKED) {
-                        if (LOWORD(msg.wParam) == IDOK) {
-                            // 确定按钮被点击
-                            WCHAR buffer[1024] = { 0 };
-                            GetDlgItemTextW(hDialog, 1001, buffer, 1024);
-                            dialogData.networkUrl = buffer;
-                            dialogData.bOK = true;
-                            break;
-                        } else if (LOWORD(msg.wParam) == IDCANCEL) {
-                            // 取消按钮被点击
-                            dialogData.bOK = false;
-                            break;
-                        }
-                    }
-                }
-            } else {
-                TranslateMessage(&msg);
-                DispatchMessage(&msg);
-            }
-        }
-        
-        // 关闭对话框
-        DestroyWindow(hDialog);
-        
-        // 处理对话框返回结果
-        if (dialogData.bOK && !dialogData.networkUrl.empty()) {
-            // 将宽字符转换为多字节字符串
-            int bufferSize = WideCharToMultiByte(CP_UTF8, 0, dialogData.networkUrl.c_str(), -1, NULL, 0, NULL, NULL);
-            std::string networkUrl;
-            if (bufferSize > 0) {
-                networkUrl.resize(bufferSize - 1);
-                WideCharToMultiByte(CP_UTF8, 0, dialogData.networkUrl.c_str(), -1, &networkUrl[0], bufferSize, NULL, NULL);
-            }
-            
-            if (!networkUrl.empty()) {
-                // 将网络流添加到播放列表
-                m_playlistManager->AddItem(networkUrl);
-                m_playlistManager->SetCurrentIndex(m_playlistManager->GetCount() - 1);
-                UpdatePlaylistUI();
+    NetworkStreamDialog dialog;
+    dialog.Create(m_hWnd, _T("打开网络流"), UI_WNDSTYLE_DIALOG, 0L, 0, 0, 520, 240);
+    dialog.CenterWindow();
+    dialog.ShowModal();
 
-                // 打开并播放网络流
-                if (m_playerController->OpenFile(networkUrl) && m_playerController->Prepare()) {
-                    m_currentFile = networkUrl;
-                    if (m_statusLabel) m_statusLabel->SetText(_T("正在播放网络流..."));
-                    m_autoPlayPending = true;
-                }
-            }
+    std::string networkUrl;
+    if (dialog.GetResult(networkUrl) && !networkUrl.empty()) {
+        m_playlistManager->AddItem(networkUrl);
+        m_playlistManager->SetCurrentIndex(m_playlistManager->GetCount() - 1);
+        UpdatePlaylistUI();
+
+        if (m_playerController->OpenFile(networkUrl) && m_playerController->Prepare()) {
+            m_currentFile = networkUrl;
+            if (m_statusLabel) m_statusLabel->SetText(_T("正在播放网络流..."));
+            m_autoPlayPending = true;
         }
     }
 }
 
 void IJKPlayerWindow::OnScreenNormal()
 {
-    // 简单实现，仅显示状态
-    if (m_statusLabel) {
-        m_statusLabel->SetText(_T("Screen Normal not implemented yet"));
+    if (::IsZoomed(m_hWnd)) {
+        ::SendMessage(m_hWnd, WM_SYSCOMMAND, SC_RESTORE, 0);
     }
 }
 
 void IJKPlayerWindow::OnToggleNoFrame()
 {
-    // 简单实现，仅显示状态
-    if (m_statusLabel) {
-        m_statusLabel->SetText(_T("No Frame mode not implemented yet"));
+    LONG_PTR style = ::GetWindowLongPtr(m_hWnd, GWL_STYLE);
+    const bool hasCaption = (style & WS_CAPTION) != 0;
+    if (hasCaption) {
+        style &= ~(WS_CAPTION | WS_THICKFRAME);
+        if (m_statusLabel) m_statusLabel->SetText(_T("No-frame: ON"));
+    } else {
+        style |= (WS_CAPTION | WS_THICKFRAME);
+        if (m_statusLabel) m_statusLabel->SetText(_T("No-frame: OFF"));
     }
+    ::SetWindowLongPtr(m_hWnd, GWL_STYLE, style);
+    ::SetWindowPos(m_hWnd, NULL, 0, 0, 0, 0,
+                   SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_FRAMECHANGED);
 }
 
 void IJKPlayerWindow::OnPlayerStateChanged(IjkMsgState state, int arg1, int arg2)
@@ -1275,7 +1141,7 @@ void IJKPlayerWindow::OnPlayerStateChanged(IjkMsgState state, int arg1, int arg2
         auto nextItem = m_playlistManager->GetNext();
         if (nextItem) {
             OnPlaylistItemSelected(m_playlistManager->GetCurrentIndex());
-            OnPlay();
+            m_autoPlayPending = true;
         }
         break;
     }
@@ -1327,7 +1193,11 @@ void IJKPlayerWindow::UpdateProgress()
     long duration = m_playerController->GetDuration();
 
     if (duration > 0) {
-        int progress = (int)((double)current / duration * 100);
+        const int maxV = m_progressSlider->GetMaxValue();
+        const int denom = (maxV > 0) ? maxV : 1000;
+        int progress = (int)((double)current / (double)duration * (double)denom);
+        if (progress < 0) progress = 0;
+        if (progress > denom) progress = denom;
         m_progressSlider->SetValue(progress);
         
         std::string timeStr = FormatTime(current) + " / " + FormatTime(duration);
@@ -1356,7 +1226,6 @@ void IJKPlayerWindow::UpdatePlaylistUI()
         if (item) {
             CListTextElementUI* pListElement = new CListTextElementUI;
             pListElement->SetText(0, item->fileName.c_str());
-            pListElement->SetText(1, item->filePath.c_str());
             m_playlistList->Add(pListElement);
         }
     }

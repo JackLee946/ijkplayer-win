@@ -47,9 +47,6 @@ protected:
     static const TCHAR* const kTimeLabel;
     static const TCHAR* const kStatusLabel;
     static const TCHAR* const kPlaylistList;
-    static const TCHAR* const kMinimizeButton;
-    static const TCHAR* const kMaximizeButton;
-    static const TCHAR* const kCloseButton;
     static const TCHAR* const kVolumeButton;
     static const TCHAR* const kVolumeZeroButton;
     static const TCHAR* const kOpenMiniButton;
@@ -76,9 +73,6 @@ private:
     CButtonUI* m_fastBackwardButton;
     CButtonUI* m_fastForwardButton;
     CButtonUI* m_fullscreenButton;
-    CButtonUI* m_minimizeButton;
-    CButtonUI* m_maximizeButton;
-    CButtonUI* m_closeButton;
     CButtonUI* m_volumeButton;
     CButtonUI* m_volumeZeroButton;
     CButtonUI* m_openMiniButton;
@@ -92,7 +86,7 @@ private:
     CSliderUI* m_volumeSlider;
     CLabelUI* m_timeLabel;
     CLabelUI* m_statusLabel;
-    CListUI* m_playlistList;
+    CListUI* m_playlistList; // res/IJKPlayer.xml 里是 TreeView，但其继承自 CListUI，按列表方式使用即可
 
     // 状态
     bool m_isPlaying;
@@ -102,6 +96,7 @@ private:
     HWND m_videoHwnd;  // 视频渲染窗口的HWND
     bool m_autoPlayPending;
     bool m_videoInitPending;
+    int m_lastVolumeBeforeMute; // 用于静音/取消静音恢复
 
     // 初始化方法
     void InitializeComponents();

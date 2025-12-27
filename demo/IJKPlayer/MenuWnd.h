@@ -7,7 +7,7 @@ public:
     explicit MenuWnd(LPCTSTR pszXMLName);
 
 protected:
-    virtual ~MenuWnd();   // Ë½ÓÐ»¯Îö¹¹º¯Êý£¬ÕâÑù´Ë¶ÔÏóÖ»ÄÜÍ¨¹ýnewÀ´Éú³É£¬¶ø²»ÄÜÖ±½Ó¶¨Òå±äÁ¿¡£¾Í±£Ö¤ÁËdelete this²»»á³ö´í
+    virtual ~MenuWnd();   // Ë½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¶ï¿½ï¿½ï¿½Ö»ï¿½ï¿½Í¨ï¿½ï¿½newï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½Ö¤ï¿½ï¿½delete thisï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 public:
     void Init(CPaintManagerUI *pOwnerPM, POINT ptPos);
@@ -17,5 +17,8 @@ public:
     virtual void    Notify(TNotifyUI& msg);
 
 private:
+    void RequestClose();
+
     CPaintManagerUI *m_pOwnerPM;
+    bool m_closing{ false };
 };

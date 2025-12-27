@@ -57,6 +57,15 @@ bool PlayerController::Initialize()
 void PlayerController::Release()
 {
     if (m_decoder) {
+        // 关闭阶段先断开解码器回调，避免 release 过程中/之后仍然回调到已释放的 PlayerController
+        IjkFfplayDecoderCallBack cb{};
+        cb.func_get_frame = nullptr;
+        cb.func_state_change = nullptr;
+        ijkFfplayDecoder_setDecoderCallBack(m_decoder, nullptr, &cb);
+
+        // 确保 stop 一次，降低后台线程残留概率
+        ijkFfplayDecoder_stop(m_decoder);
+
         ijkFfplayDecoder_release(m_decoder);
         m_decoder = nullptr;
     }

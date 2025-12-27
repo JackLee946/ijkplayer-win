@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Window size="450,200" caption="0,0,0,25" sizebox="6,6,6,6" mininfo="450,200" maxinfo="450,200">
-    <VerticalLayout bkcolor="#FF000000" padding="25,30,25,25">
-        <!-- 标签控件 -->
-        <Label name="label_url" text="请输入网络流地址:" textcolor="#FFFFFFFF" height="35" align="left" />
-        
-        <!-- 编辑框控件 - 高度设置为5% -->
-        <Edit name="edit_url" bkcolor="#FFFFFFFF" textcolor="#FF000000" height="5%" bordercolor="#FF2f2f2f" bordersize="1" vscrollbar="false" hscrollbar="false" />
-        
-        <!-- 占位空间 -->
-        <VerticalLayout height="40" />
-        
-        <!-- 按钮区域 - 使用居中布局 -->
-        <HorizontalLayout height="40">
-            <HorizontalLayout width="*" />
-            <Button name="btn_ok" text="确定" textcolor="#FFFFFFFF" bkcolor="#FF1b1b1b" height="40" width="80" bordersize="1" bordercolor="#FF2f2f2f" hotbkcolor="#FF333333" pushedbkcolor="#FF444444" />
-            <HorizontalLayout width="20" />
-            <Button name="btn_cancel" text="取消" textcolor="#FFFFFFFF" bkcolor="#FF1b1b1b" height="40" width="80" bordersize="1" bordercolor="#FF2f2f2f" hotbkcolor="#FF333333" pushedbkcolor="#FF444444" />
-            <HorizontalLayout width="*" />
+<Window size="520,240" caption="0,0,0,30" sizebox="6,6,6,6" mininfo="520,240" maxinfo="520,240">
+    <VerticalLayout bkcolor="#FF000000">
+        <!-- 标题栏 -->
+        <HorizontalLayout height="30" bkcolor="#FF1b1b1b">
+            <HorizontalLayout width="10" />
+            <Label text="打开网络流" textcolor="#FFFFFFFF" align="vcenter" />
+            <HorizontalLayout />
+            <Button name="closebtn" tooltip="关闭" width="44" height="30" text="×" textcolor="#FFFFFFFF" bkcolor="#FF1b1b1b" hotbkcolor="#FF333333" pushedbkcolor="#FF444444" />
         </HorizontalLayout>
+
+        <VerticalLayout padding="25,20,25,20">
+            <Label name="label_url" text="请输入网络流地址（rtsp/rtmp/http/https）:" textcolor="#FFFFFFFF" height="26" align="left" />
+
+            <Edit name="edit_url"
+                  height="34"
+                  bkcolor="#FFFFFFFF"
+                  textcolor="#FF000000"
+                  bordercolor="#FF2f2f2f"
+                  bordersize="1"
+                  vscrollbar="false"
+                  hscrollbar="false"
+                  tipvalue="例如：rtsp://example.com/live/stream"
+                  tipvaluecolor="#FF7a7a7a"
+            />
+
+            <Label name="label_error" visible="false" height="22" text="" textcolor="#FFFF6666" align="left" />
+
+            <VerticalLayout height="14" />
+
+            <HorizontalLayout height="40">
+                <HorizontalLayout />
+                <Button name="btn_ok" text="确定" textcolor="#FFFFFFFF" bkcolor="#FF1b1b1b" height="40" width="90" bordersize="1" bordercolor="#FF2f2f2f" hotbkcolor="#FF333333" pushedbkcolor="#FF444444" />
+                <HorizontalLayout width="16" />
+                <Button name="btn_cancel" text="取消" textcolor="#FFFFFFFF" bkcolor="#FF1b1b1b" height="40" width="90" bordersize="1" bordercolor="#FF2f2f2f" hotbkcolor="#FF333333" pushedbkcolor="#FF444444" />
+                <HorizontalLayout />
+            </HorizontalLayout>
+        </VerticalLayout>
     </VerticalLayout>
 </Window>
