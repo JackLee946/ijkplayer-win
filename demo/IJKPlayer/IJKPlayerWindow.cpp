@@ -18,6 +18,8 @@
 
 // 控件ID定义
 const TCHAR* const IJKPlayerWindow::kVideoContainer = _T("video_container");
+const TCHAR* const IJKPlayerWindow::kTitleBar = _T("title");
+const TCHAR* const IJKPlayerWindow::kControlPanel = _T("control_panel");
 const TCHAR* const IJKPlayerWindow::kPlayButton = _T("btn_play");
 const TCHAR* const IJKPlayerWindow::kPauseButton = _T("btn_pause");
 const TCHAR* const IJKPlayerWindow::kStopButton = _T("btn_stop");
@@ -138,6 +140,8 @@ bool EnumerateMediaFilesInFolder(const std::wstring& folder, std::vector<std::ws
 
 IJKPlayerWindow::IJKPlayerWindow()
     : m_videoContainer(nullptr)
+    , m_titleBar(nullptr)
+    , m_controlPanel(nullptr)
     , m_playButton(nullptr)
     , m_pauseButton(nullptr)
     , m_stopButton(nullptr)
@@ -167,7 +171,16 @@ IJKPlayerWindow::IJKPlayerWindow()
     , m_autoPlayPending(false)
     , m_videoInitPending(false)
     , m_lastVolumeBeforeMute(50)
+    , m_videoFullscreen(false)
+    , m_prevStyle(0)
+    , m_prevExStyle(0)
+    , m_prevTitleVisible(true)
+    , m_prevControlVisible(true)
+    , m_prevPlaylistVisible(true)
+    , m_videoOldProc(nullptr)
 {
+    ZeroMemory(&m_prevPlacement, sizeof(m_prevPlacement));
+    m_prevPlacement.length = sizeof(m_prevPlacement);
     m_playerController = std::make_unique<PlayerController>();
     m_videoRenderer = std::make_unique<VideoRenderer>();
     m_playlistManager = std::make_unique<PlaylistManager>();
@@ -178,6 +191,10 @@ IJKPlayerWindow::~IJKPlayerWindow()
     // 智能指针会自动释放资源，不需要手动调用Release()
     // 确保视频窗口先被销毁
     if (m_videoHwnd && IsWindow(m_videoHwnd)) {
+        if (m_videoOldProc) {
+            ::SetWindowLongPtr(m_videoHwnd, GWLP_WNDPROC, (LONG_PTR)m_videoOldProc);
+            m_videoOldProc = nullptr;
+        }
         m_pm.RemoveNativeWindow(m_videoHwnd);
         DestroyWindow(m_videoHwnd);
         m_videoHwnd = nullptr;
@@ -222,6 +239,8 @@ void IJKPlayerWindow::SetupUI()
 {
     // 获取UI控件指针
     m_videoContainer = m_pm.FindControl(kVideoContainer);
+    m_titleBar = m_pm.FindControl(kTitleBar);
+    m_controlPanel = m_pm.FindControl(kControlPanel);
     m_playButton = static_cast<CButtonUI*>(m_pm.FindControl(kPlayButton));
     m_pauseButton = static_cast<CButtonUI*>(m_pm.FindControl(kPauseButton));
     m_stopButton = static_cast<CButtonUI*>(m_pm.FindControl(kStopButton));
@@ -310,8 +329,22 @@ HWND IJKPlayerWindow::GetVideoContainerHWND()
     
     // 创建或更新视频渲染窗口
     if (!m_videoHwnd || !IsWindow(m_videoHwnd)) {
+        // 注册一个带 CS_DBLCLKS 的窗口类，用于接收双击消息
+        static bool s_clsReg = false;
+        static const TCHAR* kVideoHostClass = _T("IJKVideoHostWindow");
+        if (!s_clsReg) {
+            WNDCLASS wc{};
+            wc.style = CS_DBLCLKS;
+            wc.lpfnWndProc = ::DefWindowProc;
+            wc.hInstance = GetModuleHandle(NULL);
+            wc.lpszClassName = kVideoHostClass;
+            wc.hbrBackground = (HBRUSH)::GetStockObject(BLACK_BRUSH);
+            ::RegisterClass(&wc);
+            s_clsReg = true;
+        }
+
         m_videoHwnd = CreateWindow(
-            _T("STATIC"),
+            kVideoHostClass,
             _T(""),
             WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
             rect.left,
@@ -324,10 +357,9 @@ HWND IJKPlayerWindow::GetVideoContainerHWND()
             NULL);
         
         if (m_videoHwnd) {
-            // 设置窗口背景为黑色，确保视频渲染区域可见
-            SetWindowLong(m_videoHwnd, GWL_STYLE, GetWindowLong(m_videoHwnd, GWL_STYLE) & ~WS_BORDER);
-            SetClassLong(m_videoHwnd, GCL_HBRBACKGROUND, (LONG)CreateSolidBrush(RGB(0, 0, 0)));
-            RedrawWindow(m_videoHwnd, NULL, NULL, RDW_ERASE | RDW_INVALIDATE);
+            // 绑定子窗口过程，捕获双击
+            ::SetWindowLongPtr(m_videoHwnd, GWLP_USERDATA, (LONG_PTR)this);
+            m_videoOldProc = (WNDPROC)::SetWindowLongPtr(m_videoHwnd, GWLP_WNDPROC, (LONG_PTR)&IJKPlayerWindow::VideoHostWndProc);
             
             // 注册到duilib的原生窗口管理
             m_pm.AddNativeWindow(m_videoContainer, m_videoHwnd);
@@ -343,6 +375,88 @@ HWND IJKPlayerWindow::GetVideoContainerHWND()
     }
 
     return m_videoHwnd;
+}
+
+LRESULT CALLBACK IJKPlayerWindow::VideoHostWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    auto* self = reinterpret_cast<IJKPlayerWindow*>(::GetWindowLongPtr(hWnd, GWLP_USERDATA));
+    if (self) {
+        if (uMsg == WM_LBUTTONDBLCLK) {
+            self->ToggleVideoFullscreen();
+            return 0;
+        }
+        if (self->m_videoOldProc) {
+            return ::CallWindowProc(self->m_videoOldProc, hWnd, uMsg, wParam, lParam);
+        }
+    }
+    return ::DefWindowProc(hWnd, uMsg, wParam, lParam);
+}
+
+void IJKPlayerWindow::ToggleVideoFullscreen()
+{
+    if (m_videoFullscreen) ExitVideoFullscreen();
+    else EnterVideoFullscreen();
+}
+
+void IJKPlayerWindow::SetChromeVisible(bool visible)
+{
+    if (m_titleBar) m_titleBar->SetVisible(visible);
+    if (m_controlPanel) m_controlPanel->SetVisible(visible);
+    if (m_playlistPanel) m_playlistPanel->SetVisible(visible);
+    ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
+}
+
+void IJKPlayerWindow::EnterVideoFullscreen()
+{
+    if (m_videoFullscreen) return;
+    m_videoFullscreen = true;
+
+    m_prevStyle = ::GetWindowLongPtr(m_hWnd, GWL_STYLE);
+    m_prevExStyle = ::GetWindowLongPtr(m_hWnd, GWL_EXSTYLE);
+    ::GetWindowPlacement(m_hWnd, &m_prevPlacement);
+
+    m_prevTitleVisible = m_titleBar ? m_titleBar->IsVisible() : true;
+    m_prevControlVisible = m_controlPanel ? m_controlPanel->IsVisible() : true;
+    m_prevPlaylistVisible = m_playlistPanel ? m_playlistPanel->IsVisible() : true;
+
+    SetChromeVisible(false);
+
+    // 无边框全屏：覆盖当前显示器工作区/显示区
+    HMONITOR hMon = ::MonitorFromWindow(m_hWnd, MONITOR_DEFAULTTONEAREST);
+    MONITORINFO mi{};
+    mi.cbSize = sizeof(mi);
+    ::GetMonitorInfo(hMon, &mi);
+    RECT rc = mi.rcMonitor;
+
+    LONG_PTR style = m_prevStyle;
+    style &= ~(WS_CAPTION | WS_THICKFRAME);
+    style |= WS_POPUP;
+    ::SetWindowLongPtr(m_hWnd, GWL_STYLE, style);
+
+    LONG_PTR exStyle = m_prevExStyle;
+    exStyle &= ~(WS_EX_WINDOWEDGE | WS_EX_CLIENTEDGE);
+    ::SetWindowLongPtr(m_hWnd, GWL_EXSTYLE, exStyle);
+
+    ::SetWindowPos(m_hWnd, HWND_TOP,
+        rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top,
+        SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+}
+
+void IJKPlayerWindow::ExitVideoFullscreen()
+{
+    if (!m_videoFullscreen) return;
+    m_videoFullscreen = false;
+
+    ::SetWindowLongPtr(m_hWnd, GWL_STYLE, m_prevStyle);
+    ::SetWindowLongPtr(m_hWnd, GWL_EXSTYLE, m_prevExStyle);
+    ::SetWindowPlacement(m_hWnd, &m_prevPlacement);
+    ::SetWindowPos(m_hWnd, NULL, 0, 0, 0, 0,
+        SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+
+    if (m_titleBar) m_titleBar->SetVisible(m_prevTitleVisible);
+    if (m_controlPanel) m_controlPanel->SetVisible(m_prevControlVisible);
+    if (m_playlistPanel) m_playlistPanel->SetVisible(m_prevPlaylistVisible);
+    ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
 }
 
 void IJKPlayerWindow::Notify(TNotifyUI& msg)

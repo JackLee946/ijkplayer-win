@@ -34,6 +34,8 @@ public:
 protected:
     // UI控件ID定义
     static const TCHAR* const kVideoContainer;
+    static const TCHAR* const kTitleBar;
+    static const TCHAR* const kControlPanel;
     static const TCHAR* const kPlayButton;
     static const TCHAR* const kPauseButton;
     static const TCHAR* const kStopButton;
@@ -65,6 +67,8 @@ private:
 
     // UI控件指针
     CControlUI* m_videoContainer;
+    CControlUI* m_titleBar;
+    CControlUI* m_controlPanel;
     CButtonUI* m_playButton;
     CButtonUI* m_pauseButton;
     CButtonUI* m_stopButton;
@@ -98,10 +102,26 @@ private:
     bool m_videoInitPending;
     int m_lastVolumeBeforeMute; // 用于静音/取消静音恢复
 
+    // 双击视频区域全屏（无边框）状态
+    bool m_videoFullscreen;
+    WINDOWPLACEMENT m_prevPlacement;
+    LONG_PTR m_prevStyle;
+    LONG_PTR m_prevExStyle;
+    bool m_prevTitleVisible;
+    bool m_prevControlVisible;
+    bool m_prevPlaylistVisible;
+
+    WNDPROC m_videoOldProc;
+    static LRESULT CALLBACK VideoHostWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
     // 初始化方法
     void InitializeComponents();
     void SetupUI();
     HWND GetVideoContainerHWND();
+    void ToggleVideoFullscreen();
+    void EnterVideoFullscreen();
+    void ExitVideoFullscreen();
+    void SetChromeVisible(bool visible);
 
     // 播放控制
     void OnOpenFile();
