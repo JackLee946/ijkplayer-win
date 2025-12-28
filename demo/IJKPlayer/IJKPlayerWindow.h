@@ -34,6 +34,7 @@ public:
 protected:
     // UI控件ID定义
     static const TCHAR* const kVideoContainer;
+    static const TCHAR* const kVideoBackground;
     static const TCHAR* const kTitleBar;
     static const TCHAR* const kControlPanel;
     static const TCHAR* const kPlayButton;
@@ -67,6 +68,7 @@ private:
 
     // UI控件指针
     CControlUI* m_videoContainer;
+    CButtonUI* m_videoBackground;
     CControlUI* m_titleBar;
     CControlUI* m_controlPanel;
     CButtonUI* m_playButton;

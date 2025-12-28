@@ -18,7 +18,9 @@
     <HorizontalLayout>
         <VerticalLayout>
     
-            <Container name="video_container" bkcolor="#FF000000" visible="true" />
+            <Container name="video_container" bkcolor="#FF000000" visible="true">
+                <Button name="video_background" normalimage="playerbk.png" visible="true" width="100%" height="100%" />
+            </Container>
         
         <!-- 播放控制栏 -->
         <VerticalLayout name="control_panel" height="90" bkcolor="#FF1b1b1b" padding="0,10,10,0">

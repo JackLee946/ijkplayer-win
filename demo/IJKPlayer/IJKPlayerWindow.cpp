@@ -18,6 +18,7 @@
 
 // 控件ID定义
 const TCHAR* const IJKPlayerWindow::kVideoContainer = _T("video_container");
+const TCHAR* const IJKPlayerWindow::kVideoBackground = _T("video_background");
 const TCHAR* const IJKPlayerWindow::kTitleBar = _T("title");
 const TCHAR* const IJKPlayerWindow::kControlPanel = _T("control_panel");
 const TCHAR* const IJKPlayerWindow::kPlayButton = _T("btn_play");
@@ -140,6 +141,7 @@ bool EnumerateMediaFilesInFolder(const std::wstring& folder, std::vector<std::ws
 
 IJKPlayerWindow::IJKPlayerWindow()
     : m_videoContainer(nullptr)
+    , m_videoBackground(nullptr)
     , m_titleBar(nullptr)
     , m_controlPanel(nullptr)
     , m_playButton(nullptr)
@@ -239,6 +241,7 @@ void IJKPlayerWindow::SetupUI()
 {
     // 获取UI控件指针
     m_videoContainer = m_pm.FindControl(kVideoContainer);
+    m_videoBackground = static_cast<CButtonUI*>(m_pm.FindControl(kVideoBackground));
     m_titleBar = m_pm.FindControl(kTitleBar);
     m_controlPanel = m_pm.FindControl(kControlPanel);
     m_playButton = static_cast<CButtonUI*>(m_pm.FindControl(kPlayButton));
@@ -263,6 +266,16 @@ void IJKPlayerWindow::SetupUI()
     m_timeLabel = static_cast<CLabelUI*>(m_pm.FindControl(kTimeLabel));
     m_statusLabel = static_cast<CLabelUI*>(m_pm.FindControl(kStatusLabel));
     m_playlistList = static_cast<CListUI*>(m_pm.FindControl(kPlaylistList));
+
+    // 设置视频窗口背景图片（未播放时显示）
+    // 背景图片通过 video_background Button 显示，初始状态为可见
+    if (m_videoBackground) {
+        m_videoBackground->SetVisible(true);
+    }
+    // 初始状态隐藏视频窗口，让背景图片显示
+    if (m_videoHwnd && IsWindow(m_videoHwnd)) {
+        ::ShowWindow(m_videoHwnd, SW_HIDE);
+    }
 
     // 设置初始状态
     if (m_pauseButton) {
@@ -868,6 +881,11 @@ LRESULT IJKPlayerWindow::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lP
                             m_videoInitPending = false;
                             ::KillTimer(m_hWnd, 2);
                             
+                            // 初始状态隐藏视频窗口，让背景图片显示
+                            if (!m_isPlaying) {
+                                ::ShowWindow(hwnd, SW_HIDE);
+                            }
+                            
                             // 初始化完成后立即同步一次窗口大小
                             ::PostMessage(m_hWnd, WM_APP + 101, 0, 0);
                         } else {
@@ -988,6 +1006,13 @@ void IJKPlayerWindow::OnPlay()
             m_isPaused = false;
             if (m_playButton) m_playButton->SetVisible(false);
             if (m_pauseButton) m_pauseButton->SetVisible(true);
+            // 开始播放时隐藏背景图片，显示视频窗口
+            if (m_videoBackground) {
+                m_videoBackground->SetVisible(false);
+            }
+            if (m_videoHwnd && IsWindow(m_videoHwnd)) {
+                ::ShowWindow(m_videoHwnd, SW_SHOW);
+            }
             StartUpdateTimer();
             if (m_statusLabel) m_statusLabel->SetText(_T("Playing"));
         } else {
@@ -1016,6 +1041,13 @@ void IJKPlayerWindow::OnStop()
         if (m_pauseButton) m_pauseButton->SetVisible(false);
         StopUpdateTimer();
         UpdateProgress();
+        // 停止播放时显示背景图片，隐藏视频窗口
+        if (m_videoBackground) {
+            m_videoBackground->SetVisible(true);
+        }
+        if (m_videoHwnd && IsWindow(m_videoHwnd)) {
+            ::ShowWindow(m_videoHwnd, SW_HIDE);
+        }
     }
 }
 
@@ -1113,6 +1145,25 @@ void IJKPlayerWindow::OnPlaylistItemSelected(int index)
             // 切换媒体前先 stop，避免前一个播放线程/音视频设备占用
             if (m_playerController) {
                 m_playerController->Stop();
+            }
+            // 停止后显示背景图片，隐藏视频窗口
+            // 但如果即将自动播放（m_autoPlayPending 为 true），则不显示背景图片
+            // 这样在 PREPARED 回调时，背景图片已经隐藏了
+            if (!m_autoPlayPending) {
+                if (m_videoBackground) {
+                    m_videoBackground->SetVisible(true);
+                }
+                if (m_videoHwnd && IsWindow(m_videoHwnd)) {
+                    ::ShowWindow(m_videoHwnd, SW_HIDE);
+                }
+            } else {
+                // 即将自动播放，保持背景图片隐藏，视频窗口显示
+                if (m_videoBackground) {
+                    m_videoBackground->SetVisible(false);
+                }
+                if (m_videoHwnd && IsWindow(m_videoHwnd)) {
+                    ::ShowWindow(m_videoHwnd, SW_SHOW);
+                }
             }
             if (m_playerController->OpenFile(item->filePath)) {
                 if (m_playerController->Prepare()) {
@@ -1292,6 +1343,13 @@ void IJKPlayerWindow::OnPlayerStateChanged(IjkMsgState state, int arg1, int arg2
         Log::Info("Player prepared");
         if (m_statusLabel) m_statusLabel->SetText(_T("Prepared"));
         if (m_autoPlayPending) {
+            // 如果即将自动播放，确保背景图片隐藏，视频窗口显示
+            if (m_videoBackground) {
+                m_videoBackground->SetVisible(false);
+            }
+            if (m_videoHwnd && IsWindow(m_videoHwnd)) {
+                ::ShowWindow(m_videoHwnd, SW_SHOW);
+            }
             m_autoPlayPending = false;
             OnPlay();
         }
@@ -1308,13 +1366,32 @@ void IJKPlayerWindow::OnPlayerStateChanged(IjkMsgState state, int arg1, int arg2
         if (nextItem) {
             OnPlaylistItemSelected(m_playlistManager->GetCurrentIndex());
             m_autoPlayPending = true;
+        } else {
+            // 没有下一首，显示背景图片，隐藏视频窗口
+            if (m_videoBackground) {
+                m_videoBackground->SetVisible(true);
+            }
+            if (m_videoHwnd && IsWindow(m_videoHwnd)) {
+                ::ShowWindow(m_videoHwnd, SW_HIDE);
+            }
         }
         break;
     }
     case IJK_MSG_ERROR:
         Log::Error("Player error: %d, %d", arg1, arg2);
+        m_isPlaying = false;
+        if (m_playButton) m_playButton->SetVisible(true);
+        if (m_pauseButton) m_pauseButton->SetVisible(false);
+        StopUpdateTimer();
         if (m_statusLabel) {
             m_statusLabel->SetText(_T("Error"));
+        }
+        // 播放错误时显示背景图片，隐藏视频窗口
+        if (m_videoBackground) {
+            m_videoBackground->SetVisible(true);
+        }
+        if (m_videoHwnd && IsWindow(m_videoHwnd)) {
+            ::ShowWindow(m_videoHwnd, SW_HIDE);
         }
         break;
     default:
