@@ -385,6 +385,25 @@ LRESULT CALLBACK IJKPlayerWindow::VideoHostWndProc(HWND hWnd, UINT uMsg, WPARAM 
             self->ToggleVideoFullscreen();
             return 0;
         }
+        // 处理空格键切换播放/暂停（当视频窗口有焦点时）
+        if (uMsg == WM_KEYDOWN && wParam == VK_SPACE) {
+            if (self->m_isPlaying) {
+                self->OnPause();
+            } else {
+                self->OnPlay();
+            }
+            return 0;
+        }
+        // 处理左右方向键切换上一首/下一首（当视频窗口有焦点时）
+        if (uMsg == WM_KEYDOWN) {
+            if (wParam == VK_LEFT) {
+                self->OnPrev();
+                return 0;
+            } else if (wParam == VK_RIGHT) {
+                self->OnNext();
+                return 0;
+            }
+        }
         if (self->m_videoOldProc) {
             return ::CallWindowProc(self->m_videoOldProc, hWnd, uMsg, wParam, lParam);
         }
@@ -806,6 +825,28 @@ LRESULT IJKPlayerWindow::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lP
         LRESULT ret = OnCommand(uMsg, wParam, lParam, handled);
         bHandled = handled;
         return ret;
+    }
+    // 处理空格键切换播放/暂停
+    if (uMsg == WM_KEYDOWN && wParam == VK_SPACE) {
+        if (m_isPlaying) {
+            OnPause();
+        } else {
+            OnPlay();
+        }
+        bHandled = TRUE;
+        return 0;
+    }
+    // 处理左右方向键切换上一首/下一首
+    if (uMsg == WM_KEYDOWN) {
+        if (wParam == VK_LEFT) {
+            OnPrev();
+            bHandled = TRUE;
+            return 0;
+        } else if (wParam == VK_RIGHT) {
+            OnNext();
+            bHandled = TRUE;
+            return 0;
+        }
     }
     if (uMsg == WM_TIMER && wParam == 1) {
         UpdateProgress();
