@@ -657,12 +657,6 @@ LRESULT IJKPlayerWindow::OnClose(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& 
     
     // 停止定时器2（用于视频初始化）
     ::KillTimer(m_hWnd, 2);
-
-    // 关键：窗口关闭阶段先断开回调，避免解码线程在对象析构期间继续回调到 UI
-    if (m_playerController) {
-        m_playerController->SetVideoFrameCallback(nullptr);
-        m_playerController->SetStateCallback(nullptr);
-    }
     
     if (m_playerController) {
         m_playerController->Stop();
@@ -680,12 +674,6 @@ LRESULT IJKPlayerWindow::OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL
     
     // 停止定时器2（用于视频初始化）
     ::KillTimer(m_hWnd, 2);
-
-    // 再次确保回调被断开（防止 OnClose 未触发的路径）
-    if (m_playerController) {
-        m_playerController->SetVideoFrameCallback(nullptr);
-        m_playerController->SetStateCallback(nullptr);
-    }
     
     // 先停止播放器
     if (m_playerController) {
@@ -736,9 +724,13 @@ void IJKPlayerWindow::OnFinalMessage(HWND hWnd)
         m_videoRenderer.reset();
     }
     
-    // 调用基类的OnFinalMessage方法（不要强退进程，主线程 MessageLoop 退出后会正常 delete pFrame）
+    // 调用基类的OnFinalMessage方法
     Log::Info("OnFinalMessage: Calling base class");
     WindowImplBase::OnFinalMessage(hWnd);
+    
+    // 强制退出进程，确保不会有残留线程
+    Log::Info("OnFinalMessage: Exiting process");
+    ::ExitProcess(0);
 }
 
 LRESULT IJKPlayerWindow::OnContextMenu(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
