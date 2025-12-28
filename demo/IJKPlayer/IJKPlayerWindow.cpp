@@ -1060,6 +1060,12 @@ void IJKPlayerWindow::OnPlaylistItemSelected(int index)
 {
     if (index >= 0 && index < (int)m_playlistManager->GetCount()) {
         m_playlistManager->SetCurrentIndex(index);
+        
+        // 同步更新播放列表 UI 选中状态
+        if (m_playlistList) {
+            m_playlistList->SelectItem(index, false);
+        }
+        
         auto item = m_playlistManager->GetCurrentItem();
         if (item) {
             m_currentFile = item->filePath;
