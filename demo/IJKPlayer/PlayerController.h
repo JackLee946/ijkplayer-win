@@ -45,6 +45,8 @@ public:
     bool GetVideoCodecInfo(std::string& info);
     bool GetAudioCodecInfo(std::string& info);
     bool GetMediaMeta(IjkMetadata* metadata);
+    long GetPropertyLong(int id, long defaultValue = 0) const;
+    float GetPropertyFloat(int id, float defaultValue = 0.0f) const;
 
 private:
     IjkFfplayDecoder* m_decoder;

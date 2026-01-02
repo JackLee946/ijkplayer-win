@@ -301,6 +301,22 @@ bool PlayerController::GetMediaMeta(IjkMetadata* metadata)
     return ret == 0;
 }
 
+long PlayerController::GetPropertyLong(int id, long defaultValue) const
+{
+    if (!m_initialized || !m_decoder) {
+        return defaultValue;
+    }
+    return ijkFfplayDecoder_getPropertyLong(m_decoder, id, defaultValue);
+}
+
+float PlayerController::GetPropertyFloat(int id, float defaultValue) const
+{
+    if (!m_initialized || !m_decoder) {
+        return defaultValue;
+    }
+    return ijkFfplayDecoder_getPropertyFloat(m_decoder, id, defaultValue);
+}
+
 void PlayerController::StaticVideoCallback(void* opaque, IjkVideoFrame* frame)
 {
     PlayerController* controller = static_cast<PlayerController*>(opaque);

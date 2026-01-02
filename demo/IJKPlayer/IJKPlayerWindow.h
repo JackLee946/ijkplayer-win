@@ -112,14 +112,20 @@ private:
     bool m_prevTitleVisible;
     bool m_prevControlVisible;
     bool m_prevPlaylistVisible;
+    bool m_mediaInfoVisible; // 媒体信息框是否可见
+    HWND m_mediaInfoHwnd;    // 叠加层原生窗口（覆盖在视频 HWND 之上）
+    std::string m_mediaInfoText;
 
     WNDPROC m_videoOldProc;
     static LRESULT CALLBACK VideoHostWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+    static LRESULT CALLBACK MediaInfoOverlayWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
     // 初始化方法
     void InitializeComponents();
     void SetupUI();
     HWND GetVideoContainerHWND();
+    void EnsureMediaInfoOverlay();
+    void SyncMediaInfoOverlayPos();
     void ToggleVideoFullscreen();
     void EnterVideoFullscreen();
     void ExitVideoFullscreen();
@@ -156,6 +162,8 @@ private:
     void StopUpdateTimer();
     void UpdateProgress();
     void UpdateStatus();
+    void UpdateMediaInfo();
+    void ToggleMediaInfo();
 
     // 工具方法
     std::string FormatTime(long ms);

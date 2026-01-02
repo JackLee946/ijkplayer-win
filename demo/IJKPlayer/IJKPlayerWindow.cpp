@@ -15,6 +15,7 @@
 #include <io.h>
 #include <vector>
 #include <algorithm>
+#include <stdint.h>
 
 // 控件ID定义
 const TCHAR* const IJKPlayerWindow::kVideoContainer = _T("video_container");
@@ -179,6 +180,8 @@ IJKPlayerWindow::IJKPlayerWindow()
     , m_prevTitleVisible(true)
     , m_prevControlVisible(true)
     , m_prevPlaylistVisible(true)
+    , m_mediaInfoVisible(false)
+    , m_mediaInfoHwnd(nullptr)
     , m_videoOldProc(nullptr)
 {
     ZeroMemory(&m_prevPlacement, sizeof(m_prevPlacement));
@@ -379,12 +382,17 @@ HWND IJKPlayerWindow::GetVideoContainerHWND()
             
             Log::Info("Created video hwnd: %p, pos: %d,%d,%d,%d", 
                      m_videoHwnd, rect.left, rect.top, rect.right, rect.bottom);
+
+            // 创建媒体信息叠加层（原生半透明窗口，覆盖在视频 HWND 之上）
+            EnsureMediaInfoOverlay();
+            SyncMediaInfoOverlayPos();
         }
     } else {
         // 更新窗口位置和大小
         SetWindowPos(m_videoHwnd, NULL, rect.left, rect.top, 
                      rect.right - rect.left, rect.bottom - rect.top,
                      SWP_NOZORDER | SWP_SHOWWINDOW);
+        SyncMediaInfoOverlayPos();
     }
 
     return m_videoHwnd;
@@ -415,11 +423,137 @@ LRESULT CALLBACK IJKPlayerWindow::VideoHostWndProc(HWND hWnd, UINT uMsg, WPARAM 
             } else if (wParam == VK_RIGHT) {
                 self->OnNext();
                 return 0;
+            } else if (wParam == 'I' || wParam == 'i') {
+                // I键切换媒体信息显示
+                self->ToggleMediaInfo();
+                return 0;
             }
         }
         if (self->m_videoOldProc) {
             return ::CallWindowProc(self->m_videoOldProc, hWnd, uMsg, wParam, lParam);
         }
+    }
+    return ::DefWindowProc(hWnd, uMsg, wParam, lParam);
+}
+
+void IJKPlayerWindow::EnsureMediaInfoOverlay()
+{
+    if (m_mediaInfoHwnd && ::IsWindow(m_mediaInfoHwnd)) {
+        return;
+    }
+
+    static bool s_clsReg = false;
+    static const TCHAR* kOverlayClass = _T("IJKMediaInfoOverlayWindow");
+    if (!s_clsReg) {
+        WNDCLASS wc{};
+        wc.style = CS_HREDRAW | CS_VREDRAW;
+        wc.lpfnWndProc = &IJKPlayerWindow::MediaInfoOverlayWndProc;
+        wc.hInstance = ::GetModuleHandle(NULL);
+        wc.lpszClassName = kOverlayClass;
+        wc.hCursor = ::LoadCursor(NULL, IDC_ARROW);
+        wc.hbrBackground = (HBRUSH)::GetStockObject(BLACK_BRUSH);
+        ::RegisterClass(&wc);
+        s_clsReg = true;
+    }
+
+    // WS_POPUP + owner = 主窗口，保证总在主窗口之上；WS_EX_TRANSPARENT 让鼠标穿透到视频窗口
+    m_mediaInfoHwnd = ::CreateWindowEx(
+        WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW,
+        kOverlayClass,
+        _T(""),
+        WS_POPUP,
+        0, 0, 10, 10,
+        m_hWnd,
+        NULL,
+        ::GetModuleHandle(NULL),
+        NULL);
+
+    if (m_mediaInfoHwnd) {
+        ::SetWindowLongPtr(m_mediaInfoHwnd, GWLP_USERDATA, (LONG_PTR)this);
+        // 全窗口透明度（0~255）。值越小越透明
+        ::SetLayeredWindowAttributes(m_mediaInfoHwnd, 0, 170, LWA_ALPHA);
+        ::ShowWindow(m_mediaInfoHwnd, SW_HIDE);
+    }
+}
+
+void IJKPlayerWindow::SyncMediaInfoOverlayPos()
+{
+    if (!m_mediaInfoVisible) {
+        if (m_mediaInfoHwnd && ::IsWindow(m_mediaInfoHwnd)) {
+            ::ShowWindow(m_mediaInfoHwnd, SW_HIDE);
+        }
+        return;
+    }
+
+    EnsureMediaInfoOverlay();
+    if (!m_mediaInfoHwnd || !::IsWindow(m_mediaInfoHwnd) || !m_videoContainer) {
+        return;
+    }
+
+    // 注意：WS_POPUP 的窗口坐标是“屏幕坐标”，而 duilib GetPos() 是“主窗口 client 坐标”
+    // 所以这里需要把 video_container 的 client 坐标转换为屏幕坐标，才能真正贴到右上角。
+    RECT rcClient = m_videoContainer->GetPos();
+
+    POINT ptScreen{ rcClient.left, rcClient.top };
+    ::ClientToScreen(m_hWnd, &ptScreen);
+
+    // 叠加层固定在视频区域右上角（并做边界保护，避免视频区域太小导致 x 变成负数）
+    const int w = 320;
+    const int h = 210;
+    const int margin = 10;
+    const int areaW = rcClient.right - rcClient.left;
+    int xLocal = areaW - w - margin;
+    if (xLocal < margin) xLocal = margin;
+    const int x = ptScreen.x + xLocal;
+    const int y = ptScreen.y + margin;
+
+    ::SetWindowPos(
+        m_mediaInfoHwnd,
+        HWND_TOPMOST,
+        x, y, w, h,
+        SWP_NOACTIVATE | SWP_SHOWWINDOW);
+}
+
+LRESULT CALLBACK IJKPlayerWindow::MediaInfoOverlayWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    auto* self = reinterpret_cast<IJKPlayerWindow*>(::GetWindowLongPtr(hWnd, GWLP_USERDATA));
+    switch (uMsg) {
+    case WM_NCHITTEST:
+        // 鼠标穿透
+        return HTTRANSPARENT;
+    case WM_ERASEBKGND:
+        return 1;
+    case WM_PAINT: {
+        PAINTSTRUCT ps{};
+        HDC hdc = ::BeginPaint(hWnd, &ps);
+
+        RECT rc{};
+        ::GetClientRect(hWnd, &rc);
+        HBRUSH br = ::CreateSolidBrush(RGB(0, 0, 0));
+        ::FillRect(hdc, &rc, br);
+        ::DeleteObject(br);
+
+        ::SetBkMode(hdc, TRANSPARENT);
+        ::SetTextColor(hdc, RGB(255, 255, 255));
+
+        HFONT hFont = (HFONT)::GetStockObject(DEFAULT_GUI_FONT);
+        HFONT hOld = (HFONT)::SelectObject(hdc, hFont);
+
+        RECT textRc = rc;
+        textRc.left += 10;
+        textRc.top += 8;
+        textRc.right -= 10;
+        textRc.bottom -= 8;
+
+        const char* text = (self ? self->m_mediaInfoText.c_str() : "");
+        ::DrawTextA(hdc, text, -1, &textRc, DT_LEFT | DT_TOP | DT_WORDBREAK);
+
+        ::SelectObject(hdc, hOld);
+        ::EndPaint(hWnd, &ps);
+        return 0;
+    }
+    default:
+        break;
     }
     return ::DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
@@ -686,6 +820,12 @@ LRESULT IJKPlayerWindow::OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL
         DestroyWindow(m_videoHwnd);
         m_videoHwnd = nullptr;
     }
+
+    // 销毁媒体信息叠加层窗口
+    if (m_mediaInfoHwnd && ::IsWindow(m_mediaInfoHwnd)) {
+        ::DestroyWindow(m_mediaInfoHwnd);
+        m_mediaInfoHwnd = nullptr;
+    }
     
     // 智能指针会在析构时自动释放资源，不需要手动调用Release()
     // 调用基类的OnDestroy方法
@@ -708,6 +848,13 @@ void IJKPlayerWindow::OnFinalMessage(HWND hWnd)
         m_pm.RemoveNativeWindow(m_videoHwnd);
         DestroyWindow(m_videoHwnd);
         m_videoHwnd = nullptr;
+    }
+
+    // 确保媒体信息叠加层窗口已经销毁
+    if (m_mediaInfoHwnd && ::IsWindow(m_mediaInfoHwnd)) {
+        Log::Info("OnFinalMessage: Destroying media info overlay hwnd: %p", m_mediaInfoHwnd);
+        ::DestroyWindow(m_mediaInfoHwnd);
+        m_mediaInfoHwnd = nullptr;
     }
     
     // 彻底停止播放器和解码器
@@ -851,6 +998,11 @@ LRESULT IJKPlayerWindow::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lP
             OnNext();
             bHandled = TRUE;
             return 0;
+        } else if (wParam == 'I' || wParam == 'i') {
+            // I键切换媒体信息显示
+            ToggleMediaInfo();
+            bHandled = TRUE;
+            return 0;
         }
     }
     if (uMsg == WM_TIMER && wParam == 1) {
@@ -923,6 +1075,8 @@ LRESULT IJKPlayerWindow::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lP
                 rect.left, rect.top, rect.right, rect.bottom,
                 rcClient.right - rcClient.left, rcClient.bottom - rcClient.top);
         }
+        // 同步媒体信息叠加层位置（始终覆盖在视频窗口之上）
+        SyncMediaInfoOverlayPos();
         // 尽快触发一次渲染，以便自测时立刻更新 RenderRect
         ::PostMessage(m_hWnd, WM_APP + 100, 0, 0);
         bHandled = TRUE;
@@ -1441,11 +1595,125 @@ void IJKPlayerWindow::UpdateProgress()
         m_progressSlider->SetValue(0);
         m_timeLabel->SetText(_T("00:00 / 00:00"));
     }
+    
+    // 更新媒体信息
+    UpdateMediaInfo();
 }
 
 void IJKPlayerWindow::UpdateStatus()
 {
     UpdateProgress();
+}
+
+void IJKPlayerWindow::UpdateMediaInfo()
+{
+    if (!m_playerController || !m_mediaInfoVisible) {
+        return;
+    }
+
+    EnsureMediaInfoOverlay();
+    if (!m_mediaInfoHwnd || !::IsWindow(m_mediaInfoHwnd)) {
+        return;
+    }
+
+    IjkMetadata metadata{};
+    if (!m_playerController->GetMediaMeta(&metadata)) {
+        m_mediaInfoText = "Media info unavailable";
+        ::InvalidateRect(m_mediaInfoHwnd, NULL, TRUE);
+        return;
+    }
+
+    auto formatBitrate = [](int64_t br) -> std::string {
+        if (br <= 0) return "N/A";
+        char buf[64]{};
+        if (br >= 1000000) {
+            sprintf_s(buf, "%.2f Mbps", (double)br / 1000000.0);
+        } else if (br >= 1000) {
+            sprintf_s(buf, "%.2f Kbps", (double)br / 1000.0);
+        } else {
+            sprintf_s(buf, "%lld bps", (long long)br);
+        }
+        return std::string(buf);
+    };
+
+    // 运行时“实时变化”的读速（bytes/s）。在 ijkplayer 内部对应 FFP_PROP_INT64_TCP_SPEED = 20200
+    // 这里换算成 bps 作为实时码率来源：bps = bytes/s * 8
+    const long tcpSpeedBytesPerSec = m_playerController->GetPropertyLong(20200 /*FFP_PROP_INT64_TCP_SPEED*/, -1);
+    const int64_t totalBrRt =
+        (tcpSpeedBytesPerSec > 0) ? (int64_t)tcpSpeedBytesPerSec * 8
+                                  : (int64_t)m_playerController->GetPropertyLong(INT64_BIT_RATE_TOTAL, -1);
+
+    // 只显示“输出帧率”
+    const float fpsOut = m_playerController->GetPropertyFloat(FLOAT_VIDEO_OUTPUT_FRAMES_PER_SECOND, 0.0f);
+
+    std::ostringstream oss;
+    oss << "Video\r\n";
+    if (metadata.video_code_name[0] != '\0') {
+        oss << "  Codec: " << metadata.video_code_name << "\r\n";
+    }
+    if (fpsOut > 0.01f) {
+        oss << "  FPS: " << std::fixed << std::setprecision(2) << fpsOut << "\r\n";
+    }
+    if (metadata.width > 0 && metadata.height > 0) {
+        oss << "  Size: " << metadata.width << "x" << metadata.height << "\r\n";
+    }
+    // 码率：用“实时总码率”按占比估算到视频/音频（不展示 meta 类型码率）
+    int64_t vBrRt = -1;
+    int64_t aBrRt = -1;
+    if (totalBrRt > 0) {
+        const double vMeta = (metadata.video_bitrate > 0) ? (double)metadata.video_bitrate : 0.0;
+        const double aMeta = (metadata.audio_bitrate > 0) ? (double)metadata.audio_bitrate : 0.0;
+        double vRatio = 0.8; // fallback：没有 meta 时给个默认占比
+        if (vMeta + aMeta > 0.0) {
+            vRatio = vMeta / (vMeta + aMeta);
+        }
+        vBrRt = (int64_t)((double)totalBrRt * vRatio);
+        aBrRt = (int64_t)((double)totalBrRt * (1.0 - vRatio));
+    }
+    if (vBrRt > 0) {
+        oss << "  Bitrate(rt est): " << formatBitrate(vBrRt) << "\r\n";
+    }
+
+    oss << "\r\nAudio\r\n";
+    if (metadata.audio_code_name[0] != '\0') {
+        oss << "  Codec: " << metadata.audio_code_name << "\r\n";
+    }
+    if (metadata.audio_channel_layout > 0) {
+        int channels = 0;
+        uint64_t layout = (uint64_t)metadata.audio_channel_layout;
+        while (layout) {
+            channels++;
+            layout &= layout - 1;
+        }
+        if (channels == 0) channels = 1;
+        std::string chStr;
+        if (channels == 1) chStr = "Mono";
+        else if (channels == 2) chStr = "Stereo";
+        else chStr = std::to_string(channels) + "ch";
+        oss << "  Channels: " << chStr << "\r\n";
+    }
+    if (metadata.audio_samples_per_sec > 0) {
+        oss << "  SampleRate: " << metadata.audio_samples_per_sec << " Hz\r\n";
+    }
+    if (aBrRt > 0) {
+        oss << "  Bitrate(rt est): " << formatBitrate(aBrRt) << "\r\n";
+    }
+    if (totalBrRt > 0) {
+        oss << "\r\nTotal Bitrate(rt): " << formatBitrate(totalBrRt) << "\r\n";
+    }
+
+    m_mediaInfoText = oss.str();
+    ::InvalidateRect(m_mediaInfoHwnd, NULL, TRUE);
+}
+
+void IJKPlayerWindow::ToggleMediaInfo()
+{
+    m_mediaInfoVisible = !m_mediaInfoVisible;
+    SyncMediaInfoOverlayPos();
+    if (m_mediaInfoVisible) {
+        // 立即更新一次信息
+        UpdateMediaInfo();
+    }
 }
 
 void IJKPlayerWindow::UpdatePlaylistUI()
